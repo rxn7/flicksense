@@ -15,16 +15,6 @@ public partial class TargetManager : Node {
 		InitTargetGrid(true);
 	}
 
-	public override void _UnhandledKeyInput(InputEvent ev) {
-		if(ev is not InputEventKey key) {
-			return;
-		}
-
-		if(key.IsPressed() && !key.Echo && key.Keycode == Key.R) {
-			InitTargetGrid(false);
-		}
-	}
-
 	public void ShowRandomTarget() {
 		while(true) {
 			int idx = (int)(GD.Randi() % (GRID_WIDTH * GRID_HEIGHT));
@@ -36,7 +26,7 @@ public partial class TargetManager : Node {
 		}
 	}
 
-	private void InitTargetGrid(bool spawn) {
+	public void InitTargetGrid(bool spawn) {
 		if(spawn) {
 			for(int x = 0; x < GRID_WIDTH; ++x) {
 				for(int y = 0; y < GRID_HEIGHT; ++y) {

@@ -1,7 +1,8 @@
 using Godot;
 
 public enum Sfx {
-	TargetHit
+	ShootMiss,
+	ShootHit,
 }
 
 public partial class SfxManager : AudioStreamPlayer {

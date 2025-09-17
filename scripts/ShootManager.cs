@@ -6,6 +6,7 @@ public partial class ShootManager : Node {
 	[Export(PropertyHint.Layers3DPhysics)] private uint m_rayCollisionMask;
 	[Export(PropertyHint.Layers3DPhysics)] private CameraManager m_camera;
 
+	public event Action<bool> OnShoot;
 	public event Action<Target> OnTargetHit;
 
 	public override void _UnhandledInput(InputEvent ev) {
@@ -26,15 +27,13 @@ public partial class ShootManager : Node {
 
 		Godot.Collections.Dictionary result = spaceState.IntersectRay(parameters);
 
-		if(result.Count == 0) {
-			return;
+		bool hit = false;
+		if(result.Count != 0 && result["collider"].AsGodotObject() is Target target && target.Visible) {
+			hit = true;
+			OnTargetHit?.Invoke(target);
 		}
 
-		if(result["collider"].AsGodotObject() is Target target) {
-			if(target.Visible) {
-				OnTargetHit?.Invoke(target);
-			}
-		}
+		OnShoot?.Invoke(hit);
 	}
 
 }
