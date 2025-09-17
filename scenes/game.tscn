@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2mq0co28h1rx"]
+[gd_scene load_steps=17 format=3 uid="uid://b2mq0co28h1rx"]
 
 [ext_resource type="Script" uid="uid://d36p55xklbfba" path="res://scripts/GameManager.cs" id="1_iywne"]
 [ext_resource type="Script" uid="uid://draa8bbkor4um" path="res://scripts/TargetManager.cs" id="1_uwrxv"]
@@ -9,17 +9,25 @@
 [ext_resource type="AudioStream" uid="uid://castgb1mgno4j" path="res://resources/audio/miss.wav" id="5_0tnpc"]
 [ext_resource type="AudioStream" uid="uid://bprui64uqmesm" path="res://resources/audio/hit.ogg" id="5_gee14"]
 [ext_resource type="Script" uid="uid://offvuuorkmq3" path="res://scripts/ShootManager.cs" id="5_p57ef"]
+[ext_resource type="Script" uid="uid://caqqydkkhb2pr" path="res://scripts/StatsUI.cs" id="9_vtaks"]
+[ext_resource type="Texture2D" uid="uid://cehuy1rnot02g" path="res://resources/textures/miss.png" id="10_kvpfn"]
+[ext_resource type="Texture2D" uid="uid://b1qok8lsf02d" path="res://resources/textures/hit.png" id="11_dinhu"]
+[ext_resource type="Texture2D" uid="uid://2jc8pqftcu1q" path="res://resources/textures/accuracy.png" id="12_kvuet"]
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_gee14"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_yqjtg"]
 size = Vector2(100, 100)
 
-[node name="Game" type="Node3D" node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager")]
+[sub_resource type="LabelSettings" id="LabelSettings_dinhu"]
+font_size = 32
+
+[node name="Game" type="Node3D" node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager", "m_statsUI")]
 script = ExtResource("1_iywne")
 m_targetManager = NodePath("TargetManager")
 m_shootManager = NodePath("ShootManager")
 m_sfxManager = NodePath("SfxManager")
+m_statsUI = NodePath("HUD/StatsUI")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.707107, -0.5, -0.5, 0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 4, 0)
@@ -58,6 +66,72 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 mesh = SubResource("PlaneMesh_yqjtg")
 
 [node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="StatsUI" type="HBoxContainer" parent="HUD" node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel")]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.133
+offset_bottom = -0.183998
+grow_horizontal = 2
+alignment = 1
+script = ExtResource("9_vtaks")
+m_missesLabel = NodePath("Misses/Label")
+m_hitsLabel = NodePath("Hits/Label")
+m_accuracyLabel = NodePath("Accuracy/Label")
+
+[node name="Misses" type="HBoxContainer" parent="HUD/StatsUI"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Misses"]
+texture_filter = 1
+texture_repeat = 1
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("10_kvpfn")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/StatsUI/Misses"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_dinhu")
+
+[node name="Hits" type="HBoxContainer" parent="HUD/StatsUI"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Hits"]
+texture_filter = 1
+texture_repeat = 1
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("11_dinhu")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/StatsUI/Hits"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_dinhu")
+
+[node name="Accuracy" type="HBoxContainer" parent="HUD/StatsUI"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Accuracy"]
+texture_filter = 1
+texture_repeat = 1
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("12_kvuet")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/StatsUI/Accuracy"]
+layout_mode = 2
+text = "100%"
+label_settings = SubResource("LabelSettings_dinhu")
 
 [node name="Crosshair" type="CenterContainer" parent="HUD"]
 anchors_preset = 8

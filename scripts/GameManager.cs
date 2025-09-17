@@ -4,6 +4,7 @@ public partial class GameManager : Node {
 	[Export] private TargetManager m_targetManager;
 	[Export] private ShootManager m_shootManager;
 	[Export] private SfxManager m_sfxManager;
+	[Export] private StatsUI m_statsUI;
 
 	private Stats m_stats;
 
@@ -29,20 +30,18 @@ public partial class GameManager : Node {
 	
 	private void OnShoot(bool hit) {
 		++m_stats.Shots;
-
 		if(hit) {
+			++m_stats.Hits;
 			m_sfxManager.PlaySfx(Sfx.ShootHit, (float)GD.RandRange(0.8f, 1.2f));
 		} else {
 			m_sfxManager.PlaySfx(Sfx.ShootMiss, (float)GD.RandRange(0.8f, 1.2f));
 		}
+
+		m_statsUI.UpdateStats(ref m_stats);
 	}
 
 	private void OnTargetHit(Target target) {
-		++m_stats.Hits;
-
-		m_targetManager.ShowRandomTarget();
 		target.Hide();
-
-		GD.Print($"Shots: {m_stats.Shots}, Hits: {m_stats.Hits}, Acc: {m_stats.Accuracy * 100.0f}%");
+		m_targetManager.ShowRandomTarget();
 	}
 }
