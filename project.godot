@@ -1,0 +1,41 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="FlickSense"
+run/main_scene="uid://b2mq0co28h1rx"
+config/features=PackedStringArray("4.4", "C#", "Mobile")
+config/icon="res://icon.svg"
+
+[display]
+
+window/vsync/vsync_mode=0
+
+[dotnet]
+
+project/assembly_name="FlickSense"
+
+[input_devices]
+
+pointing/emulate_mouse_from_touch=false
+
+[layer_names]
+
+3d_physics/layer_3="Target"
+
+[physics]
+
+3d/run_on_separate_thread=true
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+renderer/rendering_method="mobile"

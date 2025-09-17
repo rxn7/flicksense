@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2mq0co28h1rx"]
+
+[ext_resource type="Script" uid="uid://d36p55xklbfba" path="res://scripts/GameManager.cs" id="1_iywne"]
+[ext_resource type="Script" uid="uid://draa8bbkor4um" path="res://scripts/TargetManager.cs" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://52emi0djdojg" path="res://scenes/target/target.tscn" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://dddytdp6v4cno" path="res://scripts/CameraManager.cs" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://c6msgkj7kiq8c" path="res://scripts/Crosshair.cs" id="4_lbhrr"]
+[ext_resource type="Script" uid="uid://offvuuorkmq3" path="res://scripts/ShootManager.cs" id="5_p57ef"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yqjtg"]
+size = Vector2(100, 100)
+
+[node name="Game" type="Node3D" node_paths=PackedStringArray("m_targetManager", "m_shootManager")]
+script = ExtResource("1_iywne")
+m_targetManager = NodePath("TargetManager")
+m_shootManager = NodePath("ShootManager")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, -0.5, 0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 4, 0)
+shadow_enabled = true
+
+[node name="TargetManager" type="Node3D" parent="."]
+script = ExtResource("1_uwrxv")
+m_targetPrefab = ExtResource("2_yqjtg")
+
+[node name="ShootManager" type="Node" parent="." node_paths=PackedStringArray("m_camera")]
+script = ExtResource("5_p57ef")
+m_rayCollisionMask = 4
+m_camera = NodePath("../Player/Camera3D")
+
+[node name="Player" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 5)
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+current = true
+fov = 73.0
+far = 100.0
+script = ExtResource("3_lnu2h")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("PlaneMesh_yqjtg")
+
+[node name="Wall" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 0, 49, -12)
+mesh = SubResource("PlaneMesh_yqjtg")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Crosshair" type="CenterContainer" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+script = ExtResource("4_lbhrr")
