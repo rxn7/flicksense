@@ -42,6 +42,6 @@ public partial class GameManager : Node {
 
 	private void OnTargetHit(Target target) {
 		target.Hide();
-		m_targetManager.ShowRandomTarget();
+		m_targetManager.ShowRandomTarget(target.idx);
 	}
 }

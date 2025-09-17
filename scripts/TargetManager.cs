@@ -15,12 +15,15 @@ public partial class TargetManager : Node {
 		InitTargetGrid(true);
 	}
 
-	public void ShowRandomTarget() {
+	public void ShowRandomTarget(int except) {
 		while(true) {
 			int idx = (int)(GD.Randi() % (GRID_WIDTH * GRID_HEIGHT));
-			(int x, int y) = IndexToXY(idx);
 
-			if(TryShowTarget(x, y)) {
+			if(idx == except) {
+				continue;
+			}
+
+			if(TryShowTarget(idx)) {
 				break;
 			}
 		}
@@ -31,6 +34,7 @@ public partial class TargetManager : Node {
 			for(int x = 0; x < GRID_WIDTH; ++x) {
 				for(int y = 0; y < GRID_HEIGHT; ++y) {
 					Target target = m_targetPrefab.Instantiate<Target>();
+					target.idx = x + y * GRID_WIDTH;
 					target.Name = $"Target {x},{y}";
 					target.Visible = false;
 
@@ -55,9 +59,8 @@ public partial class TargetManager : Node {
 		int targetsToShow = 3;
 		while(targetsToShow > 0) {
 			int idx = (int)(GD.Randi() % (GRID_WIDTH * GRID_HEIGHT));
-			(int x, int y) = IndexToXY(idx);
 
-			if(TryShowTarget(x, y)) {
+			if(TryShowTarget(idx)) {
 				--targetsToShow;
 			}
 		}
@@ -70,10 +73,12 @@ public partial class TargetManager : Node {
 	}
 
 	// Returns true if a target was hidden
-	private bool TryShowTarget(int x, int y) {
-		if(x < 0 || x >= GRID_WIDTH || y < 0 || y >= GRID_HEIGHT) {
+	private bool TryShowTarget(int idx) {
+		if(idx < 0 || idx >= GRID_WIDTH * GRID_HEIGHT) {
 			return false;
 		}
+
+		(int x, int y) = IndexToXY(idx);
 
 		// Already visible
 		if(m_targetGrid[x, y].Visible) {
