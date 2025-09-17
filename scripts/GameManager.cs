@@ -11,6 +11,8 @@ public partial class GameManager : Node {
 	public override void _Ready() {
 		m_shootManager.OnShoot += OnShoot;
 		m_shootManager.OnTargetHit += OnTargetHit;
+
+		m_statsUI.UpdateStats(ref m_stats);
 	}
 
 	public override void _UnhandledKeyInput(InputEvent ev) {
@@ -25,6 +27,8 @@ public partial class GameManager : Node {
 
 	private void Restart() {
 		m_stats = new Stats();
+		m_statsUI.UpdateStats(ref m_stats);
+
 		m_targetManager.InitTargetGrid(false);
 	}
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b2mq0co28h1rx"]
+[gd_scene load_steps=18 format=3 uid="uid://b2mq0co28h1rx"]
 
 [ext_resource type="Script" uid="uid://d36p55xklbfba" path="res://scripts/GameManager.cs" id="1_iywne"]
 [ext_resource type="Script" uid="uid://draa8bbkor4um" path="res://scripts/TargetManager.cs" id="1_uwrxv"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cehuy1rnot02g" path="res://resources/textures/miss.png" id="10_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://b1qok8lsf02d" path="res://resources/textures/hit.png" id="11_dinhu"]
 [ext_resource type="Texture2D" uid="uid://2jc8pqftcu1q" path="res://resources/textures/accuracy.png" id="12_kvuet"]
+[ext_resource type="Script" uid="uid://bihwgg30el1yp" path="res://scripts/FpsCounter.cs" id="14_trtic"]
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_gee14"]
 
@@ -30,8 +31,8 @@ m_sfxManager = NodePath("SfxManager")
 m_statsUI = NodePath("HUD/StatsUI")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.707107, -0.5, -0.5, 0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 4, 0)
-shadow_enabled = true
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 0)
+directional_shadow_mode = 0
 
 [node name="TargetManager" type="Node3D" parent="."]
 script = ExtResource("1_uwrxv")
@@ -55,7 +56,6 @@ m_camera = NodePath("../Player/Camera3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 5)
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 current = true
 fov = 73.0
 far = 100.0
@@ -147,3 +147,8 @@ grow_horizontal = 2
 grow_vertical = 2
 localize_numeral_system = false
 script = ExtResource("4_lbhrr")
+
+[node name="FpsCounter" type="Label" parent="HUD"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("14_trtic")
