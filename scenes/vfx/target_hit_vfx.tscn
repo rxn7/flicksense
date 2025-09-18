@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bm8415rlysxth"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_574dn"]
+
+[node name="TargetHitVfx" type="GPUParticles3D"]
+process_material = SubResource("ParticleProcessMaterial_574dn")

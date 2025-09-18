@@ -4,10 +4,10 @@ using System;
 [GlobalClass]
 public partial class ShootManager : Node {
 	[Export(PropertyHint.Layers3DPhysics)] private uint m_rayCollisionMask;
-	[Export(PropertyHint.Layers3DPhysics)] private CameraManager m_camera;
+	[Export] private CameraManager m_camera;
 
-	public event Action<bool> OnShoot;
-	public event Action<Target> OnTargetHit;
+	public event Action<bool> onShoot;
+	public event Action<Target, Vector3, Vector3, Vector3> onTargetHit;
 
 	public override void _UnhandledInput(InputEvent ev) {
 		if(ev is not InputEventMouseButton button) {
@@ -20,8 +20,10 @@ public partial class ShootManager : Node {
 	}
 
 	private void Shoot() {
+		Vector3 direction = -m_camera.GlobalTransform.Basis.Z;
+
 		PhysicsDirectSpaceState3D spaceState = m_camera.GetWorld3D().DirectSpaceState;
-		PhysicsRayQueryParameters3D parameters = PhysicsRayQueryParameters3D.Create(m_camera.GlobalPosition, m_camera.GlobalPosition - m_camera.GlobalTransform.Basis.Z * 100.0f, m_rayCollisionMask);
+		PhysicsRayQueryParameters3D parameters = PhysicsRayQueryParameters3D.Create(m_camera.GlobalPosition, m_camera.GlobalPosition + direction * 100.0f, m_rayCollisionMask);
 		parameters.CollideWithAreas = true;
 		parameters.CollideWithBodies = false;
 
@@ -30,10 +32,12 @@ public partial class ShootManager : Node {
 		bool hit = false;
 		if(result.Count != 0 && result["collider"].AsGodotObject() is Target target && target.Visible) {
 			hit = true;
-			OnTargetHit?.Invoke(target);
+			Vector3 hitPoint = (Vector3)result["position"];
+			Vector3 normal = (Vector3)result["normal"];
+			onTargetHit?.Invoke(target, direction, hitPoint, normal);
 		}
 
-		OnShoot?.Invoke(hit);
+		onShoot?.Invoke(hit);
 	}
 
 }

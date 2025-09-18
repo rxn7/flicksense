@@ -4,13 +4,14 @@ public partial class GameManager : Node {
 	[Export] private TargetManager m_targetManager;
 	[Export] private ShootManager m_shootManager;
 	[Export] private SfxManager m_sfxManager;
+	[Export] private VfxManager m_vfxManager;
 	[Export] private StatsUI m_statsUI;
 
 	private ScoreManager m_scoreManager = new();
 
 	public override void _Ready() {
-		m_shootManager.OnShoot += OnShoot;
-		m_shootManager.OnTargetHit += OnTargetHit;
+		m_shootManager.onShoot += OnShoot;
+		m_shootManager.onTargetHit += OnTargetHit;
 		UpdateStatsUI();
 	}
 
@@ -37,7 +38,9 @@ public partial class GameManager : Node {
 		UpdateStatsUI();
 	}
 
-	private void OnTargetHit(Target target) {
+	private void OnTargetHit(Target target, Vector3 shootDir, Vector3 hitPoint, Vector3 hitNormal) {
+		m_vfxManager.ExplodeTarget(target.GlobalPosition, hitPoint, shootDir);
+
 		int gridIdx = target.gridIdx;
 		m_targetManager.HideTarget(target);
 		m_targetManager.ShowRandomTarget(gridIdx);
