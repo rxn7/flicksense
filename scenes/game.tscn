@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b2mq0co28h1rx"]
+[gd_scene load_steps=27 format=3 uid="uid://b2mq0co28h1rx"]
 
 [ext_resource type="Script" uid="uid://d36p55xklbfba" path="res://scripts/GameManager.cs" id="1_iywne"]
 [ext_resource type="Script" uid="uid://draa8bbkor4um" path="res://scripts/TargetManager.cs" id="1_uwrxv"]
@@ -8,6 +8,7 @@
 [ext_resource type="ArrayMesh" uid="uid://cq0hiuqcds0jr" path="res://resources/meshes/target_mesh.res" id="4_rysoc"]
 [ext_resource type="Script" uid="uid://cs6yofphy62q3" path="res://scripts/SfxManager.cs" id="4_u5sy4"]
 [ext_resource type="AudioStream" uid="uid://castgb1mgno4j" path="res://resources/audio/miss.wav" id="5_0tnpc"]
+[ext_resource type="Script" uid="uid://dl26qx0qi34at" path="res://scripts/ScoreManager.cs" id="5_1kice"]
 [ext_resource type="AudioStream" uid="uid://bprui64uqmesm" path="res://resources/audio/hit.ogg" id="5_gee14"]
 [ext_resource type="Script" uid="uid://offvuuorkmq3" path="res://scripts/ShootManager.cs" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://seil6c46bf3l" path="res://scripts/VfxManager.cs" id="8_264po"]
@@ -51,13 +52,14 @@ ambient_light_source = 3
 ambient_light_color = Color(0.266667, 0.282353, 0.45098, 1)
 reflected_light_source = 2
 
-[node name="Game" type="Node3D" node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager", "m_vfxManager", "m_statsUI")]
+[node name="Game" type="Node3D" node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager", "m_vfxManager", "m_statsUI", "m_scoreManager")]
 script = ExtResource("1_iywne")
 m_targetManager = NodePath("TargetManager")
 m_shootManager = NodePath("ShootManager")
 m_sfxManager = NodePath("SfxManager")
 m_vfxManager = NodePath("VfxManager")
 m_statsUI = NodePath("HUD/StatsUI")
+m_scoreManager = NodePath("ScoreManager")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 0)
@@ -70,6 +72,9 @@ m_targetMesh = ExtResource("4_rysoc")
 
 [node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="TargetManager"]
 multimesh = SubResource("MultiMesh_ir15t")
+
+[node name="ScoreManager" type="Node" parent="."]
+script = ExtResource("5_1kice")
 
 [node name="SfxManager" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamPolyphonic_gee14")

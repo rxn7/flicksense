@@ -14,6 +14,9 @@ public partial class StatsUI : Control {
 		m_hitsLabel.Text = stats.Hits.ToString();
 		m_accuracyLabel.Text = $"{(stats.Accuracy * 100.0f):0}%";
 		m_scoreLabel.Text = stats.Score.ToString();
-		m_hitStreakMultiplierLabel.Text = $"x{scoreManager.CalculateStreakMultiplier():0.00}";
+	}
+
+	public void UpdateHitStreakMultiplier(float multiplier) {
+		m_hitStreakMultiplierLabel.Text = $"x{multiplier:0.00}";
 	}
 }
