@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Crosshair : CenterContainer {
 	[Export] private float m_dotRadius = 3.0f;

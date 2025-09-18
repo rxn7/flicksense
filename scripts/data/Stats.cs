@@ -1,4 +1,5 @@
 public struct Stats {
+	public ulong Score;
 	public int Shots;
 	public int Hits;
 

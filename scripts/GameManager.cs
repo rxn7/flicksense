@@ -6,13 +6,12 @@ public partial class GameManager : Node {
 	[Export] private SfxManager m_sfxManager;
 	[Export] private StatsUI m_statsUI;
 
-	private Stats m_stats;
+	private ScoreManager m_scoreManager = new();
 
 	public override void _Ready() {
 		m_shootManager.OnShoot += OnShoot;
 		m_shootManager.OnTargetHit += OnTargetHit;
-
-		m_statsUI.UpdateStats(ref m_stats);
+		m_statsUI.UpdateStats(ref m_scoreManager.GetStats());
 	}
 
 	public override void _UnhandledKeyInput(InputEvent ev) {
@@ -21,31 +20,30 @@ public partial class GameManager : Node {
 		}
 
 		if(key.IsPressed() && !key.Echo && key.Keycode == Key.R) {
-			Restart();
+			Reset();
 		}
 	}
 
-	private void Restart() {
-		m_stats = new Stats();
-		m_statsUI.UpdateStats(ref m_stats);
-
-		m_targetManager.InitTargetGrid(false);
+	private void Reset() {
+		m_targetManager.Reset();
+		m_scoreManager.Reset();
+		UpdateStatsUI();
 	}
 	
 	private void OnShoot(bool hit) {
-		++m_stats.Shots;
-		if(hit) {
-			++m_stats.Hits;
-			m_sfxManager.PlaySfx(Sfx.ShootHit, (float)GD.RandRange(0.8f, 1.2f));
-		} else {
-			m_sfxManager.PlaySfx(Sfx.ShootMiss, (float)GD.RandRange(0.8f, 1.2f));
-		}
+		m_scoreManager.OnShoot(hit);
 
-		m_statsUI.UpdateStats(ref m_stats);
+		m_sfxManager.PlaySfx(hit ? Sfx.ShootHit : Sfx.ShootMiss, (float)GD.RandRange(0.8f, 1.2f));
+		UpdateStatsUI();
 	}
 
 	private void OnTargetHit(Target target) {
-		target.Hide();
-		m_targetManager.ShowRandomTarget(target.idx);
+		int gridIdx = target.gridIdx;
+		m_targetManager.HideTarget(target);
+		m_targetManager.ShowRandomTarget(gridIdx);
+	}
+
+	private void UpdateStatsUI() {
+		m_statsUI.UpdateStats(ref m_scoreManager.GetStats());
 	}
 }

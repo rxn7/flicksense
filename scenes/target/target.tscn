@@ -1,19 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://52emi0djdojg"]
+[gd_scene load_steps=3 format=3 uid="uid://52emi0djdojg"]
 
 [ext_resource type="Script" uid="uid://bnqnta3ak7jbf" path="res://scripts/Target.cs" id="1_v2bc8"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_58eld"]
 radius = 0.2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_58eld"]
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_58eld"]
-material = SubResource("StandardMaterial3D_58eld")
-radius = 0.2
-height = 0.4
-radial_segments = 32
-rings = 24
 
 [node name="Target" type="Area3D"]
 collision_layer = 4
@@ -23,6 +13,3 @@ script = ExtResource("1_v2bc8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_58eld")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
-mesh = SubResource("SphereMesh_58eld")
