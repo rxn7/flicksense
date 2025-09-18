@@ -6,7 +6,7 @@ public partial class ShootManager : Node {
 	[Export(PropertyHint.Layers3DPhysics)] private uint m_rayCollisionMask;
 	[Export] private CameraManager m_camera;
 
-	public event Action<bool> onShoot;
+	public event Action<bool, Vector3> onShoot;
 	public event Action<Target, Vector3, Vector3, Vector3> onTargetHit;
 
 	public override void _UnhandledInput(InputEvent ev) {
@@ -29,15 +29,19 @@ public partial class ShootManager : Node {
 
 		Godot.Collections.Dictionary result = spaceState.IntersectRay(parameters);
 
-		bool hit = false;
-		if(result.Count != 0 && result["collider"].AsGodotObject() is Target target && target.Visible) {
-			hit = true;
-			Vector3 hitPoint = (Vector3)result["position"];
-			Vector3 normal = (Vector3)result["normal"];
-			onTargetHit?.Invoke(target, direction, hitPoint, normal);
+		Vector3 hitPoint = m_camera.GlobalPosition + direction * 10.0f;
+		bool targetHit = false;
+		if(result.Count != 0) {
+			if(result["collider"].AsGodotObject() is Target target && target.Visible) {
+				targetHit = true;
+				Vector3 normal = (Vector3)result["normal"];
+				onTargetHit?.Invoke(target, direction, hitPoint, normal);
+			}
+
+			hitPoint = (Vector3)result["position"];
 		}
 
-		onShoot?.Invoke(hit);
+		onShoot?.Invoke(targetHit, hitPoint);
 	}
 
 }

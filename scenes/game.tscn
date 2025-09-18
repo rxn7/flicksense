@@ -1,8 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://b2mq0co28h1rx"]
+[gd_scene load_steps=31 format=3 uid="uid://b2mq0co28h1rx"]
 
 [ext_resource type="Script" uid="uid://d36p55xklbfba" path="res://scripts/GameManager.cs" id="1_iywne"]
 [ext_resource type="Script" uid="uid://draa8bbkor4um" path="res://scripts/TargetManager.cs" id="1_uwrxv"]
-[ext_resource type="PackedScene" uid="uid://52emi0djdojg" path="res://scenes/target/target.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://52emi0djdojg" path="res://scenes/target.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://dddytdp6v4cno" path="res://scripts/CameraManager.cs" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://c6msgkj7kiq8c" path="res://scripts/ui/Crosshair.cs" id="4_lbhrr"]
 [ext_resource type="ArrayMesh" uid="uid://cq0hiuqcds0jr" path="res://resources/meshes/target_mesh.res" id="4_rysoc"]
@@ -11,15 +11,21 @@
 [ext_resource type="Script" uid="uid://dl26qx0qi34at" path="res://scripts/ScoreManager.cs" id="5_1kice"]
 [ext_resource type="AudioStream" uid="uid://bprui64uqmesm" path="res://resources/audio/hit.ogg" id="5_gee14"]
 [ext_resource type="Script" uid="uid://offvuuorkmq3" path="res://scripts/ShootManager.cs" id="5_p57ef"]
-[ext_resource type="Script" uid="uid://seil6c46bf3l" path="res://scripts/VfxManager.cs" id="8_264po"]
+[ext_resource type="Script" uid="uid://seil6c46bf3l" path="res://scripts/vfx/VfxManager.cs" id="8_264po"]
 [ext_resource type="Script" uid="uid://caqqydkkhb2pr" path="res://scripts/ui/StatsUI.cs" id="9_vtaks"]
+[ext_resource type="PackedScene" uid="uid://iio7kysj618n" path="res://scenes/vfx/popup/score_popup_vfx.tscn" id="10_37s47"]
 [ext_resource type="Texture2D" uid="uid://cehuy1rnot02g" path="res://resources/textures/miss.png" id="10_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://b1qok8lsf02d" path="res://resources/textures/hit.png" id="11_dinhu"]
+[ext_resource type="PackedScene" uid="uid://biyisw5dmxiwn" path="res://scenes/vfx/popup/miss_popup_vfx.tscn" id="12_bt5mj"]
 [ext_resource type="Texture2D" uid="uid://2jc8pqftcu1q" path="res://resources/textures/accuracy.png" id="12_kvuet"]
 [ext_resource type="Script" uid="uid://bihwgg30el1yp" path="res://scripts/ui/FpsCounter.cs" id="14_trtic"]
 [ext_resource type="Texture2D" uid="uid://bpy4oh0er7dac" path="res://resources/textures/fire/fire1.png" id="15_ca42v"]
 [ext_resource type="Texture2D" uid="uid://1ufobr8to8rd" path="res://resources/textures/fire/fire2.png" id="16_rysoc"]
-[ext_resource type="PackedScene" uid="uid://c61t81lljqprt" path="res://scenes/target/destroyed_target.tscn" id="18_ssvqc"]
+[ext_resource type="PackedScene" uid="uid://c61t81lljqprt" path="res://scenes/vfx/destroyed_target_vfx.tscn" id="18_ssvqc"]
+[ext_resource type="FontFile" uid="uid://7r8iigrjw7w3" path="res://resources/fonts/m5x7.ttf" id="21_5newe"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_bt5mj"]
+plane = Plane(0, 0, 1, 0)
 
 [sub_resource type="MultiMesh" id="MultiMesh_ir15t"]
 transform_format = 1
@@ -27,7 +33,8 @@ transform_format = 1
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_gee14"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dinhu"]
-font_size = 24
+font = ExtResource("21_5newe")
+font_size = 32
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
@@ -39,8 +46,9 @@ frame_1/texture = ExtResource("16_rysoc")
 frame_1/duration = 0.1
 
 [sub_resource type="LabelSettings" id="LabelSettings_trtic"]
+font = ExtResource("21_5newe")
 font_size = 48
-outline_size = 12
+outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
 
@@ -65,6 +73,13 @@ m_scoreManager = NodePath("ScoreManager")
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 0)
 directional_shadow_mode = 0
 
+[node name="Wall" type="Area3D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+shape = SubResource("WorldBoundaryShape3D_bt5mj")
+
 [node name="TargetManager" type="Node3D" parent="."]
 script = ExtResource("1_uwrxv")
 m_targetPrefab = ExtResource("2_yqjtg")
@@ -87,11 +102,13 @@ m_sounds = Dictionary[int, AudioStream]({
 
 [node name="VfxManager" type="Node" parent="."]
 script = ExtResource("8_264po")
+m_scorePopupPrefab = ExtResource("10_37s47")
 m_destroyedTargetPrefab = ExtResource("18_ssvqc")
+m_missPopupPrefab = ExtResource("12_bt5mj")
 
 [node name="ShootManager" type="Node" parent="." node_paths=PackedStringArray("m_camera")]
 script = ExtResource("5_p57ef")
-m_rayCollisionMask = 4
+m_rayCollisionMask = 5
 m_camera = NodePath("../Player/Camera3D")
 
 [node name="Player" type="Node3D" parent="."]

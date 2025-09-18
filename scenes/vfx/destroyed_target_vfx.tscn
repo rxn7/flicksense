@@ -1,7 +1,7 @@
 [gd_scene load_steps=84 format=4 uid="uid://c61t81lljqprt"]
 
-[ext_resource type="Script" uid="uid://i15csu45g1y1" path="res://scripts/DestroyedTarget.cs" id="1_r3bfv"]
-[ext_resource type="Material" uid="uid://bqccl1ykhrui0" path="res://resources/materials/target_material.tres" id="2_42l2w"]
+[ext_resource type="Script" uid="uid://i15csu45g1y1" path="res://scripts/vfx/DestroyedTargetVfx.cs" id="1_m4woy"]
+[ext_resource type="Material" uid="uid://bqccl1ykhrui0" path="res://resources/materials/target_material.tres" id="2_4dh8c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46tbt"]
 
@@ -919,166 +919,166 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_8hdry")
 
-[node name="DestroyedTarget" type="Node3D"]
-script = ExtResource("1_r3bfv")
+[node name="DestroyedTargetVfx" type="Node3D"]
+script = ExtResource("1_m4woy")
 
 [node name="TargetPiece" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10056, -0.100712, 0.10056)
 mesh = SubResource("ArrayMesh_b0old")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_001" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.111304, 0.111051)
 mesh = SubResource("ArrayMesh_3kim3")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_002" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10056, -0.100712, 0.10056)
 mesh = SubResource("ArrayMesh_pm43v")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_003" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.111051, -0.111304, 0)
 mesh = SubResource("ArrayMesh_v7ahj")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_004" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.127171, 0)
 mesh = SubResource("ArrayMesh_hi1pq")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_005" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.111051, -0.111304, 0)
 mesh = SubResource("ArrayMesh_0v6qn")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_006" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10056, -0.100712, -0.10056)
 mesh = SubResource("ArrayMesh_kk8hu")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_007" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00233931, -0.138936, -0.116044)
 mesh = SubResource("ArrayMesh_fmjx4")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_008" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10056, -0.100712, -0.10056)
 mesh = SubResource("ArrayMesh_ey3el")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_009" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.111044, 0, 0.111044)
 mesh = SubResource("ArrayMesh_r0ux4")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_010" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.126854)
 mesh = SubResource("ArrayMesh_nl7s3")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_011" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.111045, 0, 0.111044)
 mesh = SubResource("ArrayMesh_ayyad")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_012" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.126854, 0, 0)
 mesh = SubResource("ArrayMesh_ex5ay")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_013" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_d2ni0")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_014" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.126854, 0, 0)
 mesh = SubResource("ArrayMesh_7axx8")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_015" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.111044, 0, -0.111044)
 mesh = SubResource("ArrayMesh_8fxsp")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_016" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.126854)
 mesh = SubResource("ArrayMesh_xjjjj")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_017" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.111044, 0, -0.111044)
 mesh = SubResource("ArrayMesh_j0bxi")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_018" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10056, 0.100712, 0.10056)
 mesh = SubResource("ArrayMesh_ix6fd")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_019" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.111305, 0.111051)
 mesh = SubResource("ArrayMesh_gsesg")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_020" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10056, 0.100712, 0.100559)
 mesh = SubResource("ArrayMesh_v1f75")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_021" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.111051, 0.111305, 0)
 mesh = SubResource("ArrayMesh_om2k4")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_022" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.127171, 0)
 mesh = SubResource("ArrayMesh_5vp6d")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_023" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.111051, 0.111305, 0)
 mesh = SubResource("ArrayMesh_ai680")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_024" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.100559, 0.100712, -0.10056)
 mesh = SubResource("ArrayMesh_solks")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_025" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00233931, 0.138936, -0.116044)
 mesh = SubResource("ArrayMesh_aaj3s")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")
 
 [node name="TargetPiece_026" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10056, 0.100712, -0.10056)
 mesh = SubResource("ArrayMesh_geu50")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_42l2w")
+surface_material_override/0 = ExtResource("2_4dh8c")

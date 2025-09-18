@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class DestroyedTarget : Node3D {
+public partial class DestroyedTargetVfx : Node3D, IVfxObject {
 	private const ulong VFX_DURATION_MS = 1000;
 
 	public event Action finished;
@@ -24,6 +24,8 @@ public partial class DestroyedTarget : Node3D {
 		for(int i=0; i<m_pieces.Length; ++i) {
 			m_pieces[i].initialPosition = GetChild<Node3D>(i).Position;
 		}
+
+		ProcessMode = ProcessModeEnum.Disabled;
 	}
 
 	public override void _Process(double delta) {
@@ -48,6 +50,8 @@ public partial class DestroyedTarget : Node3D {
 	}
 
 	public void Explode(Vector3 targetPosition, Vector3 hitPoint, Vector3 shootDir) {
+		ProcessMode = ProcessModeEnum.Inherit;
+
 		GlobalPosition = targetPosition;
 
 		Visible = true;
@@ -86,6 +90,7 @@ public partial class DestroyedTarget : Node3D {
 	} 
 
 	public void Reset() {
+		ProcessMode = ProcessModeEnum.Disabled;
 		Visible = false;
 
 		for(int i=0; i<m_pieces.Length; ++i) {
