@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b2mq0co28h1rx"]
+[gd_scene load_steps=26 format=3 uid="uid://b2mq0co28h1rx"]
 
 [ext_resource type="Script" uid="uid://d36p55xklbfba" path="res://scripts/GameManager.cs" id="1_iywne"]
 [ext_resource type="Script" uid="uid://draa8bbkor4um" path="res://scripts/TargetManager.cs" id="1_uwrxv"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://b1qok8lsf02d" path="res://resources/textures/hit.png" id="11_dinhu"]
 [ext_resource type="Texture2D" uid="uid://2jc8pqftcu1q" path="res://resources/textures/accuracy.png" id="12_kvuet"]
 [ext_resource type="Script" uid="uid://bihwgg30el1yp" path="res://scripts/ui/FpsCounter.cs" id="14_trtic"]
+[ext_resource type="Texture2D" uid="uid://bpy4oh0er7dac" path="res://resources/textures/fire/fire1.png" id="15_ca42v"]
+[ext_resource type="Texture2D" uid="uid://1ufobr8to8rd" path="res://resources/textures/fire/fire2.png" id="16_rysoc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trtic"]
 albedo_color = Color(1, 0, 0, 1)
@@ -36,7 +38,22 @@ mesh = SubResource("SphereMesh_trtic")
 size = Vector2(100, 100)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dinhu"]
-font_size = 32
+font_size = 24
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_ssvqc"]
+frames = 2
+frame_0/texture = ExtResource("15_ca42v")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("16_rysoc")
+frame_1/duration = 0.1
+
+[sub_resource type="LabelSettings" id="LabelSettings_trtic"]
+font_size = 48
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
 
 [node name="Game" type="Node3D" node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager", "m_statsUI")]
 script = ExtResource("1_iywne")
@@ -86,72 +103,6 @@ mesh = SubResource("PlaneMesh_yqjtg")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="StatsUI" type="HBoxContainer" parent="HUD" node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel")]
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.133
-offset_bottom = -0.183998
-grow_horizontal = 2
-alignment = 1
-script = ExtResource("9_vtaks")
-m_missesLabel = NodePath("Misses/Label")
-m_hitsLabel = NodePath("Hits/Label")
-m_accuracyLabel = NodePath("Accuracy/Label")
-
-[node name="Misses" type="HBoxContainer" parent="HUD/StatsUI"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Misses"]
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("10_kvpfn")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="HUD/StatsUI/Misses"]
-layout_mode = 2
-text = "0"
-label_settings = SubResource("LabelSettings_dinhu")
-
-[node name="Hits" type="HBoxContainer" parent="HUD/StatsUI"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Hits"]
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("11_dinhu")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="HUD/StatsUI/Hits"]
-layout_mode = 2
-text = "0"
-label_settings = SubResource("LabelSettings_dinhu")
-
-[node name="Accuracy" type="HBoxContainer" parent="HUD/StatsUI"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Accuracy"]
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("12_kvuet")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="HUD/StatsUI/Accuracy"]
-layout_mode = 2
-text = "100%"
-label_settings = SubResource("LabelSettings_dinhu")
-
 [node name="Crosshair" type="CenterContainer" parent="HUD"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -165,9 +116,147 @@ offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 localize_numeral_system = false
+mouse_filter = 2
 script = ExtResource("4_lbhrr")
 
 [node name="FpsCounter" type="Label" parent="HUD"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
 offset_right = 40.0
-offset_bottom = 23.0
+grow_vertical = 0
 script = ExtResource("14_trtic")
+
+[node name="StatsUI" type="Control" parent="HUD" node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_scoreLabel", "m_hitStreakMultiplierLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("9_vtaks")
+m_missesLabel = NodePath("Left/Misses/Label")
+m_hitsLabel = NodePath("Left/Hits/Label")
+m_accuracyLabel = NodePath("Left/Accuracy/Label")
+m_scoreLabel = NodePath("Top/VBoxContainer/Score")
+m_hitStreakMultiplierLabel = NodePath("Top/VBoxContainer/StreakMultiplier/Label")
+
+[node name="Left" type="VBoxContainer" parent="HUD/StatsUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.217
+anchor_bottom = 1.0
+offset_right = 0.0159912
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Misses" type="HBoxContainer" parent="HUD/StatsUI/Left"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Left/Misses"]
+texture_filter = 1
+texture_repeat = 1
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_kvpfn")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/StatsUI/Left/Misses"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_dinhu")
+
+[node name="Hits" type="HBoxContainer" parent="HUD/StatsUI/Left"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Left/Hits"]
+texture_filter = 1
+texture_repeat = 1
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("11_dinhu")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/StatsUI/Left/Hits"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_dinhu")
+
+[node name="Accuracy" type="HBoxContainer" parent="HUD/StatsUI/Left"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Left/Accuracy"]
+texture_filter = 1
+texture_repeat = 1
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("12_kvuet")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/StatsUI/Left/Accuracy"]
+layout_mode = 2
+text = "100%"
+label_settings = SubResource("LabelSettings_dinhu")
+
+[node name="Top" type="CenterContainer" parent="HUD/StatsUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.182
+anchor_right = 0.818
+anchor_bottom = 0.187
+offset_left = 0.335983
+offset_right = -0.335999
+offset_bottom = -54.176
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/StatsUI/Top"]
+layout_mode = 2
+
+[node name="StreakMultiplier" type="HBoxContainer" parent="HUD/StatsUI/Top/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Top/VBoxContainer/StreakMultiplier"]
+texture_filter = 1
+texture_repeat = 1
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AnimatedTexture_ssvqc")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/StatsUI/Top/VBoxContainer/StreakMultiplier"]
+layout_mode = 2
+text = "x1.0"
+label_settings = SubResource("LabelSettings_dinhu")
+
+[node name="Score" type="Label" parent="HUD/StatsUI/Top/VBoxContainer"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_trtic")
+horizontal_alignment = 1
+
+[node name="Right" type="VBoxContainer" parent="HUD/StatsUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.783
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.0160522
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
