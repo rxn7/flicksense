@@ -57,7 +57,7 @@ public partial class DestroyedTargetVfx : Node3D, IVfxObject {
 		Visible = true;
 		m_lastExplodeTime = Time.GetTicksMsec();
 
-		Vector3 shotImpulse = shootDir * m_rng.RandfRange(10f, 15f);
+		Vector3 shotImpulse = shootDir * m_rng.RandfRange(5f, 12f);
 
 		for(int i=0; i<m_pieces.Length; ++i) {
 			ref Piece piece = ref m_pieces[i];
@@ -76,9 +76,9 @@ public partial class DestroyedTargetVfx : Node3D, IVfxObject {
 			radialDirection += randomOffset;
 			radialDirection = radialDirection.Normalized();
 
-			float distanceFactor = 1.0f - (offset.LengthSquared() / 0.4f * 0.4f);
+			float distanceFactor = 1.0f - (offset.Length() / 0.4f);
 
-			Vector3 radialImpulse = radialDirection * m_rng.RandfRange(1.5f, 6.0f) * distanceFactor;
+			Vector3 radialImpulse = radialDirection * m_rng.RandfRange(0.5f, 2.0f) * distanceFactor;
 			piece.linearVelocity = radialImpulse + shotImpulse;
 
 			piece.angularVelocity = new Vector3(

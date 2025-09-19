@@ -23,4 +23,8 @@ public partial class SfxManager : AudioStreamPlayer {
 		AudioStreamPlaybackPolyphonic playback = (AudioStreamPlaybackPolyphonic)GetStreamPlayback();
 		playback.PlayStream(m_sounds[sfx], 0.0f, 0.0f, pitch);
 	}
+
+	public static void SetMasterVolume(float volume){ 
+		AudioServer.SetBusVolumeLinear(AudioServer.GetBusIndex("Master"), volume);
+	}
 }
