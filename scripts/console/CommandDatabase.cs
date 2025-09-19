@@ -78,4 +78,15 @@ public static class CommandDatabase {
 
 		return null;
 	}
+
+	[Command("cfg_reset", "Resets the config file")]
+	public static string ConfigResetCommand(Command cmd, string[] args) {
+
+		Global.Instance.settings = Settings.Default;
+
+		SettingsManager.Save(ref Global.Instance.settings);
+		SettingsManager.ApplySettings(ref Global.Instance.settings);
+
+		return null;
+	}
 }

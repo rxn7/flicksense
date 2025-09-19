@@ -26,11 +26,14 @@ public static class SettingsManager {
 		}
 		
 		settings.maxFps = s_file.GetValue("video", "max_fps", settings.maxFps).AsUInt32();
-		Engine.MaxFps = (int)settings.maxFps;
-
 		settings.sensitivity = s_file.GetValue("input", "sens", settings.sensitivity).AsSingle();
-
 		settings.audioVolume = s_file.GetValue("audio", "volume", settings.audioVolume).AsSingle();
+
+		ApplySettings(ref settings);
+	}
+
+	public static void ApplySettings(ref Settings settings) {
+		Engine.MaxFps = (int)settings.maxFps;
 		SfxManager.SetMasterVolume(settings.audioVolume);
 	}
 }
