@@ -9,7 +9,7 @@ public class CommandArgument {
 		DefaultValue = defaultValue;
 	}
 
-	public float GetInt(string arg) {
+	public int GetInt(string arg) {
 		if(int.TryParse(arg, out int result)) {
 			return result;
 		}

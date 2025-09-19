@@ -1,3 +1,4 @@
+using Godot;
 using System.Collections.Generic;
 
 public static class CommandDatabase {
@@ -38,7 +39,9 @@ public static class CommandDatabase {
 		}
 
 		float sens = cmd.Arguments["value"].GetFloat(args[0]);
+
 		Global.Instance.settings.sensitivity = sens;
+		SettingsManager.Save(ref Global.Instance.settings);
 
 		return null;
 	}
@@ -52,8 +55,26 @@ public static class CommandDatabase {
 
 		float volume = cmd.Arguments["value"].GetFloat(args[0]);
 
-		Global.Instance.settings.audioVolume = volume;
 		SfxManager.SetMasterVolume(volume);
+
+		Global.Instance.settings.audioVolume = volume;
+		SettingsManager.Save(ref Global.Instance.settings);
+
+		return null;
+	}
+
+	[Command("max_fps", "Sets max FPS", "value*=0")]
+	public static string MaxFpsCommand(Command cmd, string[] args) {
+		if(args.Length == 0) {
+			Logger.Info($"Current max FPS: {Global.Instance.settings.maxFps}");
+			return null;
+		}
+
+		int maxFps = cmd.Arguments["value"].GetInt(args[0]);
+		Engine.MaxFps = maxFps;
+
+		Global.Instance.settings.maxFps = (uint)maxFps;
+		SettingsManager.Save(ref Global.Instance.settings);
 
 		return null;
 	}

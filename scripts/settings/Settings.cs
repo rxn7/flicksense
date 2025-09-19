@@ -5,8 +5,8 @@ public struct Settings {
 	public uint maxFps;
 
 	public static Settings Default = new() {
-		sensitivity = 1.2f,
-		audioVolume = 0.0f,
+		sensitivity = 1.0f,
+		audioVolume = 1.0f,
 		maxFps = 0,
 	};
 };

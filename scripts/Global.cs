@@ -10,6 +10,7 @@ public partial class Global : Node {
 
 	public override void _EnterTree() {
 		Instance = this;
+		SettingsManager.Load(ref settings);
 	}
 
 	public override void _Ready() {
