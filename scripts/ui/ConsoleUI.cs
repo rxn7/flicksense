@@ -46,6 +46,7 @@ public partial class ConsoleUI : Control {
 
 	public void OpenConsole() {
 		m_input.GrabFocus();
+		m_input.CaretColumn = m_input.Text.Length;
 		Visible = true;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 	}
@@ -143,8 +144,8 @@ public partial class ConsoleUI : Control {
 	}
 
 	private void OnInputChanged(string text) {
-		if(text.EndsWith("`")) {
-			m_input.Clear();
+		if(text.Contains("`")) {
+			m_input.Text = text.Replace("`", string.Empty);
 			HideConsole();
 		}
 	}
