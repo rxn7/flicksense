@@ -21,7 +21,6 @@ public static class SettingsManager {
 
 		if(s_file.Load(s_configPath) != Error.Ok) {
 			settings = Settings.Default;
-			Logger.Warn("Failed to load settings, if it's the first time running the game, you can ignore this warning.");
 			return;
 		}
 		

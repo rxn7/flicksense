@@ -14,6 +14,10 @@ public partial class CameraManager : Camera3D {
 			return;
 		}
 
+		if(Input.MouseMode != Input.MouseModeEnum.Captured) {
+			return;
+		}
+
 		float sens = Global.Instance.settings.sensitivity;
 
 		m_pitch -= motion.ScreenRelative.Y * sens * 0.022f; // 0.022 is a CS:GO/CS2 constant
