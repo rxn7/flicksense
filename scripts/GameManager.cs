@@ -8,12 +8,16 @@ public partial class GameManager : Node {
 	[Export] private StatsUI m_statsUI;
 	[Export] private ScoreManager m_scoreManager;
 
+	private ulong m_startTimeMs = 0;
+
 	public override void _Ready() {
 		m_shootManager.onShoot += OnShoot;
 		m_shootManager.onTargetHit += OnTargetHit;
 
 		m_scoreManager.updated += () => m_statsUI.UpdateStats(m_scoreManager);
 		m_scoreManager.streakMultiplierChanged += m_statsUI.UpdateHitStreakMultiplier;
+
+		Reset();
 	}
 
 	public override void _UnhandledKeyInput(InputEvent ev) {
@@ -27,6 +31,9 @@ public partial class GameManager : Node {
 	}
 
 	private void Reset() {
+		m_startTimeMs = Time.GetTicksMsec();
+		m_statsUI.SetStartTime(m_startTimeMs);
+
 		m_targetManager.Reset();
 		m_scoreManager.Reset();
 	}

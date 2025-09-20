@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://7r8iigrjw7w3"
-path="res://.godot/imported/m5x7.ttf-96e59dae7059f9fa04ad616cf05a4d18.fontdata"
+uid="uid://dfve4b7v1vjb8"
+path="res://.godot/imported/Not Jam Mono Clean 16.ttf-ead3c29014f7932943d202b0805353f5.fontdata"
 
 [deps]
 
-source_file="res://resources/fonts/m5x7.ttf"
-dest_files=["res://.godot/imported/m5x7.ttf-96e59dae7059f9fa04ad616cf05a4d18.fontdata"]
+source_file="res://resources/fonts/Not Jam Mono Clean 16.ttf"
+dest_files=["res://.godot/imported/Not Jam Mono Clean 16.ttf-ead3c29014f7932943d202b0805353f5.fontdata"]
 
 [params]
 

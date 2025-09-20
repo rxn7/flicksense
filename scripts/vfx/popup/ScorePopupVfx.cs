@@ -35,6 +35,6 @@ public partial class ScorePopupVfx : Label3D, IVfxObject {
 
 		Visible = true;
 		GlobalPosition = position;
-		Text = $"+{scoreAdded}";
+		Text = scoreAdded.ToString();
 	}
 }

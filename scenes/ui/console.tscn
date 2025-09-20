@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg0n86m4didin"]
+[gd_scene load_steps=4 format=3 uid="uid://cg0n86m4didin"]
 
 [ext_resource type="Script" uid="uid://56dsxi6r4qsy" path="res://scripts/ui/ConsoleUI.cs" id="1_vh00w"]
+[ext_resource type="FontFile" uid="uid://dfve4b7v1vjb8" path="res://resources/fonts/Not Jam Mono Clean 16.ttf" id="2_ll80q"]
+[ext_resource type="FontFile" uid="uid://7r8iigrjw7w3" path="res://resources/fonts/m5x7.ttf" id="3_e4lyg"]
 
 [node name="Console" type="Panel" node_paths=PackedStringArray("m_output", "m_input")]
 anchors_preset = -1
@@ -25,13 +27,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-split_offset = 417
+split_offset = 412
 drag_area_offset = 6
 drag_area_highlight_in_editor = true
 
 [node name="Output" type="RichTextLabel" parent="VSplitContainer"]
 layout_mode = 2
 focus_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_ll80q")
+theme_override_fonts/mono_font = ExtResource("2_ll80q")
+theme_override_fonts/italics_font = ExtResource("2_ll80q")
+theme_override_fonts/bold_italics_font = ExtResource("2_ll80q")
+theme_override_fonts/bold_font = ExtResource("2_ll80q")
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
 scroll_following = true
 threaded = true
 selection_enabled = true
@@ -40,6 +52,8 @@ drag_and_drop_selection_enabled = false
 
 [node name="Input" type="LineEdit" parent="VSplitContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_e4lyg")
+theme_override_font_sizes/font_size = 32
 placeholder_text = "Enter your command..."
 keep_editing_on_text_submit = true
 emoji_menu_enabled = false

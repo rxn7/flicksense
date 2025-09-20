@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://b2mq0co28h1rx"]
+[gd_scene load_steps=35 format=3 uid="uid://b2mq0co28h1rx"]
 
 [ext_resource type="Script" uid="uid://d36p55xklbfba" path="res://scripts/GameManager.cs" id="1_iywne"]
 [ext_resource type="Script" uid="uid://draa8bbkor4um" path="res://scripts/TargetManager.cs" id="1_uwrxv"]
@@ -22,7 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://bpy4oh0er7dac" path="res://resources/textures/fire/fire1.png" id="15_ca42v"]
 [ext_resource type="Texture2D" uid="uid://1ufobr8to8rd" path="res://resources/textures/fire/fire2.png" id="16_rysoc"]
 [ext_resource type="PackedScene" uid="uid://c61t81lljqprt" path="res://scenes/vfx/destroyed_target_vfx.tscn" id="18_ssvqc"]
+[ext_resource type="FontFile" uid="uid://dfve4b7v1vjb8" path="res://resources/fonts/Not Jam Mono Clean 16.ttf" id="19_e1j6l"]
 [ext_resource type="FontFile" uid="uid://7r8iigrjw7w3" path="res://resources/fonts/m5x7.ttf" id="21_5newe"]
+[ext_resource type="Texture2D" uid="uid://bmf8iril5rrlg" path="res://resources/textures/time.png" id="22_e1j6l"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_bt5mj"]
 plane = Plane(0, 0, 1, 0)
@@ -32,11 +34,22 @@ transform_format = 1
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_gee14"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_pl11u"]
+font = ExtResource("19_e1j6l")
+shadow_size = 0
+
 [sub_resource type="LabelSettings" id="LabelSettings_dinhu"]
 font = ExtResource("21_5newe")
 font_size = 32
-outline_size = 8
-outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_e1j6l"]
+font = ExtResource("21_5newe")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_trtic"]
+font = ExtResource("21_5newe")
+font_size = 48
+shadow_size = 0
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_ssvqc"]
 frames = 2
@@ -44,13 +57,6 @@ frame_0/texture = ExtResource("15_ca42v")
 frame_0/duration = 0.1
 frame_1/texture = ExtResource("16_rysoc")
 frame_1/duration = 0.1
-
-[sub_resource type="LabelSettings" id="LabelSettings_trtic"]
-font = ExtResource("21_5newe")
-font_size = 48
-outline_size = 8
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 0
 
 [sub_resource type="Environment" id="Environment_5newe"]
 background_mode = 1
@@ -145,9 +151,12 @@ anchor_bottom = 1.0
 offset_top = -23.0
 offset_right = 40.0
 grow_vertical = 0
+text = "fps: 0000"
+label_settings = SubResource("LabelSettings_pl11u")
+vertical_alignment = 2
 script = ExtResource("14_trtic")
 
-[node name="StatsUI" type="Control" parent="HUD" node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_scoreLabel", "m_hitStreakMultiplierLabel")]
+[node name="StatsUI" type="Control" parent="HUD" node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_scoreLabel", "m_hitStreakMultiplierLabel", "m_timeLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -156,11 +165,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("9_vtaks")
-m_missesLabel = NodePath("Left/Misses/Label")
-m_hitsLabel = NodePath("Left/Hits/Label")
-m_accuracyLabel = NodePath("Left/Accuracy/Label")
-m_scoreLabel = NodePath("Top/VBoxContainer/Score")
-m_hitStreakMultiplierLabel = NodePath("Top/VBoxContainer/StreakMultiplier/Label")
+m_missesLabel = NodePath("Left/Misses/MissCountLabel")
+m_hitsLabel = NodePath("Left/Hits/HitCountLabel")
+m_accuracyLabel = NodePath("Left/Accuracy/AccuracyLabel")
+m_scoreLabel = NodePath("Top/VBoxContainer/ScoreLabel")
+m_hitStreakMultiplierLabel = NodePath("Right/StreakMultiplier/StreakMultiplierLabel")
+m_timeLabel = NodePath("Top/VBoxContainer/Time/TimeLabel")
 
 [node name="Left" type="VBoxContainer" parent="HUD/StatsUI"]
 layout_mode = 1
@@ -175,6 +185,7 @@ mouse_filter = 2
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 mouse_filter = 2
+theme_override_constants/separation = 10
 
 [node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Left/Misses"]
 texture_filter = 1
@@ -185,7 +196,7 @@ mouse_filter = 2
 texture = ExtResource("10_kvpfn")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="HUD/StatsUI/Left/Misses"]
+[node name="MissCountLabel" type="Label" parent="HUD/StatsUI/Left/Misses"]
 layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_dinhu")
@@ -194,6 +205,7 @@ label_settings = SubResource("LabelSettings_dinhu")
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 mouse_filter = 2
+theme_override_constants/separation = 10
 
 [node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Left/Hits"]
 texture_filter = 1
@@ -204,7 +216,7 @@ mouse_filter = 2
 texture = ExtResource("11_dinhu")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="HUD/StatsUI/Left/Hits"]
+[node name="HitCountLabel" type="Label" parent="HUD/StatsUI/Left/Hits"]
 layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_dinhu")
@@ -213,6 +225,7 @@ label_settings = SubResource("LabelSettings_dinhu")
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 mouse_filter = 2
+theme_override_constants/separation = 10
 
 [node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Left/Accuracy"]
 texture_filter = 1
@@ -223,7 +236,7 @@ mouse_filter = 2
 texture = ExtResource("12_kvuet")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="HUD/StatsUI/Left/Accuracy"]
+[node name="AccuracyLabel" type="Label" parent="HUD/StatsUI/Left/Accuracy"]
 layout_mode = 2
 text = "100%"
 label_settings = SubResource("LabelSettings_dinhu")
@@ -243,31 +256,32 @@ mouse_filter = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/StatsUI/Top"]
 layout_mode = 2
 
-[node name="StreakMultiplier" type="HBoxContainer" parent="HUD/StatsUI/Top/VBoxContainer"]
-custom_minimum_size = Vector2(250, 0)
+[node name="Time" type="HBoxContainer" parent="HUD/StatsUI/Top/VBoxContainer"]
 layout_mode = 2
-mouse_filter = 2
+theme_override_constants/separation = 16
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Top/VBoxContainer/StreakMultiplier"]
+[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Top/VBoxContainer/Time"]
 texture_filter = 1
 texture_repeat = 1
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AnimatedTexture_ssvqc")
+texture = ExtResource("22_e1j6l")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="HUD/StatsUI/Top/VBoxContainer/StreakMultiplier"]
+[node name="TimeLabel" type="Label" parent="HUD/StatsUI/Top/VBoxContainer/Time"]
 layout_mode = 2
-text = "x1.0"
-label_settings = SubResource("LabelSettings_dinhu")
+text = "00:00.000"
+label_settings = SubResource("LabelSettings_e1j6l")
+vertical_alignment = 1
 
-[node name="Score" type="Label" parent="HUD/StatsUI/Top/VBoxContainer"]
+[node name="ScoreLabel" type="Label" parent="HUD/StatsUI/Top/VBoxContainer"]
 layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_trtic")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Right" type="VBoxContainer" parent="HUD/StatsUI"]
 layout_mode = 1
@@ -279,6 +293,27 @@ offset_left = -0.0160522
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="StreakMultiplier" type="HBoxContainer" parent="HUD/StatsUI/Right"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="StreakMultiplierLabel" type="Label" parent="HUD/StatsUI/Right/StreakMultiplier"]
+layout_mode = 2
+text = "x1.0"
+label_settings = SubResource("LabelSettings_dinhu")
+
+[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Right/StreakMultiplier"]
+texture_filter = 1
+texture_repeat = 1
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AnimatedTexture_ssvqc")
+stretch_mode = 5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5newe")
