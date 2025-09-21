@@ -5,11 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://ba1475a8xas6v" path="res://resources/textures/prototype/light/texture_06.png" id="2_bhx41"]
 [ext_resource type="PackedScene" uid="uid://52emi0djdojg" path="res://scenes/target.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://dddytdp6v4cno" path="res://scripts/CameraManager.cs" id="3_lnu2h"]
-[ext_resource type="ArrayMesh" uid="uid://cq0hiuqcds0jr" path="res://resources/meshes/target_mesh.res" id="4_rysoc"]
 [ext_resource type="Script" uid="uid://cs6yofphy62q3" path="res://scripts/SfxManager.cs" id="4_u5sy4"]
 [ext_resource type="AudioStream" uid="uid://castgb1mgno4j" path="res://resources/audio/miss.wav" id="5_0tnpc"]
 [ext_resource type="Script" uid="uid://dl26qx0qi34at" path="res://scripts/ScoreManager.cs" id="5_1kice"]
 [ext_resource type="AudioStream" uid="uid://bprui64uqmesm" path="res://resources/audio/hit.ogg" id="5_gee14"]
+[ext_resource type="SphereMesh" uid="uid://5bl5je40y4dq" path="res://resources/meshes/target_mesh.tres" id="5_ir15t"]
 [ext_resource type="Script" uid="uid://offvuuorkmq3" path="res://scripts/ShootManager.cs" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://seil6c46bf3l" path="res://scripts/vfx/VfxManager.cs" id="8_264po"]
 [ext_resource type="PackedScene" uid="uid://iio7kysj618n" path="res://scenes/vfx/score_popup_vfx.tscn" id="10_37s47"]
@@ -198,7 +198,7 @@ omni_shadow_mode = 0
 [node name="TargetManager" type="Node3D" parent="."]
 script = ExtResource("1_uwrxv")
 m_targetPrefab = ExtResource("2_yqjtg")
-m_targetMesh = ExtResource("4_rysoc")
+m_targetMesh = ExtResource("5_ir15t")
 
 [node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="TargetManager"]
 multimesh = SubResource("MultiMesh_ir15t")
