@@ -78,8 +78,8 @@ public partial class DestroyedTargetVfx : Node3D, IVfxObject {
 
 			float distanceFactor = 1.0f - (offset.Length() / 0.4f);
 
-			Vector3 radialImpulse = radialDirection * m_rng.RandfRange(0.5f, 2.0f) * distanceFactor;
-			piece.linearVelocity = radialImpulse + shotImpulse;
+			Vector3 radialImpulse = radialDirection * m_rng.RandfRange(2.0f, 5.0f) * Mathf.Max(0.1f, distanceFactor);
+			piece.linearVelocity = radialImpulse + shotImpulse * distanceFactor;
 
 			piece.angularVelocity = new Vector3(
 				m_rng.RandfRange(-10f, 10f),

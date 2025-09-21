@@ -1,10 +1,10 @@
-[gd_scene load_steps=35 format=3 uid="uid://b2mq0co28h1rx"]
+[gd_scene load_steps=29 format=3 uid="uid://b2mq0co28h1rx"]
 
 [ext_resource type="Script" uid="uid://d36p55xklbfba" path="res://scripts/GameManager.cs" id="1_iywne"]
 [ext_resource type="Script" uid="uid://draa8bbkor4um" path="res://scripts/TargetManager.cs" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://ba1475a8xas6v" path="res://resources/textures/prototype/light/texture_06.png" id="2_bhx41"]
 [ext_resource type="PackedScene" uid="uid://52emi0djdojg" path="res://scenes/target.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://dddytdp6v4cno" path="res://scripts/CameraManager.cs" id="3_lnu2h"]
-[ext_resource type="Script" uid="uid://c6msgkj7kiq8c" path="res://scripts/ui/Crosshair.cs" id="4_lbhrr"]
 [ext_resource type="ArrayMesh" uid="uid://cq0hiuqcds0jr" path="res://resources/meshes/target_mesh.res" id="4_rysoc"]
 [ext_resource type="Script" uid="uid://cs6yofphy62q3" path="res://scripts/SfxManager.cs" id="4_u5sy4"]
 [ext_resource type="AudioStream" uid="uid://castgb1mgno4j" path="res://resources/audio/miss.wav" id="5_0tnpc"]
@@ -12,51 +12,9 @@
 [ext_resource type="AudioStream" uid="uid://bprui64uqmesm" path="res://resources/audio/hit.ogg" id="5_gee14"]
 [ext_resource type="Script" uid="uid://offvuuorkmq3" path="res://scripts/ShootManager.cs" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://seil6c46bf3l" path="res://scripts/vfx/VfxManager.cs" id="8_264po"]
-[ext_resource type="Script" uid="uid://caqqydkkhb2pr" path="res://scripts/ui/StatsUI.cs" id="9_vtaks"]
-[ext_resource type="PackedScene" uid="uid://iio7kysj618n" path="res://scenes/vfx/popup/score_popup_vfx.tscn" id="10_37s47"]
-[ext_resource type="Texture2D" uid="uid://cehuy1rnot02g" path="res://resources/textures/miss.png" id="10_kvpfn"]
-[ext_resource type="Texture2D" uid="uid://b1qok8lsf02d" path="res://resources/textures/hit.png" id="11_dinhu"]
-[ext_resource type="PackedScene" uid="uid://biyisw5dmxiwn" path="res://scenes/vfx/popup/miss_popup_vfx.tscn" id="12_bt5mj"]
-[ext_resource type="Texture2D" uid="uid://2jc8pqftcu1q" path="res://resources/textures/accuracy.png" id="12_kvuet"]
-[ext_resource type="Script" uid="uid://bihwgg30el1yp" path="res://scripts/ui/FpsCounter.cs" id="14_trtic"]
-[ext_resource type="Texture2D" uid="uid://bpy4oh0er7dac" path="res://resources/textures/fire/fire1.png" id="15_ca42v"]
-[ext_resource type="Texture2D" uid="uid://1ufobr8to8rd" path="res://resources/textures/fire/fire2.png" id="16_rysoc"]
+[ext_resource type="PackedScene" uid="uid://iio7kysj618n" path="res://scenes/vfx/score_popup_vfx.tscn" id="10_37s47"]
+[ext_resource type="PackedScene" uid="uid://sd1xhfph0usx" path="res://scenes/ui/hud.tscn" id="15_ir15t"]
 [ext_resource type="PackedScene" uid="uid://c61t81lljqprt" path="res://scenes/vfx/destroyed_target_vfx.tscn" id="18_ssvqc"]
-[ext_resource type="FontFile" uid="uid://dfve4b7v1vjb8" path="res://resources/fonts/Not Jam Mono Clean 16.ttf" id="19_e1j6l"]
-[ext_resource type="FontFile" uid="uid://7r8iigrjw7w3" path="res://resources/fonts/m5x7.ttf" id="21_5newe"]
-[ext_resource type="Texture2D" uid="uid://bmf8iril5rrlg" path="res://resources/textures/time.png" id="22_e1j6l"]
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_bt5mj"]
-plane = Plane(0, 0, 1, 0)
-
-[sub_resource type="MultiMesh" id="MultiMesh_ir15t"]
-transform_format = 1
-
-[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_gee14"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_pl11u"]
-font = ExtResource("19_e1j6l")
-shadow_size = 0
-
-[sub_resource type="LabelSettings" id="LabelSettings_dinhu"]
-font = ExtResource("21_5newe")
-font_size = 32
-
-[sub_resource type="LabelSettings" id="LabelSettings_e1j6l"]
-font = ExtResource("21_5newe")
-font_size = 64
-
-[sub_resource type="LabelSettings" id="LabelSettings_trtic"]
-font = ExtResource("21_5newe")
-font_size = 48
-shadow_size = 0
-
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_ssvqc"]
-frames = 2
-frame_0/texture = ExtResource("15_ca42v")
-frame_0/duration = 0.1
-frame_1/texture = ExtResource("16_rysoc")
-frame_1/duration = 0.1
 
 [sub_resource type="Environment" id="Environment_5newe"]
 background_mode = 1
@@ -65,6 +23,90 @@ background_energy_multiplier = 1.1
 ambient_light_source = 3
 ambient_light_color = Color(0.266667, 0.282353, 0.45098, 1)
 reflected_light_source = 2
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_qnb83"]
+plane = Plane(0, -1, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qnb83"]
+albedo_texture = ExtResource("2_bhx41")
+metallic_specular = 0.0
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sww3w"]
+material = SubResource("StandardMaterial3D_qnb83")
+size = Vector2(1, 1)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_bhx41"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_sww3w"]
+plane = Plane(0, 0, 1, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_suyxu"]
+plane = Plane(0, 0, -1, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_sgl2t"]
+plane = Plane(-1, 0, 0, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_qouja"]
+plane = Plane(1, 0, 0, 0)
+
+[sub_resource type="MultiMesh" id="MultiMesh_ir15t"]
+transform_format = 1
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_gee14"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_pl11u"]
+script/source = "using Godot;
+using System;
+
+public partial class MissPopupVfx : Sprite3D, IVfxObject {
+	public event Action finished;
+	private const ulong DURATION_MS = 500;
+
+	private ulong m_finishTimeMs = 0;
+
+	public override void _Ready() {
+		ProcessMode = ProcessModeEnum.Disabled;
+		Visible = false;
+	}
+
+	public override void _Process(double delta) {
+		if(Time.GetTicksMsec() >= m_finishTimeMs) {
+			Visible = false;
+			ProcessMode = ProcessModeEnum.Disabled;
+			finished?.Invoke();
+			return;
+		}
+
+		float elapsedRatio = 1.0f - (float)(m_finishTimeMs - Time.GetTicksMsec()) / DURATION_MS;
+		Modulate = new Color(1.0f, 1.0f, 1.0f, 1.0f - elapsedRatio);
+	}
+
+	public void Show(Vector3 position) {
+		ProcessMode = ProcessModeEnum.Inherit;
+		m_finishTimeMs = Time.GetTicksMsec() + DURATION_MS;
+
+		Modulate = Colors.White;
+
+		Visible = true;
+		GlobalPosition = position;
+	}
+}
+"
+
+[sub_resource type="PackedScene" id="PackedScene_bhx41"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("MissPopupVfx", "billboard", "fixed_size", "texture_filter", "script", "Label3D"),
+"node_count": 1,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 5, 0, -1, 4, 1, 0, 2, 1, 3, 2, 4, 3, 0),
+"variants": [1, true, 0, SubResource("CSharpScript_pl11u")],
+"version": 3
+}
 
 [node name="Game" type="Node3D" node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager", "m_vfxManager", "m_statsUI", "m_scoreManager")]
 script = ExtResource("1_iywne")
@@ -75,16 +117,83 @@ m_vfxManager = NodePath("VfxManager")
 m_statsUI = NodePath("HUD/StatsUI")
 m_scoreManager = NodePath("ScoreManager")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 0)
-directional_shadow_mode = 0
+[node name="World" type="Node" parent="."]
 
-[node name="Wall" type="Area3D" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_5newe")
+
+[node name="Room" type="StaticBody3D" parent="World"]
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-shape = SubResource("WorldBoundaryShape3D_bt5mj")
+[node name="Roof" type="CollisionShape3D" parent="World/Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("WorldBoundaryShape3D_qnb83")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+debug_fill = false
+
+[node name="Roof" type="MeshInstance3D" parent="World/Room/Roof"]
+transform = Transform3D(10, 0, 0, 0, -1, 8.742278e-07, 0, -8.742278e-08, -10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_sww3w")
+skeleton = NodePath("../..")
+
+[node name="Floor" type="CollisionShape3D" parent="World/Room"]
+shape = SubResource("WorldBoundaryShape3D_bhx41")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+debug_fill = false
+
+[node name="Floor" type="MeshInstance3D" parent="World/Room/Floor"]
+transform = Transform3D(9.999999, 0, 0, 0, 1, 0, 0, 0, 9.999999, 0, 0, 0)
+mesh = SubResource("PlaneMesh_sww3w")
+skeleton = NodePath("../..")
+
+[node name="FrontWall" type="CollisionShape3D" parent="World/Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -5)
+shape = SubResource("WorldBoundaryShape3D_sww3w")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+debug_fill = false
+
+[node name="FrontWall" type="MeshInstance3D" parent="World/Room/FrontWall"]
+transform = Transform3D(10, 0, 0, 0, -4.371139e-08, -4, 0, 1, -1.7484555e-07, 0, 0, 0)
+mesh = SubResource("PlaneMesh_sww3w")
+skeleton = NodePath("../..")
+
+[node name="BackWall" type="CollisionShape3D" parent="World/Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
+shape = SubResource("WorldBoundaryShape3D_suyxu")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+debug_fill = false
+
+[node name="BackWall" type="MeshInstance3D" parent="World/Room/BackWall"]
+transform = Transform3D(-10, -8.742278e-08, 1.5285482e-14, 0, -4.3711385e-08, -4, 8.742278e-07, -1, 1.7484554e-07, 0, 0, 0)
+mesh = SubResource("PlaneMesh_sww3w")
+skeleton = NodePath("../..")
+
+[node name="RightWall" type="CollisionShape3D" parent="World/Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 0)
+shape = SubResource("WorldBoundaryShape3D_sgl2t")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+debug_fill = false
+
+[node name="RightWall" type="MeshInstance3D" parent="World/Room/RightWall"]
+transform = Transform3D(1.3113417e-06, -1, 1.7484554e-07, 0, -4.3711385e-08, -4, 10, 1.3113416e-07, -2.2928223e-14, 0, 0, 0)
+mesh = SubResource("PlaneMesh_sww3w")
+skeleton = NodePath("../..")
+
+[node name="LeftWall" type="CollisionShape3D" parent="World/Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 0)
+shape = SubResource("WorldBoundaryShape3D_qouja")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+debug_fill = false
+
+[node name="LeftWall" type="MeshInstance3D" parent="World/Room/LeftWall"]
+transform = Transform3D(-4.371139e-07, 1, -1.7484555e-07, 0, -4.371139e-08, -4, -10, -4.371139e-08, 7.642742e-15, 0, 0, 0)
+mesh = SubResource("PlaneMesh_sww3w")
+skeleton = NodePath("../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="World/Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+omni_range = 10.0
+omni_shadow_mode = 0
 
 [node name="TargetManager" type="Node3D" parent="."]
 script = ExtResource("1_uwrxv")
@@ -110,7 +219,7 @@ m_sounds = Dictionary[int, AudioStream]({
 script = ExtResource("8_264po")
 m_scorePopupPrefab = ExtResource("10_37s47")
 m_destroyedTargetPrefab = ExtResource("18_ssvqc")
-m_missPopupPrefab = ExtResource("12_bt5mj")
+m_missPopupPrefab = SubResource("PackedScene_bhx41")
 
 [node name="ShootManager" type="Node" parent="." node_paths=PackedStringArray("m_camera")]
 script = ExtResource("5_p57ef")
@@ -118,7 +227,7 @@ m_rayCollisionMask = 5
 m_camera = NodePath("../Player/Camera3D")
 
 [node name="Player" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 4)
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
 current = true
@@ -126,194 +235,6 @@ fov = 73.0
 far = 100.0
 script = ExtResource("3_lnu2h")
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="HUD" parent="." instance=ExtResource("15_ir15t")]
 
-[node name="Crosshair" type="CenterContainer" parent="HUD"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-grow_horizontal = 2
-grow_vertical = 2
-localize_numeral_system = false
-mouse_filter = 2
-script = ExtResource("4_lbhrr")
-
-[node name="FpsCounter" type="Label" parent="HUD"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-offset_right = 40.0
-grow_vertical = 0
-text = "fps: 0000"
-label_settings = SubResource("LabelSettings_pl11u")
-vertical_alignment = 2
-script = ExtResource("14_trtic")
-
-[node name="StatsUI" type="Control" parent="HUD" node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_scoreLabel", "m_hitStreakMultiplierLabel", "m_timeLabel")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("9_vtaks")
-m_missesLabel = NodePath("Left/Misses/MissCountLabel")
-m_hitsLabel = NodePath("Left/Hits/HitCountLabel")
-m_accuracyLabel = NodePath("Left/Accuracy/AccuracyLabel")
-m_scoreLabel = NodePath("Top/VBoxContainer/ScoreLabel")
-m_hitStreakMultiplierLabel = NodePath("Right/StreakMultiplier/StreakMultiplierLabel")
-m_timeLabel = NodePath("Top/VBoxContainer/Time/TimeLabel")
-
-[node name="Left" type="VBoxContainer" parent="HUD/StatsUI"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.217
-anchor_bottom = 1.0
-offset_right = 0.0159912
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Misses" type="HBoxContainer" parent="HUD/StatsUI/Left"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 10
-
-[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Left/Misses"]
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("10_kvpfn")
-stretch_mode = 5
-
-[node name="MissCountLabel" type="Label" parent="HUD/StatsUI/Left/Misses"]
-layout_mode = 2
-text = "0"
-label_settings = SubResource("LabelSettings_dinhu")
-
-[node name="Hits" type="HBoxContainer" parent="HUD/StatsUI/Left"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 10
-
-[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Left/Hits"]
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("11_dinhu")
-stretch_mode = 5
-
-[node name="HitCountLabel" type="Label" parent="HUD/StatsUI/Left/Hits"]
-layout_mode = 2
-text = "0"
-label_settings = SubResource("LabelSettings_dinhu")
-
-[node name="Accuracy" type="HBoxContainer" parent="HUD/StatsUI/Left"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 10
-
-[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Left/Accuracy"]
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("12_kvuet")
-stretch_mode = 5
-
-[node name="AccuracyLabel" type="Label" parent="HUD/StatsUI/Left/Accuracy"]
-layout_mode = 2
-text = "100%"
-label_settings = SubResource("LabelSettings_dinhu")
-
-[node name="Top" type="CenterContainer" parent="HUD/StatsUI"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.182
-anchor_right = 0.818
-anchor_bottom = 0.187
-offset_left = 0.335983
-offset_right = -0.335999
-offset_bottom = -54.176
-grow_horizontal = 2
-mouse_filter = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/StatsUI/Top"]
-layout_mode = 2
-
-[node name="Time" type="HBoxContainer" parent="HUD/StatsUI/Top/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Top/VBoxContainer/Time"]
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("22_e1j6l")
-stretch_mode = 5
-
-[node name="TimeLabel" type="Label" parent="HUD/StatsUI/Top/VBoxContainer/Time"]
-layout_mode = 2
-text = "00:00.000"
-label_settings = SubResource("LabelSettings_e1j6l")
-vertical_alignment = 1
-
-[node name="ScoreLabel" type="Label" parent="HUD/StatsUI/Top/VBoxContainer"]
-layout_mode = 2
-text = "0"
-label_settings = SubResource("LabelSettings_trtic")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Right" type="VBoxContainer" parent="HUD/StatsUI"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.783
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.0160522
-grow_horizontal = 0
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="StreakMultiplier" type="HBoxContainer" parent="HUD/StatsUI/Right"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 10
-alignment = 2
-
-[node name="StreakMultiplierLabel" type="Label" parent="HUD/StatsUI/Right/StreakMultiplier"]
-layout_mode = 2
-text = "x1.0"
-label_settings = SubResource("LabelSettings_dinhu")
-
-[node name="TextureRect" type="TextureRect" parent="HUD/StatsUI/Right/StreakMultiplier"]
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-mouse_filter = 2
-texture = SubResource("AnimatedTexture_ssvqc")
-stretch_mode = 5
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_5newe")
+[editable path="HUD"]

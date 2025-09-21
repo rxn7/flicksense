@@ -40,7 +40,7 @@ public partial class ScoreManager : Node {
 		return ref m_stats;
 	}
 
-	public void OnShoot(bool hit) {
+	public void RegisterShot(bool hit) {
 		++m_stats.Shots;
 
 		if(!hit) {
@@ -51,7 +51,7 @@ public partial class ScoreManager : Node {
 		updated?.Invoke();
 	}
 
-	public ulong OnHit() {
+	public ulong RegisterHit() {
 		m_streakMultiplier = Mathf.Min(m_streakMultiplier + 0.1f, MAX_STREAK_MULTIPLIER);
 		streakMultiplierChanged?.Invoke(m_streakMultiplier);
 

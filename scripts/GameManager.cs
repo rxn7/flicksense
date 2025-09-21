@@ -38,24 +38,23 @@ public partial class GameManager : Node {
 		m_scoreManager.Reset();
 	}
 	
-	private void OnShoot(bool hit, Vector3 hitPoint) {
-		m_scoreManager.OnShoot(hit);
+	private void OnShoot(bool hit, Vector3? hitPoint, Vector3? hitNormal) {
+		m_scoreManager.RegisterShot(hit);
 
-		if(!hit) {
-			VfxManager vfxManager = m_vfxManager;
-			vfxManager.ShowMissPopup(hitPoint);
-			
-			m_sfxManager.PlaySfx(Sfx.ShootMiss, (float)GD.RandRange(0.8f, 1.2f));
+		if(hitPoint.HasValue && hitNormal.HasValue) {
+			if(!hit) {
+				m_vfxManager.ShowScorePopup(hitPoint.Value, 0);
+			}
+
+			m_sfxManager.PlaySfx(hit ? Sfx.ShootHit : Sfx.ShootMiss, (float)GD.RandRange(0.8f, 1.2f));
 		} 
 	}
 
 	private void OnTargetHit(Target target, Vector3 shootDir, Vector3 hitPoint, Vector3 hitNormal) {
-		ulong scoreAdded = m_scoreManager.OnHit();
+		ulong scoreAdded = m_scoreManager.RegisterHit();
+		m_vfxManager.ShowScorePopup(hitPoint, scoreAdded);
 
-		m_vfxManager.ShowScorePopup(hitPoint + hitNormal * 0.2f, scoreAdded);
 		m_vfxManager.ExplodeTarget(target.GlobalPosition, hitPoint, shootDir);
-
-		m_sfxManager.PlaySfx(Sfx.ShootHit, (float)GD.RandRange(0.8f, 1.2f));
 
 		int gridIdx = target.gridIdx;
 		m_targetManager.HideTarget(target);

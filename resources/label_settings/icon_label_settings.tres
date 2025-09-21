@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://jlc61f56b440"]
+
+[ext_resource type="FontFile" uid="uid://cgltv2nkg35ms" path="res://resources/fonts/RubikMonoOne-Regular.ttf" id="1_5fkbf"]
+
+[resource]
+font = ExtResource("1_5fkbf")
+font_size = 32

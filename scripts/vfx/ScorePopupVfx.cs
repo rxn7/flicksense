@@ -1,0 +1,45 @@
+using Godot;
+using System;
+
+public partial class ScorePopupVfx : Label3D, IVfxObject {
+	public event Action finished;
+	private const ulong DURATION_MS = 500;
+
+	private ulong m_finishTimeMs = 0;
+
+	public override void _Ready() {
+		ProcessMode = ProcessModeEnum.Disabled;
+		Visible = false;
+	}
+
+	public override void _Process(double delta) {
+		if(Time.GetTicksMsec() >= m_finishTimeMs) {
+			Visible = false;
+			ProcessMode = ProcessModeEnum.Disabled;
+			finished?.Invoke();
+			return;
+		}
+
+		float elapsedRatio = 1.0f - (float)(m_finishTimeMs - Time.GetTicksMsec()) / DURATION_MS;
+
+		Color color = Modulate;
+		color.A = 1.0f - elapsedRatio;
+		Modulate = color;
+	}
+
+	public void Show(Vector3 position, ulong scoreAdded) {
+		ProcessMode = ProcessModeEnum.Inherit;
+		m_finishTimeMs = Time.GetTicksMsec() + DURATION_MS;
+
+		Visible = true;
+		GlobalPosition = position;
+
+		if(scoreAdded == 0) {
+			Modulate = Colors.Red;
+			Text = "X";
+		} else {
+			Modulate = Colors.Green;
+			Text = scoreAdded.ToString();
+		}
+	}
+}

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://iio7kysj618n"]
+
+[ext_resource type="FontFile" uid="uid://cgltv2nkg35ms" path="res://resources/fonts/RubikMonoOne-Regular.ttf" id="1_641te"]
+[ext_resource type="Script" uid="uid://bbubyqqh8gnc6" path="res://scripts/vfx/ScorePopupVfx.cs" id="2_5u6f4"]
+
+[node name="ScorePopupVfx" type="Label3D"]
+billboard = 1
+no_depth_test = true
+fixed_size = true
+text = "100"
+font = ExtResource("1_641te")
+font_size = 8
+outline_size = 0
+script = ExtResource("2_5u6f4")
