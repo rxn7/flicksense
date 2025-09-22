@@ -13,7 +13,7 @@ font = ExtResource("2_0h1do")
 shadow_size = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_dinhu"]
-font = ExtResource("6_cwdlq")
+font = ExtResource("9_65nxt")
 font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_qnb83"]
@@ -57,9 +57,14 @@ script = ExtResource("3_4d46k")
 
 [node name="StatsUI" type="Control" parent="." node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_scoreLabel", "m_hitStreakMultiplierLabel", "m_timeLabel")]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.007
+anchor_top = 0.012
+anchor_right = 0.99300003
+anchor_bottom = 0.98800004
+offset_left = -0.06400013
+offset_top = 0.22399998
+offset_right = 0.063964844
+offset_bottom = -0.22399902
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -68,7 +73,7 @@ m_missesLabel = NodePath("Left/Misses/MissCountLabel")
 m_hitsLabel = NodePath("Left/Hits/HitCountLabel")
 m_accuracyLabel = NodePath("Left/Accuracy/AccuracyLabel")
 m_scoreLabel = NodePath("Top/VBoxContainer/ScoreLabel")
-m_hitStreakMultiplierLabel = NodePath("Right/StreakMultiplier/StreakMultiplierLabel")
+m_hitStreakMultiplierLabel = NodePath("Bottom/StreakMultiplier/StreakMultiplierLabel")
 m_timeLabel = NodePath("Top/VBoxContainer/TimeLabel")
 
 [node name="Left" type="VBoxContainer" parent="StatsUI"]
@@ -159,30 +164,32 @@ label_settings = SubResource("LabelSettings_trtic")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Right" type="VBoxContainer" parent="StatsUI"]
+[node name="Bottom" type="CenterContainer" parent="StatsUI"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.783
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.0160522
-grow_horizontal = 0
-grow_vertical = 2
+offset_top = -40.0
+grow_horizontal = 2
+grow_vertical = 0
 mouse_filter = 2
 
-[node name="StreakMultiplier" type="HBoxContainer" parent="StatsUI/Right"]
+[node name="StreakMultiplier" type="HBoxContainer" parent="StatsUI/Bottom"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
-alignment = 2
+alignment = 1
 
-[node name="StreakMultiplierLabel" type="Label" parent="StatsUI/Right/StreakMultiplier"]
+[node name="StreakMultiplierLabel" type="Label" parent="StatsUI/Bottom/StreakMultiplier"]
 layout_mode = 2
 text = "x1.0"
 label_settings = SubResource("LabelSettings_dinhu")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Icon" type="Label" parent="StatsUI/Right/StreakMultiplier"]
+[node name="Icon" type="Label" parent="StatsUI/Bottom/StreakMultiplier"]
 self_modulate = Color(1, 0.47843137, 0, 1)
 layout_mode = 2
 text = "C"

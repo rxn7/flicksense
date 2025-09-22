@@ -4,7 +4,13 @@
 [ext_resource type="FontFile" uid="uid://bo4a62k4lhkwv" path="res://resources/fonts/Rubik-VariableFont_wght.ttf" id="2_ll80q"]
 [ext_resource type="FontFile" uid="uid://crynp721ow4yq" path="res://resources/fonts/Rubik-Italic-VariableFont_wght.ttf" id="3_e4lyg"]
 
-[node name="Console" type="Panel" node_paths=PackedStringArray("m_output", "m_input")]
+[node name="ConsoleLayer" type="CanvasLayer" node_paths=PackedStringArray("m_output", "m_input")]
+layer = 100
+script = ExtResource("1_vh00w")
+m_output = NodePath("Console/VSplitContainer/Output")
+m_input = NodePath("Console/VSplitContainer/Input")
+
+[node name="Console" type="Panel" parent="."]
 anchors_preset = -1
 anchor_left = 0.084
 anchor_top = 0.145
@@ -16,11 +22,8 @@ offset_right = -0.232056
 offset_bottom = -0.0400391
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_vh00w")
-m_output = NodePath("VSplitContainer/Output")
-m_input = NodePath("VSplitContainer/Input")
 
-[node name="VSplitContainer" type="VSplitContainer" parent="."]
+[node name="VSplitContainer" type="VSplitContainer" parent="Console"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,7 +34,7 @@ split_offset = 412
 drag_area_offset = 6
 drag_area_highlight_in_editor = true
 
-[node name="Output" type="RichTextLabel" parent="VSplitContainer"]
+[node name="Output" type="RichTextLabel" parent="Console/VSplitContainer"]
 layout_mode = 2
 focus_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_ll80q")
@@ -50,7 +53,7 @@ selection_enabled = true
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="Input" type="LineEdit" parent="VSplitContainer"]
+[node name="Input" type="LineEdit" parent="Console/VSplitContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_e4lyg")
 theme_override_font_sizes/font_size = 32

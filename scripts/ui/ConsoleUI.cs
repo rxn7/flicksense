@@ -2,7 +2,7 @@ using Godot;
 using System.Linq;
 using System.Collections.Generic;
 
-public partial class ConsoleUI : Control {
+public partial class ConsoleUI : CanvasLayer {
 	private const int MAX_HISTORY_SIZE = 10;
 	private const int MAX_OUTPUT_PARAGRAPHS = 500;
 
