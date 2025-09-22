@@ -3,7 +3,6 @@ using Godot;
 public partial class VfxManager : Node {
 	[Export] private PackedScene m_scorePopupPrefab;
 	[Export] private PackedScene m_destroyedTargetPrefab;
-	[Export] private PackedScene m_missPopupPrefab;
 
 	private VfxPool<ScorePopupVfx> m_scorePopupPool;
 	private VfxPool<DestroyedTargetVfx> m_destroyedTargetPool;

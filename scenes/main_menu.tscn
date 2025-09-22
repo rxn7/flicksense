@@ -1,0 +1,189 @@
+[gd_scene load_steps=10 format=3 uid="uid://cavalb7rmjuo8"]
+
+[ext_resource type="Script" uid="uid://brpnj3bkjglo" path="res://scripts/ui/main_menu/MainMenu.cs" id="1_wu84c"]
+[ext_resource type="Theme" uid="uid://cpfxqinjygjld" path="res://resources/themes/main_theme.tres" id="2_8ln24"]
+[ext_resource type="FontFile" uid="uid://crynp721ow4yq" path="res://resources/fonts/Rubik-Italic-VariableFont_wght.ttf" id="3_rtw2f"]
+[ext_resource type="Script" uid="uid://45haynhc7boa" path="res://scripts/ui/main_menu/MainMenuStatsDisplay.cs" id="4_8ln24"]
+[ext_resource type="FontFile" uid="uid://cgltv2nkg35ms" path="res://resources/fonts/RubikMonoOne-Regular.ttf" id="4_oa1go"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_h61rw"]
+font = ExtResource("3_rtw2f")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_nxjfj"]
+font = ExtResource("3_rtw2f")
+
+[sub_resource type="LabelSettings" id="LabelSettings_4v6gu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fcv5n"]
+font = ExtResource("3_rtw2f")
+font_color = Color(0.61960787, 0.61960787, 0.61960787, 1)
+
+[node name="MainMenu" type="CanvasLayer" node_paths=PackedStringArray("m_versionLabel", "m_playButton", "m_settingsButton", "m_exitButton")]
+script = ExtResource("1_wu84c")
+m_versionLabel = NodePath("Version")
+m_playButton = NodePath("MainMenu/HBoxContainer/Mid/Play")
+m_settingsButton = NodePath("MainMenu/HBoxContainer/Mid/Settings")
+m_exitButton = NodePath("MainMenu/HBoxContainer/Mid/Exit")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07058824, 0.07058824, 0.07058824, 1)
+
+[node name="MainMenu" type="CenterContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.117000006
+anchor_right = 0.97200006
+anchor_bottom = 0.95100003
+offset_left = 0.19999886
+offset_top = 0.18399811
+offset_right = 3.2559814
+offset_bottom = -0.24804688
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_8ln24")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu"]
+layout_mode = 2
+theme_override_constants/separation = 70
+alignment = 1
+
+[node name="Left" type="VBoxContainer" parent="MainMenu/HBoxContainer"]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 2
+theme = ExtResource("2_8ln24")
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Stats" type="Label" parent="MainMenu/HBoxContainer/Left"]
+layout_mode = 2
+text = "Stats"
+label_settings = SubResource("LabelSettings_h61rw")
+vertical_alignment = 1
+
+[node name="StatsDisplay" type="VBoxContainer" parent="MainMenu/HBoxContainer/Left" node_paths=PackedStringArray("m_averageAccuracyLabel", "m_bestStreakLabel", "m_averageScoreLabel", "m_bestScore", "m_longestSurvivedLabel")]
+layout_mode = 2
+theme_override_constants/separation = 24
+script = ExtResource("4_8ln24")
+m_averageAccuracyLabel = NodePath("General/AverageAccuracy")
+m_bestStreakLabel = NodePath("General/BestStreak")
+m_averageScoreLabel = NodePath("Endless Mode/AverageScore")
+m_bestScore = NodePath("Endless Mode/BestScoreEndless")
+m_longestSurvivedLabel = NodePath("Survival Mode/LongestSurvived")
+
+[node name="General" type="VBoxContainer" parent="MainMenu/HBoxContainer/Left/StatsDisplay"]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="MainMenu/HBoxContainer/Left/StatsDisplay/General"]
+layout_mode = 2
+text = "General"
+label_settings = SubResource("LabelSettings_nxjfj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AverageAccuracy" type="Label" parent="MainMenu/HBoxContainer/Left/StatsDisplay/General"]
+layout_mode = 2
+text = "Average accuracy: 0%"
+label_settings = SubResource("LabelSettings_4v6gu")
+
+[node name="BestStreak" type="Label" parent="MainMenu/HBoxContainer/Left/StatsDisplay/General"]
+layout_mode = 2
+text = "Best streak: 0"
+label_settings = SubResource("LabelSettings_4v6gu")
+
+[node name="Endless Mode" type="VBoxContainer" parent="MainMenu/HBoxContainer/Left/StatsDisplay"]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="MainMenu/HBoxContainer/Left/StatsDisplay/Endless Mode"]
+layout_mode = 2
+text = "Endless Mode"
+label_settings = SubResource("LabelSettings_nxjfj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AverageScore" type="Label" parent="MainMenu/HBoxContainer/Left/StatsDisplay/Endless Mode"]
+layout_mode = 2
+text = "Average score: 0"
+label_settings = SubResource("LabelSettings_4v6gu")
+
+[node name="BestScoreEndless" type="Label" parent="MainMenu/HBoxContainer/Left/StatsDisplay/Endless Mode"]
+layout_mode = 2
+text = "Best score: 0"
+label_settings = SubResource("LabelSettings_4v6gu")
+
+[node name="Survival Mode" type="VBoxContainer" parent="MainMenu/HBoxContainer/Left/StatsDisplay"]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="MainMenu/HBoxContainer/Left/StatsDisplay/Survival Mode"]
+layout_mode = 2
+text = "Survival Mode"
+label_settings = SubResource("LabelSettings_nxjfj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LongestSurvived" type="Label" parent="MainMenu/HBoxContainer/Left/StatsDisplay/Survival Mode"]
+layout_mode = 2
+text = "Longest survived: 0:00.0"
+label_settings = SubResource("LabelSettings_4v6gu")
+
+[node name="Mid" type="VBoxContainer" parent="MainMenu/HBoxContainer"]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 2
+theme = ExtResource("2_8ln24")
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Play" type="Button" parent="MainMenu/HBoxContainer/Mid"]
+layout_mode = 2
+text = "Play"
+
+[node name="Settings" type="Button" parent="MainMenu/HBoxContainer/Mid"]
+layout_mode = 2
+disabled = true
+text = "Settings"
+
+[node name="Exit" type="Button" parent="MainMenu/HBoxContainer/Mid"]
+layout_mode = 2
+text = "Exit"
+
+[node name="Right" type="VBoxContainer" parent="MainMenu/HBoxContainer"]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 2
+theme = ExtResource("2_8ln24")
+
+[node name="Title" type="RichTextLabel" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("4_oa1go")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[tornado radius=2.0 freq=2.0 connected=1]FlickSense"
+scroll_active = false
+autowrap_trim_flags = 0
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 0
+meta_underlined = false
+hint_underlined = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="Version" type="Label" parent="."]
+anchors_preset = -1
+anchor_top = 0.093
+anchor_right = 1.0
+anchor_bottom = 0.10700001
+offset_top = -0.26399994
+offset_bottom = 9.671989
+grow_horizontal = 2
+text = "v{VERSION}"
+label_settings = SubResource("LabelSettings_fcv5n")
+horizontal_alignment = 1

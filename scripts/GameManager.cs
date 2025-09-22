@@ -5,18 +5,22 @@ public partial class GameManager : Node {
 	[Export] private ShootManager m_shootManager;
 	[Export] private SfxManager m_sfxManager;
 	[Export] private VfxManager m_vfxManager;
-	[Export] private StatsUI m_statsUI;
+	[Export] private Hud m_hud;
 	[Export] private ScoreManager m_scoreManager;
 
 	private ulong m_startTimeMs = 0;
 
 	public override void _Ready() {
+		Global.Instance.ConsoleUI.onHide += () => {
+			Input.MouseMode = Input.MouseModeEnum.Captured;
+		};
+
 		m_shootManager.onShoot += OnShoot;
 		m_shootManager.onTargetHit += OnTargetHit;
 
-		m_scoreManager.updated += () => m_statsUI.UpdateStats(m_scoreManager);
-		m_scoreManager.scoreAdded += m_statsUI.UpdateScore;
-		m_scoreManager.streakMultiplierChanged += m_statsUI.UpdateHitStreakMultiplier;
+		m_scoreManager.onUpdated += () => m_hud.UpdateStats(m_scoreManager);
+		m_scoreManager.onScoreAdded += m_hud.UpdateScore;
+		m_scoreManager.onStreakMultiplierChanged += m_hud.UpdateHitStreakMultiplier;
 
 		Reset();
 	}
@@ -33,7 +37,7 @@ public partial class GameManager : Node {
 
 	private void Reset() {
 		m_startTimeMs = Time.GetTicksMsec();
-		m_statsUI.SetStartTime(m_startTimeMs);
+		m_hud.Reset(m_startTimeMs);
 
 		m_targetManager.Reset();
 		m_scoreManager.Reset();

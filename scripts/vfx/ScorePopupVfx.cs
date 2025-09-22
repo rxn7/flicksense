@@ -4,7 +4,7 @@ using System;
 public partial class ScorePopupVfx : Label3D, IVfxObject {
 	private const ulong DURATION_MS = 500;
 
-	public event Action finished;
+	public event Action onFinish;
 
 	[Export] private Gradient m_colorGradient;
 	private ulong m_finishTimeMs = 0;
@@ -18,7 +18,7 @@ public partial class ScorePopupVfx : Label3D, IVfxObject {
 		if(Time.GetTicksMsec() >= m_finishTimeMs) {
 			Visible = false;
 			ProcessMode = ProcessModeEnum.Disabled;
-			finished?.Invoke();
+			onFinish?.Invoke();
 			return;
 		}
 

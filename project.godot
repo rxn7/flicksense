@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="FlickSense"
-run/main_scene="uid://b2mq0co28h1rx"
+config/version="0.3"
+run/main_scene="uid://cavalb7rmjuo8"
 config/features=PackedStringArray("4.5", "C#", "Mobile")
 boot_splash/use_filter=false
 config/icon="res://icon.svg"

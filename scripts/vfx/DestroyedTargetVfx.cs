@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 public partial class DestroyedTargetVfx : GpuParticles3D, IVfxObject {
-	public event Action finished;
+	public event Action onFinish;
 
 	private RandomNumberGenerator m_rng = new();
 	private ulong m_finishTimeMs;
@@ -15,7 +15,7 @@ public partial class DestroyedTargetVfx : GpuParticles3D, IVfxObject {
 	public override void _PhysicsProcess(double delta) {
 		if(Time.GetTicksMsec() >= m_finishTimeMs) {
 			Reset();
-			finished?.Invoke();
+			onFinish?.Invoke();
 		}
 	}
 

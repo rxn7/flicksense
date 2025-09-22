@@ -19,6 +19,16 @@ public partial class ScoreLabel : Label {
 		RotationDegrees = Spring(RotationDegrees, 0.0f, ref m_rotationVelocity, m_rotationSpringFreq, (float)delta);
 	}
 
+	public void Reset() {
+		Text = "0";
+
+		m_scaleVelocity = 0.0f;
+		m_rotationVelocity = 0.0f;
+
+		Scale = Vector2.One;
+		RotationDegrees = 0.0f;
+	}
+
 	public void UpdateScore(ulong score, ulong scoreAdded) {
 		Text = score.ToString();
 

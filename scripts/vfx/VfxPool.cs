@@ -35,7 +35,7 @@ public class VfxPool<T> where T : Node3D, IVfxObject {
 
 		T obj = m_prefab.Instantiate<T>();
 		m_parent.AddChild(obj);
-		obj.finished += () => Push(obj);
+		obj.onFinish += () => Push(obj);
 
 		m_pool.Push(obj);
 	}

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cg0n86m4didin"]
+[gd_scene load_steps=5 format=3 uid="uid://cg0n86m4didin"]
 
 [ext_resource type="Script" uid="uid://56dsxi6r4qsy" path="res://scripts/ui/ConsoleUI.cs" id="1_vh00w"]
 [ext_resource type="FontFile" uid="uid://bo4a62k4lhkwv" path="res://resources/fonts/Rubik-VariableFont_wght.ttf" id="2_ll80q"]
+[ext_resource type="Theme" uid="uid://cpfxqinjygjld" path="res://resources/themes/main_theme.tres" id="2_nv40g"]
 [ext_resource type="FontFile" uid="uid://crynp721ow4yq" path="res://resources/fonts/Rubik-Italic-VariableFont_wght.ttf" id="3_e4lyg"]
 
 [node name="ConsoleLayer" type="CanvasLayer" node_paths=PackedStringArray("m_output", "m_input")]
@@ -22,6 +23,7 @@ offset_right = -0.232056
 offset_bottom = -0.0400391
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_nv40g")
 
 [node name="VSplitContainer" type="VSplitContainer" parent="Console"]
 layout_mode = 1

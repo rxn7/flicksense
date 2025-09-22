@@ -1,16 +1,17 @@
 [gd_scene load_steps=13 format=3 uid="uid://sd1xhfph0usx"]
 
-[ext_resource type="Script" uid="uid://c6msgkj7kiq8c" path="res://scripts/ui/Crosshair.cs" id="1_mj13f"]
+[ext_resource type="Script" uid="uid://c6msgkj7kiq8c" path="res://scripts/ui/hud/Crosshair.cs" id="1_mj13f"]
 [ext_resource type="FontFile" uid="uid://crynp721ow4yq" path="res://resources/fonts/Rubik-Italic-VariableFont_wght.ttf" id="2_0h1do"]
-[ext_resource type="Script" uid="uid://bihwgg30el1yp" path="res://scripts/ui/FpsCounter.cs" id="3_4d46k"]
-[ext_resource type="Script" uid="uid://caqqydkkhb2pr" path="res://scripts/ui/StatsUI.cs" id="4_erw67"]
+[ext_resource type="Script" uid="uid://bihwgg30el1yp" path="res://scripts/ui/hud/FpsCounter.cs" id="3_4d46k"]
+[ext_resource type="Script" uid="uid://caqqydkkhb2pr" path="res://scripts/ui/hud/Hud.cs" id="4_erw67"]
 [ext_resource type="LabelSettings" uid="uid://jlc61f56b440" path="res://resources/label_settings/icon_label_settings.tres" id="5_kicr4"]
 [ext_resource type="FontFile" uid="uid://bo4a62k4lhkwv" path="res://resources/fonts/Rubik-VariableFont_wght.ttf" id="6_cwdlq"]
-[ext_resource type="Script" uid="uid://dnggbnlytitqc" path="res://scripts/ui/ScoreLabel.cs" id="8_h022r"]
+[ext_resource type="Script" uid="uid://dnggbnlytitqc" path="res://scripts/ui/hud/ScoreLabel.cs" id="8_h022r"]
 [ext_resource type="FontFile" uid="uid://cgltv2nkg35ms" path="res://resources/fonts/RubikMonoOne-Regular.ttf" id="9_65nxt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pl11u"]
 font = ExtResource("2_0h1do")
+font_color = Color(0.61960787, 0.61960787, 0.61960787, 1)
 shadow_size = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_dinhu"]
@@ -26,7 +27,14 @@ shadow_size = 0
 font = ExtResource("9_65nxt")
 font_size = 32
 
-[node name="HUD" type="CanvasLayer"]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_hitStreakMultiplierLabel", "m_timeLabel", "m_scoreLabel")]
+script = ExtResource("4_erw67")
+m_missesLabel = NodePath("Stats/Left/Misses/MissCountLabel")
+m_hitsLabel = NodePath("Stats/Left/Hits/HitCountLabel")
+m_accuracyLabel = NodePath("Stats/Left/Accuracy/AccuracyLabel")
+m_hitStreakMultiplierLabel = NodePath("Stats/Top/VBoxContainer/StreakMultiplier/StreakMultiplierLabel")
+m_timeLabel = NodePath("Stats/Bottom/TimeLabel")
+m_scoreLabel = NodePath("Stats/Top/VBoxContainer/Score/ScoreLabel")
 
 [node name="Crosshair" type="CenterContainer" parent="."]
 anchors_preset = 8
@@ -56,7 +64,7 @@ label_settings = SubResource("LabelSettings_pl11u")
 vertical_alignment = 2
 script = ExtResource("3_4d46k")
 
-[node name="StatsUI" type="Control" parent="." node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_hitStreakMultiplierLabel", "m_timeLabel", "m_scoreLabel")]
+[node name="Stats" type="Control" parent="."]
 layout_mode = 3
 anchor_left = 0.007
 anchor_top = 0.012
@@ -69,15 +77,8 @@ offset_bottom = -0.22399902
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("4_erw67")
-m_missesLabel = NodePath("Left/Misses/MissCountLabel")
-m_hitsLabel = NodePath("Left/Hits/HitCountLabel")
-m_accuracyLabel = NodePath("Left/Accuracy/AccuracyLabel")
-m_hitStreakMultiplierLabel = NodePath("Top/VBoxContainer/StreakMultiplier/StreakMultiplierLabel")
-m_timeLabel = NodePath("Bottom/TimeLabel")
-m_scoreLabel = NodePath("Top/VBoxContainer/Score/ScoreLabel")
 
-[node name="Left" type="VBoxContainer" parent="StatsUI"]
+[node name="Left" type="VBoxContainer" parent="Stats"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.217
@@ -86,58 +87,58 @@ offset_right = 0.0159912
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Hits" type="HBoxContainer" parent="StatsUI/Left"]
+[node name="Hits" type="HBoxContainer" parent="Stats/Left"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 
-[node name="Icon" type="Label" parent="StatsUI/Left/Hits"]
+[node name="Icon" type="Label" parent="Stats/Left/Hits"]
 self_modulate = Color(0, 1, 0, 1)
 layout_mode = 2
 text = "H"
 label_settings = ExtResource("5_kicr4")
 
-[node name="HitCountLabel" type="Label" parent="StatsUI/Left/Hits"]
+[node name="HitCountLabel" type="Label" parent="Stats/Left/Hits"]
 layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_dinhu")
 
-[node name="Misses" type="HBoxContainer" parent="StatsUI/Left"]
+[node name="Misses" type="HBoxContainer" parent="Stats/Left"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 
-[node name="Icon" type="Label" parent="StatsUI/Left/Misses"]
+[node name="Icon" type="Label" parent="Stats/Left/Misses"]
 self_modulate = Color(1, 0, 0, 1)
 layout_mode = 2
 text = "X"
 label_settings = ExtResource("5_kicr4")
 
-[node name="MissCountLabel" type="Label" parent="StatsUI/Left/Misses"]
+[node name="MissCountLabel" type="Label" parent="Stats/Left/Misses"]
 layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_dinhu")
 
-[node name="Accuracy" type="HBoxContainer" parent="StatsUI/Left"]
+[node name="Accuracy" type="HBoxContainer" parent="Stats/Left"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 
-[node name="Icon" type="Label" parent="StatsUI/Left/Accuracy"]
+[node name="Icon" type="Label" parent="Stats/Left/Accuracy"]
 self_modulate = Color(1, 1, 0, 1)
 layout_mode = 2
 text = "A"
 label_settings = ExtResource("5_kicr4")
 
-[node name="AccuracyLabel" type="Label" parent="StatsUI/Left/Accuracy"]
+[node name="AccuracyLabel" type="Label" parent="Stats/Left/Accuracy"]
 layout_mode = 2
 text = "100%"
 label_settings = SubResource("LabelSettings_dinhu")
 
-[node name="Top" type="CenterContainer" parent="StatsUI"]
+[node name="Top" type="CenterContainer" parent="Stats"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.182
@@ -149,24 +150,24 @@ offset_bottom = -54.176
 grow_horizontal = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="StatsUI/Top"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats/Top"]
 layout_mode = 2
 
-[node name="StreakMultiplier" type="HBoxContainer" parent="StatsUI/Top/VBoxContainer"]
+[node name="StreakMultiplier" type="HBoxContainer" parent="Stats/Top/VBoxContainer"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="StreakMultiplierLabel" type="Label" parent="StatsUI/Top/VBoxContainer/StreakMultiplier"]
+[node name="StreakMultiplierLabel" type="Label" parent="Stats/Top/VBoxContainer/StreakMultiplier"]
 layout_mode = 2
 text = "x1.0"
 label_settings = SubResource("LabelSettings_dinhu")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Icon" type="Label" parent="StatsUI/Top/VBoxContainer/StreakMultiplier"]
+[node name="Icon" type="Label" parent="Stats/Top/VBoxContainer/StreakMultiplier"]
 self_modulate = Color(1, 0.47843137, 0, 1)
 layout_mode = 2
 text = "C"
@@ -174,11 +175,11 @@ label_settings = ExtResource("5_kicr4")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Score" type="Control" parent="StatsUI/Top/VBoxContainer"]
+[node name="Score" type="Control" parent="Stats/Top/VBoxContainer"]
 custom_minimum_size = Vector2(1136, 57)
 layout_mode = 2
 
-[node name="ScoreLabel" type="Label" parent="StatsUI/Top/VBoxContainer/Score"]
+[node name="ScoreLabel" type="Label" parent="Stats/Top/VBoxContainer/Score"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -195,7 +196,7 @@ autowrap_trim_flags = 0
 justification_flags = 0
 script = ExtResource("8_h022r")
 
-[node name="Bottom" type="CenterContainer" parent="StatsUI"]
+[node name="Bottom" type="CenterContainer" parent="Stats"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -206,7 +207,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="TimeLabel" type="Label" parent="StatsUI/Bottom"]
+[node name="TimeLabel" type="Label" parent="Stats/Bottom"]
 layout_mode = 2
 text = "00:00.000"
 label_settings = SubResource("LabelSettings_qnb83")

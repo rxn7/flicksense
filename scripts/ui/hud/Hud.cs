@@ -1,6 +1,7 @@
 using Godot;
 
-public partial class StatsUI : Control {
+[GlobalClass]
+public partial class Hud : CanvasLayer {
 	[Export] private Label m_missesLabel;
 	[Export] private Label m_hitsLabel;
 	[Export] private Label m_accuracyLabel;
@@ -30,8 +31,9 @@ public partial class StatsUI : Control {
 		m_hitStreakMultiplierLabel.Text = $"x{multiplier:0.00}";
 	}
 
-	public void SetStartTime(ulong startTimeMs) {
+	public void Reset(ulong startTimeMs) {
 		m_startTimeMs = startTimeMs;
+		m_scoreLabel.Reset();
 	}
 
 	private void UpdateTime() {
@@ -41,6 +43,6 @@ public partial class StatsUI : Control {
 		ulong seconds = ((nowMs - m_startTimeMs) / 1000) % 60;
 		ulong milliseconds = (nowMs - m_startTimeMs) % 1000;
 
-		m_timeLabel.Text = $"{minutesElapsed:00}:{seconds:00}.{milliseconds:000}";
+		m_timeLabel.Text = $"{minutesElapsed:0}:{seconds:00}.{milliseconds:000}";
 	}
 }

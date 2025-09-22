@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b2mq0co28h1rx"]
+[gd_scene load_steps=28 format=3 uid="uid://b2mq0co28h1rx"]
 
 [ext_resource type="Script" uid="uid://d36p55xklbfba" path="res://scripts/GameManager.cs" id="1_iywne"]
 [ext_resource type="Script" uid="uid://draa8bbkor4um" path="res://scripts/TargetManager.cs" id="1_uwrxv"]
@@ -58,65 +58,13 @@ transform_format = 1
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_gee14"]
 
-[sub_resource type="CSharpScript" id="CSharpScript_pl11u"]
-script/source = "using Godot;
-using System;
-
-public partial class MissPopupVfx : Sprite3D, IVfxObject {
-	public event Action finished;
-	private const ulong DURATION_MS = 500;
-
-	private ulong m_finishTimeMs = 0;
-
-	public override void _Ready() {
-		ProcessMode = ProcessModeEnum.Disabled;
-		Visible = false;
-	}
-
-	public override void _Process(double delta) {
-		if(Time.GetTicksMsec() >= m_finishTimeMs) {
-			Visible = false;
-			ProcessMode = ProcessModeEnum.Disabled;
-			finished?.Invoke();
-			return;
-		}
-
-		float elapsedRatio = 1.0f - (float)(m_finishTimeMs - Time.GetTicksMsec()) / DURATION_MS;
-		Modulate = new Color(1.0f, 1.0f, 1.0f, 1.0f - elapsedRatio);
-	}
-
-	public void Show(Vector3 position) {
-		ProcessMode = ProcessModeEnum.Inherit;
-		m_finishTimeMs = Time.GetTicksMsec() + DURATION_MS;
-
-		Modulate = Colors.White;
-
-		Visible = true;
-		GlobalPosition = position;
-	}
-}
-"
-
-[sub_resource type="PackedScene" id="PackedScene_bhx41"]
-_bundled = {
-"conn_count": 0,
-"conns": PackedInt32Array(),
-"editable_instances": [],
-"names": PackedStringArray("MissPopupVfx", "billboard", "fixed_size", "texture_filter", "script", "Label3D"),
-"node_count": 1,
-"node_paths": [],
-"nodes": PackedInt32Array(-1, -1, 5, 0, -1, 4, 1, 0, 2, 1, 3, 2, 4, 3, 0),
-"variants": [1, true, 0, SubResource("CSharpScript_pl11u")],
-"version": 3
-}
-
-[node name="Game" type="Node" node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager", "m_vfxManager", "m_statsUI", "m_scoreManager")]
+[node name="Game" type="Node" node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager", "m_vfxManager", "m_hud", "m_scoreManager")]
 script = ExtResource("1_iywne")
 m_targetManager = NodePath("TargetManager")
 m_shootManager = NodePath("ShootManager")
 m_sfxManager = NodePath("SfxManager")
 m_vfxManager = NodePath("VfxManager")
-m_statsUI = NodePath("HUD/StatsUI")
+m_hud = NodePath("HUD")
 m_scoreManager = NodePath("ScoreManager")
 
 [node name="World" type="Node" parent="."]
@@ -234,7 +182,6 @@ m_sounds = Dictionary[int, AudioStream]({
 script = ExtResource("8_264po")
 m_scorePopupPrefab = ExtResource("10_37s47")
 m_destroyedTargetPrefab = ExtResource("18_ssvqc")
-m_missPopupPrefab = SubResource("PackedScene_bhx41")
 
 [node name="ShootManager" type="Node" parent="." node_paths=PackedStringArray("m_camera")]
 script = ExtResource("5_p57ef")
@@ -251,5 +198,3 @@ far = 100.0
 script = ExtResource("3_lnu2h")
 
 [node name="HUD" parent="." instance=ExtResource("15_ir15t")]
-
-[editable path="HUD"]
