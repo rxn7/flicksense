@@ -16,14 +16,14 @@ shadow_size = 0
 font = ExtResource("9_65nxt")
 font_size = 32
 
-[sub_resource type="LabelSettings" id="LabelSettings_qnb83"]
-font = ExtResource("9_65nxt")
-font_size = 32
-
 [sub_resource type="LabelSettings" id="LabelSettings_trtic"]
 font = ExtResource("6_cwdlq")
 font_size = 48
 shadow_size = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_qnb83"]
+font = ExtResource("9_65nxt")
+font_size = 32
 
 [node name="HUD" type="CanvasLayer"]
 
@@ -73,8 +73,8 @@ m_missesLabel = NodePath("Left/Misses/MissCountLabel")
 m_hitsLabel = NodePath("Left/Hits/HitCountLabel")
 m_accuracyLabel = NodePath("Left/Accuracy/AccuracyLabel")
 m_scoreLabel = NodePath("Top/VBoxContainer/ScoreLabel")
-m_hitStreakMultiplierLabel = NodePath("Bottom/StreakMultiplier/StreakMultiplierLabel")
-m_timeLabel = NodePath("Top/VBoxContainer/TimeLabel")
+m_hitStreakMultiplierLabel = NodePath("Top/VBoxContainer/StreakMultiplier/StreakMultiplierLabel")
+m_timeLabel = NodePath("Bottom/TimeLabel")
 
 [node name="Left" type="VBoxContainer" parent="StatsUI"]
 layout_mode = 1
@@ -151,10 +151,26 @@ mouse_filter = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="StatsUI/Top"]
 layout_mode = 2
 
-[node name="TimeLabel" type="Label" parent="StatsUI/Top/VBoxContainer"]
+[node name="StreakMultiplier" type="HBoxContainer" parent="StatsUI/Top/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-text = "00:00.000"
-label_settings = SubResource("LabelSettings_qnb83")
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="StreakMultiplierLabel" type="Label" parent="StatsUI/Top/VBoxContainer/StreakMultiplier"]
+layout_mode = 2
+text = "x1.0"
+label_settings = SubResource("LabelSettings_dinhu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icon" type="Label" parent="StatsUI/Top/VBoxContainer/StreakMultiplier"]
+self_modulate = Color(1, 0.47843137, 0, 1)
+layout_mode = 2
+text = "C"
+label_settings = ExtResource("5_kicr4")
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="StatsUI/Top/VBoxContainer"]
@@ -175,24 +191,8 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="StreakMultiplier" type="HBoxContainer" parent="StatsUI/Bottom"]
-custom_minimum_size = Vector2(250, 0)
+[node name="TimeLabel" type="Label" parent="StatsUI/Bottom"]
 layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="StreakMultiplierLabel" type="Label" parent="StatsUI/Bottom/StreakMultiplier"]
-layout_mode = 2
-text = "x1.0"
-label_settings = SubResource("LabelSettings_dinhu")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Icon" type="Label" parent="StatsUI/Bottom/StreakMultiplier"]
-self_modulate = Color(1, 0.47843137, 0, 1)
-layout_mode = 2
-text = "C"
-label_settings = ExtResource("5_kicr4")
-horizontal_alignment = 1
+text = "00:00.000"
+label_settings = SubResource("LabelSettings_qnb83")
 vertical_alignment = 1

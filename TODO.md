@@ -1,4 +1,4 @@
 - Game modes:
-    - Endless
-    - Time limit
-    - Survival (timer goes down, each hit increases the timer) 
+	- Endless
+	- Time limit
+	- Survival (timer goes down, each hit increases the timer) 
