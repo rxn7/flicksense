@@ -15,6 +15,7 @@ public partial class GameManager : Node {
 		m_shootManager.onTargetHit += OnTargetHit;
 
 		m_scoreManager.updated += () => m_statsUI.UpdateStats(m_scoreManager);
+		m_scoreManager.scoreAdded += m_statsUI.UpdateScore;
 		m_scoreManager.streakMultiplierChanged += m_statsUI.UpdateHitStreakMultiplier;
 
 		Reset();

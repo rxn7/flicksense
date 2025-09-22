@@ -2,18 +2,19 @@ using Godot;
 
 public partial class ScoreManager : Node {
 	public event System.Action updated;
+	public event System.Action<ulong, ulong> scoreAdded;
 	public event System.Action<float> streakMultiplierChanged;
 
-	private const int BASE_HIT_POINTS = 10;
+	public const int BASE_HIT_POINTS = 10;
 
-	private const int MAX_ELAPSED_MS = 500;
-	private const int MIN_ELAPSED_MS = 100;
-	private const int MAX_TIME_BONUS = 50;
-	private const int MIN_TIME_BONUS = 10;
+	public const int MAX_ELAPSED_MS = 500;
+	public const int MIN_ELAPSED_MS = 100;
+	public const int MAX_TIME_BONUS = 50;
+	public const int MIN_TIME_BONUS = 10;
 
-	private const float MAX_STREAK_MULTIPLIER = 5.0f;
-	private const ulong STREAK_REDUCTION_INTERVAL_MS = 100;
-	private const float STREAK_REDUCTION_AMOUNT = 0.01f;
+	public const float MAX_STREAK_MULTIPLIER = 5.0f;
+	public const ulong STREAK_REDUCTION_INTERVAL_MS = 100;
+	public const float STREAK_REDUCTION_AMOUNT = 0.01f;
 
 	private Stats m_stats;
 	private float m_streakMultiplier = 1.0f;
@@ -59,9 +60,11 @@ public partial class ScoreManager : Node {
 		float reactionTimeRatio = (float)(nowMs - m_lastHitTimeMs) / (MAX_ELAPSED_MS - MIN_ELAPSED_MS);
 
 		ulong baseScore = BASE_HIT_POINTS + CalculateReactionTimeBonus(nowMs);
-		ulong scoreAdded = (ulong)(baseScore * m_streakMultiplier);
-		m_stats.Score += scoreAdded;
+		ulong addedScore = (ulong)(baseScore * m_streakMultiplier);
 
+		m_stats.Score += addedScore;
+
+		scoreAdded?.Invoke(m_stats.Score, addedScore);
 		updated?.Invoke();
 
 		m_streakMultiplier = Mathf.Min(m_streakMultiplier + 0.1f, MAX_STREAK_MULTIPLIER);
@@ -69,7 +72,7 @@ public partial class ScoreManager : Node {
 
 		m_lastHitTimeMs = nowMs;
 
-		return (scoreAdded, reactionTimeRatio);
+		return (addedScore, reactionTimeRatio);
 	}
 
 	public void Reset() {

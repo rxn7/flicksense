@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://sd1xhfph0usx"]
+[gd_scene load_steps=13 format=3 uid="uid://sd1xhfph0usx"]
 
 [ext_resource type="Script" uid="uid://c6msgkj7kiq8c" path="res://scripts/ui/Crosshair.cs" id="1_mj13f"]
 [ext_resource type="FontFile" uid="uid://crynp721ow4yq" path="res://resources/fonts/Rubik-Italic-VariableFont_wght.ttf" id="2_0h1do"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://caqqydkkhb2pr" path="res://scripts/ui/StatsUI.cs" id="4_erw67"]
 [ext_resource type="LabelSettings" uid="uid://jlc61f56b440" path="res://resources/label_settings/icon_label_settings.tres" id="5_kicr4"]
 [ext_resource type="FontFile" uid="uid://bo4a62k4lhkwv" path="res://resources/fonts/Rubik-VariableFont_wght.ttf" id="6_cwdlq"]
+[ext_resource type="Script" uid="uid://dnggbnlytitqc" path="res://scripts/ui/ScoreLabel.cs" id="8_h022r"]
 [ext_resource type="FontFile" uid="uid://cgltv2nkg35ms" path="res://resources/fonts/RubikMonoOne-Regular.ttf" id="9_65nxt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pl11u"]
@@ -55,7 +56,7 @@ label_settings = SubResource("LabelSettings_pl11u")
 vertical_alignment = 2
 script = ExtResource("3_4d46k")
 
-[node name="StatsUI" type="Control" parent="." node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_scoreLabel", "m_hitStreakMultiplierLabel", "m_timeLabel")]
+[node name="StatsUI" type="Control" parent="." node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_hitStreakMultiplierLabel", "m_timeLabel", "m_scoreLabel")]
 layout_mode = 3
 anchor_left = 0.007
 anchor_top = 0.012
@@ -72,9 +73,9 @@ script = ExtResource("4_erw67")
 m_missesLabel = NodePath("Left/Misses/MissCountLabel")
 m_hitsLabel = NodePath("Left/Hits/HitCountLabel")
 m_accuracyLabel = NodePath("Left/Accuracy/AccuracyLabel")
-m_scoreLabel = NodePath("Top/VBoxContainer/ScoreLabel")
 m_hitStreakMultiplierLabel = NodePath("Top/VBoxContainer/StreakMultiplier/StreakMultiplierLabel")
 m_timeLabel = NodePath("Bottom/TimeLabel")
+m_scoreLabel = NodePath("Top/VBoxContainer/Score/ScoreLabel")
 
 [node name="Left" type="VBoxContainer" parent="StatsUI"]
 layout_mode = 1
@@ -173,12 +174,26 @@ label_settings = ExtResource("5_kicr4")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="StatsUI/Top/VBoxContainer"]
+[node name="Score" type="Control" parent="StatsUI/Top/VBoxContainer"]
+custom_minimum_size = Vector2(1136, 57)
 layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="StatsUI/Top/VBoxContainer/Score"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(568, 28.5)
+localize_numeral_system = false
 text = "0"
 label_settings = SubResource("LabelSettings_trtic")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("8_h022r")
 
 [node name="Bottom" type="CenterContainer" parent="StatsUI"]
 layout_mode = 1
