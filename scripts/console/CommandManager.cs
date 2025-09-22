@@ -29,7 +29,7 @@ public class CommandManager {
 
 	public string Execute(string command, string[] args) {
 		if(!Commands.ContainsKey(command)) {
-			Logger.Error($"Unknown command: {command}");
+			Logger.Error($"Unknown command: {command}, type 'help' for a list of commands");
 			return null;
 		}
 
