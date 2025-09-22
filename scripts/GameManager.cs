@@ -56,8 +56,7 @@ public partial class GameManager : Node {
 
 		m_vfxManager.ExplodeTarget(target.GlobalPosition, hitPoint, shootDir);
 
-		int gridIdx = target.gridIdx;
 		m_targetManager.HideTarget(target);
-		m_targetManager.ShowRandomTarget(gridIdx);
+		m_targetManager.ShowTarget();
 	}
 }

@@ -4,13 +4,12 @@ using System;
 public partial class DestroyedTargetVfx : GpuParticles3D, IVfxObject {
 	public event Action finished;
 
-	private RandomNumberGenerator m_rng;
+	private RandomNumberGenerator m_rng = new();
 	private ulong m_finishTimeMs;
 
 	public override void _Ready() {
 		Reset();
 		Visible = false;
-		m_rng = new();
 	}
 
 	public override void _PhysicsProcess(double delta) {

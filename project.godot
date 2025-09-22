@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://scripts/Global.cs"
+DebugDraw="*res://addons/debug_drawing/DebugDraw.cs"
 
 [display]
 
@@ -32,6 +33,10 @@ project/assembly_name="FlickSense"
 [editor]
 
 movie_writer/movie_file="/home/rxn/flicksense/est.avi"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/debug_drawing/plugin.cfg")
 
 [input]
 

@@ -2,43 +2,37 @@ using Godot;
 using System.Collections.Generic;
 
 [GlobalClass]
-public partial class TargetManager : Node {
+public partial class TargetManager : Node3D {
+	private const int MAX_VISIBLE_TARGETS = 5;
+
+	[Export(PropertyHint.Layers3DPhysics)] private uint m_spawnCheckCollisionMask;
+	[Export] private float m_minSpawnDistance = 2.0f;
+	[Export] private CollisionShape3D m_spawnAreaShapeOwner;
 	[Export] private PackedScene m_targetPrefab;
 	[Export] private Mesh m_targetMesh;
 
-	private const int MAX_VISIBLE_TARGETS = 3;
-	private const int GRID_WIDTH = 10;
-	private const int GRID_HEIGHT = 5;
-	private const float GRID_TOTAL_WIDTH = GRID_WIDTH * 0.5f;
-	private const float GRID_TOTAL_HEIGHT = GRID_HEIGHT * 0.5f;
-
+	private RandomNumberGenerator m_rng = new();
 	private MultiMeshInstance3D m_multiMeshInstance;
+	private BoxShape3D m_spawnAreaShape;
+	private SphereShape3D m_targetShape;
 
-	private Target[] m_targetGrid = new Target[GRID_WIDTH * GRID_HEIGHT]; // null = empty
 	private Target[] m_targets = new Target[MAX_VISIBLE_TARGETS];
 	private Stack<Target> m_freeTargets = new(MAX_VISIBLE_TARGETS);
+	
+	private Vector3 m_lastTargetPosition;
 
 	public override void _Ready() {
+		m_spawnAreaShape = m_spawnAreaShapeOwner.Shape as BoxShape3D;
+		m_lastTargetPosition = m_spawnAreaShapeOwner.GlobalPosition;
+
 		InitMultiMesh();
 
 		InitTargets();
 		Reset();
 	}
 
-	public void ShowRandomTarget(int except) {
-		while(true) {
-			int idx = (int)(GD.Randi() % (GRID_WIDTH * GRID_HEIGHT));
-
-			if(idx != except && TryShowTarget(idx)) {
-				break;
-			}
-		}
-	}
-
 	public void HideTarget(Target target) {
-		m_targetGrid[target.gridIdx] = null;
 		m_freeTargets.Push(target);
-
 		target.Reset();
 	}
 
@@ -49,46 +43,64 @@ public partial class TargetManager : Node {
 			m_freeTargets.Push(target);
 		}
 
-		ShowRandomTargets();
+		ShowTargets();
 	}
 
 
-	private void ShowRandomTargets() {
-		while(m_freeTargets.Count > 0) {
-			int gridIdx = (int)(GD.Randi() % (GRID_WIDTH * GRID_HEIGHT));
-			TryShowTarget(gridIdx);
+	public void ShowTarget() {
+		Vector3 pos;
+
+		int tries = 0;
+		do {
+			pos = GetNextPosition();
+			++tries;
+
+			if(tries > 10) {
+				Logger.Warn("Unable to find a free position for target");
+				break;
+			}
+		} while(!IsPositionFree(pos));
+
+		Target target = m_freeTargets.Pop();
+		target.GlobalPosition = pos;
+		target.Visible = true;
+
+		m_multiMeshInstance.Multimesh.SetInstanceTransform(target.multiMeshIdx, target.GlobalTransform);
+	}
+
+	private void ShowTargets() {
+		while (m_freeTargets.Count > 0) {
+			ShowTarget();
 		}
 	}
 
-	private Vector3 GridIndexToPosition(int gridIdx) {
-		int x = gridIdx % GRID_WIDTH;
-		int y = gridIdx / GRID_WIDTH;
-		return new Vector3(
-			(x / (float)(GRID_WIDTH - 1)) * GRID_TOTAL_WIDTH - GRID_TOTAL_WIDTH * 0.5f,
-			(y / (float)(GRID_HEIGHT - 1)) * GRID_TOTAL_HEIGHT,
-			0.0f
+	private Vector3 GetNextPosition() {
+		Aabb targetAabb = m_targetMesh.GetAabb();
+		float w = m_spawnAreaShape.Size.X - targetAabb.Size.X;
+		float h = m_spawnAreaShape.Size.Y - targetAabb.Size.Y;
+		float d = m_spawnAreaShape.Size.Z - targetAabb.Size.Z;
+
+		return m_spawnAreaShapeOwner.GlobalPosition + new Vector3(
+			m_rng.RandfRange(-w * 0.5f, w * 0.5f),
+			m_rng.RandfRange(-h * 0.5f, h * 0.5f),
+			m_rng.RandfRange(-d * 0.5f, d * 0.5f)
 		);
 	}
 
-	private bool TryShowTarget(int gridIdx) {
-		if(gridIdx < 0 || gridIdx >= GRID_WIDTH * GRID_HEIGHT) {
-			return false;
-		}
+	private bool IsPositionFree(Vector3 position) {
+		PhysicsDirectSpaceState3D space = GetWorld3D().DirectSpaceState;
+		Transform3D transform = new (Basis.Identity, position);
 
-		if(m_targetGrid[gridIdx] != null) {
-			return false;
-		}
+		PhysicsShapeQueryParameters3D parameters = new PhysicsShapeQueryParameters3D() {
+			Shape = m_targetShape,
+			Transform = transform,
+			CollideWithAreas = true,
+			CollideWithBodies = false,
+			CollisionMask = m_spawnCheckCollisionMask,
+			Margin = m_minSpawnDistance,
+		};
 
-		Target target = m_freeTargets.Pop();
-		target.gridIdx = gridIdx;
-		target.Position = GridIndexToPosition(gridIdx);
-		target.Visible = true;
-
-		m_targetGrid[gridIdx] = target;
-
-		m_multiMeshInstance.Multimesh.SetInstanceTransform(target.multiMeshIdx, target.GlobalTransform);
-
-		return true;
+		return space.IntersectShape(parameters, 1).Count == 0;
 	}
 
 	private void InitMultiMesh() {
@@ -117,5 +129,7 @@ public partial class TargetManager : Node {
 			AddChild(target);
 			m_freeTargets.Push(target);
 		}
+
+		m_targetShape = m_targets[0].GetChild<CollisionShape3D>(0).Shape as SphereShape3D;
 	}
 }

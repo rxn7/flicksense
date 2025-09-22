@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b2mq0co28h1rx"]
+[gd_scene load_steps=30 format=3 uid="uid://b2mq0co28h1rx"]
 
 [ext_resource type="Script" uid="uid://d36p55xklbfba" path="res://scripts/GameManager.cs" id="1_iywne"]
 [ext_resource type="Script" uid="uid://draa8bbkor4um" path="res://scripts/TargetManager.cs" id="1_uwrxv"]
@@ -50,6 +50,9 @@ plane = Plane(-1, 0, 0, 0)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_qouja"]
 plane = Plane(1, 0, 0, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ir15t"]
+size = Vector3(10, 4, 8)
 
 [sub_resource type="MultiMesh" id="MultiMesh_ir15t"]
 transform_format = 1
@@ -122,7 +125,7 @@ m_scoreManager = NodePath("ScoreManager")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource("Environment_5newe")
 
-[node name="Room" type="StaticBody3D" parent="World"]
+[node name="Room" type="Area3D" parent="World"]
 collision_mask = 0
 
 [node name="Roof" type="CollisionShape3D" parent="World/Room"]
@@ -195,10 +198,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 omni_range = 10.0
 omni_shadow_mode = 0
 
-[node name="TargetManager" type="Node3D" parent="."]
+[node name="TargetManager" type="Node3D" parent="." node_paths=PackedStringArray("m_spawnAreaShapeOwner")]
 script = ExtResource("1_uwrxv")
+m_spawnCheckCollisionMask = 4
+m_minSpawnDistance = 0.1
+m_spawnAreaShapeOwner = NodePath("TargetArea/TargetAreaShape")
 m_targetPrefab = ExtResource("2_yqjtg")
 m_targetMesh = ExtResource("5_ir15t")
+
+[node name="TargetArea" type="Area3D" parent="TargetManager"]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="TargetAreaShape" type="CollisionShape3D" parent="TargetManager/TargetArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1)
+shape = SubResource("BoxShape3D_ir15t")
 
 [node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="TargetManager"]
 multimesh = SubResource("MultiMesh_ir15t")
@@ -227,7 +242,7 @@ m_rayCollisionMask = 5
 m_camera = NodePath("../Player/Camera3D")
 
 [node name="Player" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4)
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
 current = true
