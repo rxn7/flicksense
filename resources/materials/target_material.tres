@@ -1,8 +1,10 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://bqccl1ykhrui0"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bqccl1ykhrui0"]
+
+[ext_resource type="Texture2D" uid="uid://b0n383jxg8agw" path="res://resources/textures/prototype/orange/texture_08.png" id="1_fhcuo"]
 
 [resource]
-albedo_color = Color(0, 0, 0, 1)
+albedo_texture = ExtResource("1_fhcuo")
 metallic_specular = 0.0
 roughness = 0.0
-texture_filter = 0
-texture_repeat = false
+uv1_scale = Vector3(2, 1, 1)
+uv1_world_triplanar = true

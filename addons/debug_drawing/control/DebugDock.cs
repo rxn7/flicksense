@@ -68,7 +68,7 @@ public partial class DebugDock : Control
 
 		//Keycode isn't playing ball on my uk keyboard
 		if (@event is InputEventKey key && key.KeyLabel == _toggleKey && key.IsPressed()
-		    && key.IsEcho() == false)
+			&& key.IsEcho() == false)
 		{
 			if (!Visible)
 			{

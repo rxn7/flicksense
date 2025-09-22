@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c61t81lljqprt"]
+[gd_scene load_steps=8 format=3 uid="uid://c61t81lljqprt"]
 
+[ext_resource type="Texture2D" uid="uid://rvepryrjmroo" path="res://resources/textures/prototype/orange/texture_10.png" id="1_4dh8c"]
 [ext_resource type="Script" uid="uid://i15csu45g1y1" path="res://scripts/vfx/DestroyedTargetVfx.cs" id="1_m4woy"]
 
 [sub_resource type="Curve" id="Curve_4dh8c"]
@@ -24,11 +25,9 @@ scale_max = 2.0
 scale_curve = SubResource("CurveTexture_ox3v8")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7j0f3"]
-albedo_color = Color(0, 0, 0, 1)
+albedo_texture = ExtResource("1_4dh8c")
 metallic_specular = 0.0
 roughness = 0.0
-texture_filter = 0
-texture_repeat = false
 billboard_mode = 3
 billboard_keep_scale = true
 particles_anim_h_frames = 1

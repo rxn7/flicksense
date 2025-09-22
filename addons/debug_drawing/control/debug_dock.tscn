@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cj4n83saqf3rj"]
 
-[ext_resource type="Script" path="res://addons/debug_drawing/control/DebugDock.cs" id="1_qxqhc"]
+[ext_resource type="Script" uid="uid://b0fmw51soprcg" path="res://addons/debug_drawing/control/DebugDock.cs" id="1_qxqhc"]
 
 [node name="DebugDock" type="Control"]
 layout_mode = 3

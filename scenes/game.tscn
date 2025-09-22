@@ -17,12 +17,11 @@
 [ext_resource type="PackedScene" uid="uid://c61t81lljqprt" path="res://scenes/vfx/destroyed_target_vfx.tscn" id="18_ssvqc"]
 
 [sub_resource type="Environment" id="Environment_5newe"]
-background_mode = 1
-background_color = Color(0.266667, 0.282353, 0.45098, 1)
-background_energy_multiplier = 1.1
-ambient_light_source = 3
-ambient_light_color = Color(0.266667, 0.282353, 0.45098, 1)
-reflected_light_source = 2
+background_mode = 4
+ambient_light_source = 2
+ambient_light_color = Color(0.87058824, 1, 1, 1)
+ambient_light_energy = 0.1
+reflected_light_source = 1
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_qnb83"]
 plane = Plane(0, -1, 0, 0)
@@ -195,8 +194,9 @@ skeleton = NodePath("../..")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="World/Room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+light_color = Color(0.87058824, 1, 1, 1)
+light_energy = 1.2
 omni_range = 10.0
-omni_shadow_mode = 0
 
 [node name="TargetManager" type="Node3D" parent="." node_paths=PackedStringArray("m_spawnAreaShapeOwner")]
 script = ExtResource("1_uwrxv")
