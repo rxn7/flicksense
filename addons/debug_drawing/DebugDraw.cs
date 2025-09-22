@@ -29,7 +29,6 @@ public partial class DebugDraw : Node
 	#if TOOLS
 	private static DebugMeshDrawer _meshDrawer;
 	private static DebugCanvasDrawer _canvasDrawer;
-	private DebugDock _dock;
 	private CanvasLayer _drawCanvas;
 	
 	private static uint _enabledLayers = (uint)DebugLayers.All;
@@ -62,14 +61,6 @@ public partial class DebugDraw : Node
 
 		_meshDrawer = new DebugMeshDrawer(this);
 		_canvasDrawer = new DebugCanvasDrawer(_drawCanvas);
-
-		if (!Engine.IsEditorHint())
-		{
-			_dock = GD.Load<PackedScene>("res://addons/debug_drawing/control/debug_dock.tscn")
-				.Instantiate<DebugDock>();
-			_drawCanvas.AddChild(_dock);
-			_dock.Owner = _drawCanvas;
-		}
 	}
 
 
