@@ -13,9 +13,9 @@ public partial class VfxManager : Node {
 		m_destroyedTargetPool = new VfxPool<DestroyedTargetVfx>(this, m_destroyedTargetPrefab, 10, 20);
 	}
 
-	public void ShowScorePopup(Vector3 position, ulong scoreAdded) {
+	public void ShowScorePopup(Vector3 position, ulong scoreAdded, float reactionTimeRatio = 1.0f) {
 		ScorePopupVfx vfx = m_scorePopupPool.Pop();
-		vfx.Show(position, scoreAdded);
+		vfx.Show(position, scoreAdded, reactionTimeRatio);
 	}
 
 	public void ExplodeTarget(Vector3 targetPosition, Vector3 hitPoint, Vector3 shootDir) {

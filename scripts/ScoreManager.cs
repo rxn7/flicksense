@@ -51,22 +51,25 @@ public partial class ScoreManager : Node {
 		updated?.Invoke();
 	}
 
-	public ulong RegisterHit() {
-		m_streakMultiplier = Mathf.Min(m_streakMultiplier + 0.1f, MAX_STREAK_MULTIPLIER);
-		streakMultiplierChanged?.Invoke(m_streakMultiplier);
-
+	public (ulong, float) RegisterHit() {
 		++m_stats.Hits;
 
 		ulong nowMs = Time.GetTicksMsec();
+
+		float reactionTimeRatio = (float)(nowMs - m_lastHitTimeMs) / (MAX_ELAPSED_MS - MIN_ELAPSED_MS);
 
 		ulong baseScore = BASE_HIT_POINTS + CalculateReactionTimeBonus(nowMs);
 		ulong scoreAdded = (ulong)(baseScore * m_streakMultiplier);
 		m_stats.Score += scoreAdded;
 
 		updated?.Invoke();
+
+		m_streakMultiplier = Mathf.Min(m_streakMultiplier + 0.1f, MAX_STREAK_MULTIPLIER);
+		streakMultiplierChanged?.Invoke(m_streakMultiplier);
+
 		m_lastHitTimeMs = nowMs;
 
-		return scoreAdded;
+		return (scoreAdded, reactionTimeRatio);
 	}
 
 	public void Reset() {

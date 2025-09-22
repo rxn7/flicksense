@@ -51,8 +51,8 @@ public partial class GameManager : Node {
 	}
 
 	private void OnTargetHit(Target target, Vector3 shootDir, Vector3 hitPoint, Vector3 hitNormal) {
-		ulong scoreAdded = m_scoreManager.RegisterHit();
-		m_vfxManager.ShowScorePopup(hitPoint, scoreAdded);
+		(ulong scoreAdded, float reactionTimeRatio) = m_scoreManager.RegisterHit();
+		m_vfxManager.ShowScorePopup(hitPoint, scoreAdded, reactionTimeRatio);
 
 		m_vfxManager.ExplodeTarget(target.GlobalPosition, hitPoint, shootDir);
 
