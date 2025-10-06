@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://byvd1ms2yw8hb"]
+
+[ext_resource type="Script" uid="uid://c3gqbd5ew17sk" path="res://scripts/ui/PauseMenu.cs" id="1_f6eus"]
+[ext_resource type="Theme" uid="uid://cpfxqinjygjld" path="res://resources/themes/main_theme.tres" id="2_8uki6"]
+[ext_resource type="StyleBox" uid="uid://dt32d8eliw253" path="res://resources/themes/styles/box_red.tres" id="3_0bnpd"]
+
+[node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("m_resumeButton", "m_settingsButton", "m_exitButton")]
+layer = 10
+script = ExtResource("1_f6eus")
+m_resumeButton = NodePath("CenterContainer/Mid/Resume")
+m_settingsButton = NodePath("CenterContainer/Mid/Settings")
+m_exitButton = NodePath("CenterContainer/Mid/Exit")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07058824, 0.07058824, 0.07058824, 0.49803922)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mid" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 2
+theme = ExtResource("2_8uki6")
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Resume" type="Button" parent="CenterContainer/Mid"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Settings" type="Button" parent="CenterContainer/Mid"]
+layout_mode = 2
+disabled = true
+text = "Settings"
+
+[node name="Exit" type="Button" parent="CenterContainer/Mid"]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_0bnpd")
+theme_override_styles/pressed = ExtResource("3_0bnpd")
+theme_override_styles/hover = ExtResource("3_0bnpd")
+theme_override_styles/disabled = ExtResource("3_0bnpd")
+theme_override_styles/focus = ExtResource("3_0bnpd")
+text = "Exit to main menu"

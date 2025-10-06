@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cavalb7rmjuo8"]
+[gd_scene load_steps=11 format=3 uid="uid://cavalb7rmjuo8"]
 
 [ext_resource type="Script" uid="uid://brpnj3bkjglo" path="res://scripts/ui/main_menu/MainMenu.cs" id="1_wu84c"]
 [ext_resource type="Theme" uid="uid://cpfxqinjygjld" path="res://resources/themes/main_theme.tres" id="2_8ln24"]
 [ext_resource type="FontFile" uid="uid://crynp721ow4yq" path="res://resources/fonts/Rubik-Italic-VariableFont_wght.ttf" id="3_rtw2f"]
 [ext_resource type="Script" uid="uid://45haynhc7boa" path="res://scripts/ui/main_menu/MainMenuStatsDisplay.cs" id="4_8ln24"]
 [ext_resource type="FontFile" uid="uid://cgltv2nkg35ms" path="res://resources/fonts/RubikMonoOne-Regular.ttf" id="4_oa1go"]
+[ext_resource type="StyleBox" uid="uid://dt32d8eliw253" path="res://resources/themes/styles/box_red.tres" id="5_rtw2f"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h61rw"]
 font = ExtResource("3_rtw2f")
@@ -149,6 +150,11 @@ text = "Settings"
 
 [node name="Exit" type="Button" parent="MainMenu/HBoxContainer/Mid"]
 layout_mode = 2
+theme_override_styles/normal = ExtResource("5_rtw2f")
+theme_override_styles/pressed = ExtResource("5_rtw2f")
+theme_override_styles/hover = ExtResource("5_rtw2f")
+theme_override_styles/disabled = ExtResource("5_rtw2f")
+theme_override_styles/focus = ExtResource("5_rtw2f")
 text = "Exit"
 
 [node name="Right" type="VBoxContainer" parent="MainMenu/HBoxContainer"]

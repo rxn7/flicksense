@@ -10,6 +10,10 @@ public partial class ShootManager : Node {
 	public event Action<Target, Vector3, Vector3, Vector3> onTargetHit;
 
 	public override void _UnhandledInput(InputEvent ev) {
+		if(Input.MouseMode != Input.MouseModeEnum.Captured) {
+			return;
+		}
+
 		if(ev is not InputEventMouseButton button) {
 			return;
 		}
