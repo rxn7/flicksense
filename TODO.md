@@ -11,3 +11,6 @@
 - Main Menu:
 	- Stats display
  	- Show Settings UI
+	
+- Optimizations:
+	- Replace bloated TabContainers with custom container

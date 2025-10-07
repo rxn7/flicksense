@@ -1,18 +1,26 @@
+using System;
 using Godot;
 
 public partial class PauseMenu : CanvasLayer {
+	public event Action onClosed;
+	public event Action onOpen;
+	public event Action onFinishSessionPressed;
+
 	[Export] private Button m_resumeButton;
+	[Export] private Button m_finishButton;
 	[Export] private Button m_settingsButton;
 	[Export] private Button m_exitButton;
 
 	public override void _Ready() {
 		ProcessMode = ProcessModeEnum.Always;
-		HideMenu();
+		Close();
 
-		m_resumeButton.Pressed += HideMenu;
+		m_resumeButton.Pressed += Close;
+		m_finishButton.Pressed += () => onFinishSessionPressed?.Invoke();
+
 		// m_settingsButton.Pressed += () => 
+
 		m_exitButton.Pressed += () => {
-			GetTree().Paused = false;
 			SceneSwitcher.SwitchToMainMenu();
 		};
 	}
@@ -29,22 +37,20 @@ public partial class PauseMenu : CanvasLayer {
 
 	private void Toggle() {
 		if(Visible) {
-			HideMenu();
+			Close();
 			return;
 		} 
 
-		ShowMenu();
+		Open();
 	}
 
-	private void HideMenu() {
+	private void Close() {
 		Visible = false;
-		Input.MouseMode = Input.MouseModeEnum.Captured;
-		GetTree().Paused = false;
+		onClosed?.Invoke();
 	}
 
-	private void ShowMenu() {
+	private void Open() {
 		Visible = true;
-		Input.MouseMode = Input.MouseModeEnum.Visible;
-		GetTree().Paused = true;
+		onOpen?.Invoke();
 	}
 }

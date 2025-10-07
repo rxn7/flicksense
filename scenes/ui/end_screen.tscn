@@ -1,0 +1,152 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1bl42edjkmy8"]
+
+[ext_resource type="Script" uid="uid://d3xfwbtr18x40" path="res://scripts/ui/EndScreen.cs" id="1_e4cmn"]
+[ext_resource type="Theme" uid="uid://cpfxqinjygjld" path="res://resources/themes/main_theme.tres" id="2_53v5j"]
+[ext_resource type="LabelSettings" uid="uid://b5sr4prn6xe7b" path="res://resources/label_settings/header_label_settings.tres" id="2_e4cmn"]
+[ext_resource type="StyleBox" uid="uid://dt32d8eliw253" path="res://resources/themes/styles/box_red.tres" id="3_e4cmn"]
+[ext_resource type="LabelSettings" uid="uid://bhlwevraqdcey" path="res://resources/label_settings/default_ui_label_settings.tres" id="3_wgyui"]
+
+[node name="EndScreen" type="CanvasLayer" node_paths=PackedStringArray("m_playAgainButton", "m_mainMenuButton", "m_modeLabel", "m_timeLabel", "m_scoreLabel", "m_accuracyLabel", "m_hitsLabel", "m_missesLabel")]
+layer = 10
+script = ExtResource("1_e4cmn")
+m_playAgainButton = NodePath("VBoxContainer/Buttons/PlayAgain")
+m_mainMenuButton = NodePath("VBoxContainer/Buttons/Exit")
+m_modeLabel = NodePath("VBoxContainer/Stats/Mode")
+m_timeLabel = NodePath("VBoxContainer/Stats/Time/TimeValue")
+m_scoreLabel = NodePath("VBoxContainer/Stats/Score/ScoreValue")
+m_accuracyLabel = NodePath("VBoxContainer/Stats/Accuracy/AccuracyValue")
+m_hitsLabel = NodePath("VBoxContainer/Stats/Hits/HitsValue")
+m_missesLabel = NodePath("VBoxContainer/Stats/Misses/MissesValue")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07058824, 0.07058824, 0.07058824, 0.49803922)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.326
+anchor_top = 0.18200001
+anchor_right = 0.674
+anchor_bottom = 0.818
+offset_left = 0.44799805
+offset_top = 0.06399536
+offset_right = -0.44799805
+offset_bottom = -0.06402588
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 79
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Session Finished"
+label_settings = ExtResource("2_e4cmn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stats" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Mode" type="Label" parent="VBoxContainer/Stats"]
+layout_mode = 2
+text = "Endless Mode"
+label_settings = ExtResource("3_wgyui")
+horizontal_alignment = 1
+
+[node name="Time" type="HSplitContainer" parent="VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Stats/Time"]
+layout_mode = 2
+text = "Time:"
+label_settings = ExtResource("3_wgyui")
+horizontal_alignment = 1
+
+[node name="TimeValue" type="Label" parent="VBoxContainer/Stats/Time"]
+layout_mode = 2
+text = "0:00.000"
+label_settings = ExtResource("3_wgyui")
+horizontal_alignment = 2
+
+[node name="Score" type="HSplitContainer" parent="VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Stats/Score"]
+layout_mode = 2
+text = "Score:"
+label_settings = ExtResource("3_wgyui")
+horizontal_alignment = 1
+
+[node name="ScoreValue" type="Label" parent="VBoxContainer/Stats/Score"]
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("3_wgyui")
+horizontal_alignment = 2
+
+[node name="Accuracy" type="HSplitContainer" parent="VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Stats/Accuracy"]
+layout_mode = 2
+text = "Accuracy:"
+label_settings = ExtResource("3_wgyui")
+horizontal_alignment = 1
+
+[node name="AccuracyValue" type="Label" parent="VBoxContainer/Stats/Accuracy"]
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("3_wgyui")
+horizontal_alignment = 2
+
+[node name="Hits" type="HSplitContainer" parent="VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Stats/Hits"]
+layout_mode = 2
+text = "Hits:"
+label_settings = ExtResource("3_wgyui")
+horizontal_alignment = 1
+
+[node name="HitsValue" type="Label" parent="VBoxContainer/Stats/Hits"]
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("3_wgyui")
+horizontal_alignment = 2
+
+[node name="Misses" type="HSplitContainer" parent="VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Stats/Misses"]
+layout_mode = 2
+text = "Misses:"
+label_settings = ExtResource("3_wgyui")
+horizontal_alignment = 1
+
+[node name="MissesValue" type="Label" parent="VBoxContainer/Stats/Misses"]
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("3_wgyui")
+horizontal_alignment = 2
+
+[node name="Buttons" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_53v5j")
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="PlayAgain" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+text = "Play again"
+
+[node name="Exit" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_e4cmn")
+theme_override_styles/pressed = ExtResource("3_e4cmn")
+theme_override_styles/hover = ExtResource("3_e4cmn")
+theme_override_styles/disabled = ExtResource("3_e4cmn")
+theme_override_styles/focus = ExtResource("3_e4cmn")
+text = "Exit to main menu"

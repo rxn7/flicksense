@@ -16,6 +16,8 @@ public static class SceneSwitcher {
 	}
 
 	public static void SwitchToMainMenu() {
-		Global.Instance.GetTree().ChangeSceneToPacked(MainMenuScene);
+		SceneTree tree = Global.Instance.GetTree();
+		tree.Paused = false;
+		tree.ChangeSceneToPacked(MainMenuScene);
 	}
 }

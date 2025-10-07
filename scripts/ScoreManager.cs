@@ -17,7 +17,6 @@ public partial class ScoreManager : Node {
 	public const ulong STREAK_REDUCTION_INTERVAL_MS = 100;
 	public const float STREAK_REDUCTION_AMOUNT = 0.01f;
 
-	private Stats m_stats;
 	private float m_streakMultiplier = 1.0f;
 	private ulong m_lastHitTimeMs = 0;
 	private ulong m_streakReductionTime = 0;
@@ -38,12 +37,8 @@ public partial class ScoreManager : Node {
 		}
 	}
 
-	public ref Stats GetStats() {
-		return ref m_stats;
-	}
-
-	public void RegisterShot(bool hit) {
-		++m_stats.Shots;
+	public void RegisterShot(bool hit, ref Stats stats) {
+		++stats.Shots;
 
 		if(!hit) {
 			m_streakMultiplier = 1.0f;
@@ -53,8 +48,8 @@ public partial class ScoreManager : Node {
 		onUpdated?.Invoke();
 	}
 
-	public (ulong, float) RegisterHit() {
-		++m_stats.Hits;
+	public (ulong, float) RegisterHit(ref Stats stats) {
+		++stats.Hits;
 
 		ulong nowMs = Time.GetTicksMsec();
 
@@ -63,9 +58,9 @@ public partial class ScoreManager : Node {
 		ulong baseScore = BASE_HIT_POINTS + CalculateReactionTimeBonus(nowMs);
 		ulong addedScore = (ulong)(baseScore * m_streakMultiplier);
 
-		m_stats.Score += addedScore;
+		stats.Score += addedScore;
 
-		onScoreAdded?.Invoke(m_stats.Score, addedScore);
+		onScoreAdded?.Invoke(stats.Score, addedScore);
 		onUpdated?.Invoke();
 
 		m_streakMultiplier = Mathf.Min(m_streakMultiplier + 0.1f, MAX_STREAK_MULTIPLIER);
@@ -77,7 +72,6 @@ public partial class ScoreManager : Node {
 	}
 
 	public void Reset() {
-		m_stats = new Stats();
 		m_streakMultiplier = 1.0f;
 		m_streakReductionTime = Time.GetTicksMsec() + STREAK_REDUCTION_INTERVAL_MS;
 		m_lastHitTimeMs = 0;

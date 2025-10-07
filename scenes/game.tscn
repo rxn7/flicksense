@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b2mq0co28h1rx"]
+[gd_scene load_steps=30 format=3 uid="uid://b2mq0co28h1rx"]
 
 [ext_resource type="Script" uid="uid://d36p55xklbfba" path="res://scripts/GameManager.cs" id="1_iywne"]
 [ext_resource type="Script" uid="uid://draa8bbkor4um" path="res://scripts/TargetManager.cs" id="1_uwrxv"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://52emi0djdojg" path="res://scenes/objects/target.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://byvd1ms2yw8hb" path="res://scenes/ui/pause_menu.tscn" id="3_ca42v"]
 [ext_resource type="Script" uid="uid://dddytdp6v4cno" path="res://scripts/CameraManager.cs" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://b1bl42edjkmy8" path="res://scenes/ui/end_screen.tscn" id="4_rysoc"]
 [ext_resource type="Script" uid="uid://cs6yofphy62q3" path="res://scripts/SfxManager.cs" id="4_u5sy4"]
 [ext_resource type="AudioStream" uid="uid://castgb1mgno4j" path="res://resources/audio/miss.wav" id="5_0tnpc"]
 [ext_resource type="Script" uid="uid://dl26qx0qi34at" path="res://scripts/ScoreManager.cs" id="5_1kice"]
@@ -59,18 +60,25 @@ transform_format = 1
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_gee14"]
 
-[node name="Game" type="Node" node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager", "m_vfxManager", "m_hud", "m_scoreManager")]
+[node name="Game" type="Node" node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager", "m_vfxManager", "m_scoreManager", "m_hud", "m_endScreen", "m_pauseMenu")]
 script = ExtResource("1_iywne")
 m_targetManager = NodePath("TargetManager")
 m_shootManager = NodePath("ShootManager")
 m_sfxManager = NodePath("SfxManager")
 m_vfxManager = NodePath("VfxManager")
-m_hud = NodePath("HUD")
 m_scoreManager = NodePath("ScoreManager")
+m_hud = NodePath("HUD")
+m_endScreen = NodePath("EndScreen")
+m_pauseMenu = NodePath("PauseMenu")
 
 [node name="HUD" parent="." instance=ExtResource("15_ir15t")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("3_ca42v")]
+process_mode = 3
+
+[node name="EndScreen" parent="." instance=ExtResource("4_rysoc")]
+process_mode = 3
+layer = 11
 
 [node name="World" type="Node" parent="."]
 

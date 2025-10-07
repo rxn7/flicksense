@@ -1,17 +1,23 @@
 using Godot;
 
 public partial class GameManager : Node {
-	public const int TIME_LIMIT_MS = 10_000;
+	public const float TIME_LIMIT_SECONDS = 6.0f;
 
+	[ExportGroup("Managers")]
 	[Export] private TargetManager m_targetManager;
 	[Export] private ShootManager m_shootManager;
 	[Export] private SfxManager m_sfxManager;
 	[Export] private VfxManager m_vfxManager;
-	[Export] private Hud m_hud;
 	[Export] private ScoreManager m_scoreManager;
 
+	[ExportGroup("UI")]
+	[Export] private Hud m_hud;
+	[Export] private EndScreen m_endScreen;
+	[Export] private PauseMenu m_pauseMenu;
+
+	private Stats m_stats;
 	private EGameMode m_gameMode;
-	private ulong m_startTimeMs = 0;
+	private bool m_isFinished = false;
 
 	public override void _Ready() {
 		Global.Instance.ConsoleUI.onHide += () => {
@@ -21,28 +27,55 @@ public partial class GameManager : Node {
 		m_shootManager.onShoot += OnShoot;
 		m_shootManager.onTargetHit += OnTargetHit;
 
-		m_scoreManager.onUpdated += () => m_hud.UpdateStats(m_scoreManager);
+		m_scoreManager.onUpdated += () => m_hud.UpdateStats(m_stats);
 		m_scoreManager.onScoreAdded += m_hud.UpdateScore;
 		m_scoreManager.onStreakMultiplierChanged += m_hud.UpdateHitStreakMultiplier;
+
+		m_endScreen.onPlayAgainPressed += () => {
+			GetTree().Paused = false;
+			Reset();
+		};
+
+		m_pauseMenu.onFinishSessionPressed += () => {
+			Input.MouseMode = Input.MouseModeEnum.Visible;
+			Finish();
+		};
+
+		m_pauseMenu.onClosed += () => {
+			GetTree().Paused = false;
+			Input.MouseMode = Input.MouseModeEnum.Captured;
+		};
+		m_pauseMenu.onOpen += () => {
+			GetTree().Paused = true;
+			Input.MouseMode = Input.MouseModeEnum.Visible;
+		};
 
 		Reset();
 	}
 
 	public override void _Process(double delta) {
+		if(m_isFinished) {
+			return;
+		}
+
+		m_stats.TimeElapsed += (float)delta;
+
 		switch(m_gameMode) {
 			case EGameMode.Endless:
 				break;
+
 			case EGameMode.TimeLimit:
-				if(Time.GetTicksMsec() - m_startTimeMs >= TIME_LIMIT_MS) {
-					// TODO: End screen + high score saving
-					Reset();
+				m_stats.TimeElapsed = Mathf.Min(m_stats.TimeElapsed, TIME_LIMIT_SECONDS);
+				if(m_stats.TimeElapsed >= TIME_LIMIT_SECONDS) {
+					Finish();
 				}
 				break;
+
 			case EGameMode.Survival:
 				break;
 		}
 
-		m_hud.UpdateTimeText(m_gameMode);
+		m_hud.UpdateTimeText(m_gameMode, m_stats.TimeElapsed);
 	}
 
 	public override void _UnhandledKeyInput(InputEvent ev) {
@@ -60,15 +93,26 @@ public partial class GameManager : Node {
 	}
 
 	private void Reset() {
-		m_startTimeMs = Time.GetTicksMsec();
-		m_hud.Reset(m_startTimeMs);
+		Input.MouseMode = Input.MouseModeEnum.Captured;
+
+		m_stats = new Stats();
+		m_isFinished = false;
+
+		m_hud.Reset();
 
 		m_targetManager.Reset();
 		m_scoreManager.Reset();
 	}
+
+	private void Finish() {
+		GetTree().Paused = true;
+		m_pauseMenu.Hide();
+		m_isFinished = true;
+		m_endScreen.ShowEndScreen(m_gameMode, m_stats);
+	}
 	
 	private void OnShoot(bool hit, Vector3? hitPoint, Vector3? hitNormal) {
-		m_scoreManager.RegisterShot(hit);
+		m_scoreManager.RegisterShot(hit, ref m_stats);
 
 		if(hitPoint.HasValue && hitNormal.HasValue) {
 			if(!hit) {
@@ -80,7 +124,7 @@ public partial class GameManager : Node {
 	}
 
 	private void OnTargetHit(Target target, Vector3 shootDir, Vector3 hitPoint, Vector3 hitNormal) {
-		(ulong scoreAdded, float reactionTimeRatio) = m_scoreManager.RegisterHit();
+		(ulong scoreAdded, float reactionTimeRatio) = m_scoreManager.RegisterHit(ref m_stats);
 		m_vfxManager.ShowScorePopup(hitPoint, scoreAdded, reactionTimeRatio);
 
 		m_vfxManager.ExplodeTarget(target.GlobalPosition, hitPoint, shootDir);

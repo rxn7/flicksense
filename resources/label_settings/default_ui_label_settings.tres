@@ -1,0 +1,6 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bhlwevraqdcey"]
+
+[ext_resource type="FontFile" uid="uid://bo4a62k4lhkwv" path="res://resources/fonts/Rubik-VariableFont_wght.ttf" id="1_casoy"]
+
+[resource]
+font = ExtResource("1_casoy")

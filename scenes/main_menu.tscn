@@ -1,13 +1,16 @@
-[gd_scene load_steps=22 format=3 uid="uid://cavalb7rmjuo8"]
+[gd_scene load_steps=21 format=3 uid="uid://cavalb7rmjuo8"]
 
 [ext_resource type="Script" uid="uid://brpnj3bkjglo" path="res://scripts/ui/main_menu/MainMenu.cs" id="1_wu84c"]
 [ext_resource type="Theme" uid="uid://cpfxqinjygjld" path="res://resources/themes/main_theme.tres" id="2_8ln24"]
 [ext_resource type="FontFile" uid="uid://crynp721ow4yq" path="res://resources/fonts/Rubik-Italic-VariableFont_wght.ttf" id="3_rtw2f"]
 [ext_resource type="Script" uid="uid://45haynhc7boa" path="res://scripts/ui/main_menu/MainMenuStatsDisplay.cs" id="4_8ln24"]
 [ext_resource type="FontFile" uid="uid://cgltv2nkg35ms" path="res://resources/fonts/RubikMonoOne-Regular.ttf" id="4_oa1go"]
+[ext_resource type="LabelSettings" uid="uid://b5sr4prn6xe7b" path="res://resources/label_settings/header_label_settings.tres" id="5_jk1qb"]
 [ext_resource type="StyleBox" uid="uid://dt32d8eliw253" path="res://resources/themes/styles/box_red.tres" id="5_rtw2f"]
+[ext_resource type="LabelSettings" uid="uid://bhlwevraqdcey" path="res://resources/label_settings/default_ui_label_settings.tres" id="7_5dd4i"]
 [ext_resource type="Script" uid="uid://e4rnfl7yax4n" path="res://scripts/ui/GameModeSelection.cs" id="7_oa1go"]
-[ext_resource type="StyleBox" uid="uid://c1ltlrm2u2psk" path="res://resources/themes/styles/survival_game_mode_style.tres" id="8_tbmy8"]
+[ext_resource type="StyleBox" uid="uid://dfux0k32vesiu" path="res://resources/themes/styles/box_green.tres" id="10_flqon"]
+[ext_resource type="StyleBox" uid="uid://sm81bfogdp66" path="res://resources/themes/styles/box_blue.tres" id="11_rcqid"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fcv5n"]
 font = ExtResource("3_rtw2f")
@@ -27,38 +30,8 @@ font_color = Color(0.61960787, 0.61960787, 0.61960787, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_flqon"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_h61rw"]
-font = ExtResource("3_rtw2f")
-font_size = 32
-
 [sub_resource type="LabelSettings" id="LabelSettings_nxjfj"]
 font = ExtResource("3_rtw2f")
-
-[sub_resource type="LabelSettings" id="LabelSettings_4v6gu"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oa1go"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.20392157, 0.78039217, 0.34901962, 0.47058824)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbmy8"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0, 0.47843137, 1, 0.47058824)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
 
 [node name="MainMenu" type="CanvasLayer" node_paths=PackedStringArray("m_versionLabel", "m_mainPanel", "m_gameModeSelection", "m_playButton", "m_settingsButton", "m_exitButton")]
 script = ExtResource("1_wu84c")
@@ -147,7 +120,7 @@ alignment = 1
 [node name="Stats" type="Label" parent="TabContainer/Main/HBoxContainer/Left"]
 layout_mode = 2
 text = "Stats"
-label_settings = SubResource("LabelSettings_h61rw")
+label_settings = ExtResource("5_jk1qb")
 vertical_alignment = 1
 
 [node name="StatsDisplay" type="VBoxContainer" parent="TabContainer/Main/HBoxContainer/Left" node_paths=PackedStringArray("m_averageAccuracyLabel", "m_bestStreakLabel", "m_averageScoreLabel", "m_bestScore", "m_longestSurvivedLabel")]
@@ -173,12 +146,12 @@ vertical_alignment = 1
 [node name="AverageAccuracy" type="Label" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay/General"]
 layout_mode = 2
 text = "Average accuracy: 0%"
-label_settings = SubResource("LabelSettings_4v6gu")
+label_settings = ExtResource("7_5dd4i")
 
 [node name="BestStreak" type="Label" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay/General"]
 layout_mode = 2
 text = "Best streak: 0"
-label_settings = SubResource("LabelSettings_4v6gu")
+label_settings = ExtResource("7_5dd4i")
 
 [node name="Endless Mode" type="VBoxContainer" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay"]
 layout_mode = 2
@@ -193,12 +166,12 @@ vertical_alignment = 1
 [node name="AverageScore" type="Label" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay/Endless Mode"]
 layout_mode = 2
 text = "Average score: 0"
-label_settings = SubResource("LabelSettings_4v6gu")
+label_settings = ExtResource("7_5dd4i")
 
 [node name="BestScoreEndless" type="Label" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay/Endless Mode"]
 layout_mode = 2
 text = "Best score: 0"
-label_settings = SubResource("LabelSettings_4v6gu")
+label_settings = ExtResource("7_5dd4i")
 
 [node name="Survival Mode" type="VBoxContainer" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay"]
 layout_mode = 2
@@ -213,7 +186,7 @@ vertical_alignment = 1
 [node name="LongestSurvived" type="Label" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay/Survival Mode"]
 layout_mode = 2
 text = "Longest survived: 0:00.0"
-label_settings = SubResource("LabelSettings_4v6gu")
+label_settings = ExtResource("7_5dd4i")
 
 [node name="Mid" type="VBoxContainer" parent="TabContainer/Main/HBoxContainer"]
 custom_minimum_size = Vector2(300, 500)
@@ -276,7 +249,7 @@ offset_right = -0.43603516
 offset_bottom = 0.06799698
 grow_horizontal = 2
 text = "Select game mode"
-label_settings = SubResource("LabelSettings_h61rw")
+label_settings = ExtResource("5_jk1qb")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -300,25 +273,33 @@ alignment = 1
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 tooltip_text = "No need to rush in this mode, just relax and train your accuracy."
-theme_override_styles/normal = SubResource("StyleBoxFlat_oa1go")
+theme_override_styles/normal = ExtResource("10_flqon")
+theme_override_styles/pressed = ExtResource("10_flqon")
+theme_override_styles/hover = ExtResource("10_flqon")
+theme_override_styles/disabled = ExtResource("10_flqon")
+theme_override_styles/focus = ExtResource("10_flqon")
 text = "Endless"
 
 [node name="TimeLimit" type="Button" parent="TabContainer/GameModeSelection/Control/HBoxContainer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 tooltip_text = "Try to set a World Record by getting the most points in limited time."
-theme_override_styles/normal = SubResource("StyleBoxFlat_tbmy8")
+theme_override_styles/normal = ExtResource("11_rcqid")
+theme_override_styles/pressed = ExtResource("11_rcqid")
+theme_override_styles/hover = ExtResource("11_rcqid")
+theme_override_styles/disabled = ExtResource("11_rcqid")
+theme_override_styles/focus = ExtResource("11_rcqid")
 text = "Time Limit"
 
 [node name="Survival" type="Button" parent="TabContainer/GameModeSelection/Control/HBoxContainer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 tooltip_text = "This mode puts your skills to the test as the time is running out, try to survive for as long as possible, each hit gives you more time."
-theme_override_styles/normal = ExtResource("8_tbmy8")
-theme_override_styles/pressed = ExtResource("8_tbmy8")
-theme_override_styles/hover = ExtResource("8_tbmy8")
-theme_override_styles/disabled = ExtResource("8_tbmy8")
-theme_override_styles/focus = ExtResource("8_tbmy8")
+theme_override_styles/normal = ExtResource("5_rtw2f")
+theme_override_styles/pressed = ExtResource("5_rtw2f")
+theme_override_styles/hover = ExtResource("5_rtw2f")
+theme_override_styles/disabled = ExtResource("5_rtw2f")
+theme_override_styles/focus = ExtResource("5_rtw2f")
 disabled = true
 text = "Survival"
 
