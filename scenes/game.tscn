@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b2mq0co28h1rx"]
+[gd_scene load_steps=31 format=3 uid="uid://b2mq0co28h1rx"]
 
 [ext_resource type="Script" uid="uid://d36p55xklbfba" path="res://scripts/GameManager.cs" id="1_iywne"]
 [ext_resource type="Script" uid="uid://draa8bbkor4um" path="res://scripts/TargetManager.cs" id="1_uwrxv"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://seil6c46bf3l" path="res://scripts/vfx/VfxManager.cs" id="8_264po"]
 [ext_resource type="PackedScene" uid="uid://iio7kysj618n" path="res://scenes/vfx/score_popup_vfx.tscn" id="10_37s47"]
 [ext_resource type="PackedScene" uid="uid://sd1xhfph0usx" path="res://scenes/ui/hud.tscn" id="15_ir15t"]
+[ext_resource type="Script" uid="uid://bmp7qrg7n78of" path="res://scripts/PlayerManager.cs" id="17_ssvqc"]
 [ext_resource type="PackedScene" uid="uid://c61t81lljqprt" path="res://scenes/vfx/destroyed_target_vfx.tscn" id="18_ssvqc"]
 
 [sub_resource type="Environment" id="Environment_5newe"]
@@ -60,13 +61,14 @@ transform_format = 1
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_gee14"]
 
-[node name="Game" type="Node" node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager", "m_vfxManager", "m_scoreManager", "m_hud", "m_endScreen", "m_pauseMenu")]
+[node name="Game" type="Node" node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager", "m_vfxManager", "m_scoreManager", "m_playerManager", "m_hud", "m_endScreen", "m_pauseMenu")]
 script = ExtResource("1_iywne")
 m_targetManager = NodePath("TargetManager")
 m_shootManager = NodePath("ShootManager")
 m_sfxManager = NodePath("SfxManager")
 m_vfxManager = NodePath("VfxManager")
 m_scoreManager = NodePath("ScoreManager")
+m_playerManager = NodePath("PlayerManager")
 m_hud = NodePath("HUD")
 m_endScreen = NodePath("EndScreen")
 m_pauseMenu = NodePath("PauseMenu")
@@ -199,12 +201,14 @@ m_destroyedTargetPrefab = ExtResource("18_ssvqc")
 [node name="ShootManager" type="Node" parent="." node_paths=PackedStringArray("m_camera")]
 script = ExtResource("5_p57ef")
 m_rayCollisionMask = 5
-m_camera = NodePath("../Player/Camera3D")
+m_camera = NodePath("../PlayerManager/CameraManager")
 
-[node name="Player" type="Node3D" parent="."]
+[node name="PlayerManager" type="Node3D" parent="." node_paths=PackedStringArray("CameraManager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4)
+script = ExtResource("17_ssvqc")
+CameraManager = NodePath("CameraManager")
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
+[node name="CameraManager" type="Camera3D" parent="PlayerManager"]
 current = true
 fov = 73.0
 far = 100.0

@@ -1,7 +1,7 @@
 using Godot;
 
 public partial class GameManager : Node {
-	public const float TIME_LIMIT_SECONDS = 6.0f;
+	public const float TIME_LIMIT_SECONDS = 30.0f; // TODO: Configurable time limit
 
 	[ExportGroup("Managers")]
 	[Export] private TargetManager m_targetManager;
@@ -9,6 +9,7 @@ public partial class GameManager : Node {
 	[Export] private SfxManager m_sfxManager;
 	[Export] private VfxManager m_vfxManager;
 	[Export] private ScoreManager m_scoreManager;
+	[Export] private PlayerManager m_playerManager;
 
 	[ExportGroup("UI")]
 	[Export] private Hud m_hud;
@@ -102,6 +103,7 @@ public partial class GameManager : Node {
 
 		m_targetManager.Reset();
 		m_scoreManager.Reset();
+		m_playerManager.Reset();
 	}
 
 	private void Finish() {

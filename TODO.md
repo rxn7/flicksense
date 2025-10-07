@@ -2,10 +2,9 @@
 - Dynamic crosshair (via settings and console)
 - Pause UI
 - Settings UI
+- Session start countdown
 
 - Game modes:
-	- Endless
-	- Time limit
 	- Survival (timer goes down, each hit increases the timer) 
 
 - Main Menu:
