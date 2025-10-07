@@ -11,10 +11,6 @@ public partial class Hud : CanvasLayer {
 
 	private ulong m_startTimeMs = 0;
 
-	public override void _PhysicsProcess(double delta) {
-		UpdateTime();
-	}
-
 	public void UpdateStats(ScoreManager scoreManager) {
 		ref Stats stats = ref scoreManager.GetStats();
 
@@ -36,12 +32,22 @@ public partial class Hud : CanvasLayer {
 		m_scoreLabel.Reset();
 	}
 
-	private void UpdateTime() {
-		ulong nowMs = Time.GetTicksMsec();
+	public void UpdateTimeText(EGameMode gameMode) {
+		ulong elapsedMs = 0;
 
-		ulong minutesElapsed = (nowMs - m_startTimeMs) / 60000;
-		ulong seconds = ((nowMs - m_startTimeMs) / 1000) % 60;
-		ulong milliseconds = (nowMs - m_startTimeMs) % 1000;
+		switch(gameMode) {
+			case EGameMode.Endless:
+				elapsedMs = Time.GetTicksMsec() - m_startTimeMs;
+				break;
+
+			case EGameMode.TimeLimit:
+				elapsedMs = m_startTimeMs + GameManager.TIME_LIMIT_MS - Time.GetTicksMsec();
+				break;
+		}
+
+		ulong minutesElapsed = elapsedMs / 60000;
+		ulong seconds = (elapsedMs / 1000) % 60;
+		ulong milliseconds = elapsedMs % 1000;
 
 		m_timeLabel.Text = $"{minutesElapsed:0}:{seconds:00}.{milliseconds:000}";
 	}

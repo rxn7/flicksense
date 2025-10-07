@@ -13,7 +13,7 @@ public partial class PauseMenu : CanvasLayer {
 		// m_settingsButton.Pressed += () => 
 		m_exitButton.Pressed += () => {
 			GetTree().Paused = false;
-			GetTree().ChangeSceneToFile("res://scenes/main_menu.tscn");
+			SceneSwitcher.SwitchToMainMenu();
 		};
 	}
 

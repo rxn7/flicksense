@@ -1,12 +1,12 @@
 using Godot;
 
-public enum Sfx {
+public enum ESfx {
 	ShootMiss,
 	ShootHit,
 }
 
 public partial class SfxManager : AudioStreamPlayer {
-	[Export] private Godot.Collections.Dictionary<Sfx, AudioStream> m_sounds = new();
+	[Export] private Godot.Collections.Dictionary<ESfx, AudioStream> m_sounds = new();
 
 	private AudioStreamPolyphonic m_stream;
 
@@ -15,7 +15,7 @@ public partial class SfxManager : AudioStreamPlayer {
 		m_stream.Polyphony = 8;
 	}
 
-	public void PlaySfx(Sfx sfx, float pitch = 1.0f) {
+	public void PlaySfx(ESfx sfx, float pitch = 1.0f) {
 		if(!Playing) {
 			Play();
 		}

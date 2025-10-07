@@ -1,6 +1,8 @@
 using Godot;
 
 public partial class GameManager : Node {
+	public const int TIME_LIMIT_MS = 10_000;
+
 	[Export] private TargetManager m_targetManager;
 	[Export] private ShootManager m_shootManager;
 	[Export] private SfxManager m_sfxManager;
@@ -8,6 +10,7 @@ public partial class GameManager : Node {
 	[Export] private Hud m_hud;
 	[Export] private ScoreManager m_scoreManager;
 
+	private EGameMode m_gameMode;
 	private ulong m_startTimeMs = 0;
 
 	public override void _Ready() {
@@ -25,6 +28,23 @@ public partial class GameManager : Node {
 		Reset();
 	}
 
+	public override void _Process(double delta) {
+		switch(m_gameMode) {
+			case EGameMode.Endless:
+				break;
+			case EGameMode.TimeLimit:
+				if(Time.GetTicksMsec() - m_startTimeMs >= TIME_LIMIT_MS) {
+					// TODO: End screen + high score saving
+					Reset();
+				}
+				break;
+			case EGameMode.Survival:
+				break;
+		}
+
+		m_hud.UpdateTimeText(m_gameMode);
+	}
+
 	public override void _UnhandledKeyInput(InputEvent ev) {
 		if(ev is not InputEventKey key) {
 			return;
@@ -33,6 +53,10 @@ public partial class GameManager : Node {
 		if(key.IsPressed() && !key.Echo && key.Keycode == Key.R) {
 			Reset();
 		}
+	}
+
+	public void Setup(EGameMode gameMode) {
+		m_gameMode = gameMode;
 	}
 
 	private void Reset() {
@@ -51,7 +75,7 @@ public partial class GameManager : Node {
 				m_vfxManager.ShowScorePopup(hitPoint.Value, 0);
 			}
 
-			m_sfxManager.PlaySfx(hit ? Sfx.ShootHit : Sfx.ShootMiss, (float)GD.RandRange(0.8f, 1.2f));
+			m_sfxManager.PlaySfx(hit ? ESfx.ShootHit : ESfx.ShootMiss, (float)GD.RandRange(0.8f, 1.2f));
 		} 
 	}
 
