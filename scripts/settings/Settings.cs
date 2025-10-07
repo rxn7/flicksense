@@ -1,4 +1,3 @@
-[System.Serializable]
 public struct Settings {
 	public float sensitivity;
 	public float audioVolume;

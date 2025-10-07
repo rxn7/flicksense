@@ -6,11 +6,11 @@ public partial class Global : Node {
 	public CommandManager CommandManager { get; private set; } = new();
 	public ConsoleUI ConsoleUI { get; private set; }
 
-	public Settings settings = Settings.Default; // TODO: Load from file
-
 	public override void _EnterTree() {
 		Instance = this;
-		SettingsManager.Load(ref settings);
+
+		SettingsManager.Load();
+		SaveManager.Load();
 	}
 
 	public override void _Ready() {

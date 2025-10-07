@@ -1,37 +1,39 @@
 using Godot;
 
 public static class SettingsManager {
-	private static string s_configPath = "user://settings.cfg";
+	private const string CONFIG_PATH = "user://settings.cfg";
+	public static Settings settings = new();
 
-	public static void Save(ref Settings settings) {
-		ConfigFile s_file = new ConfigFile();
+	public static void Save() {
+		using ConfigFile file = new ConfigFile();
 
 		// TODO: Use serialization
 		
-		s_file.SetValue("video", "max_fps", settings.maxFps);
-		s_file.SetValue("input", "sens", settings.sensitivity);
-		s_file.SetValue("audio", "volume", settings.audioVolume);
+		file.SetValue("video", "max_fps", settings.maxFps);
+		file.SetValue("input", "sens", settings.sensitivity);
+		file.SetValue("audio", "volume", settings.audioVolume);
 
-
-		s_file.Save(s_configPath);
+		file.Save(CONFIG_PATH);
 	}
 
-	public static void Load(ref Settings settings) {
-		ConfigFile s_file = new ConfigFile();
+	public static void Load() {
+		using ConfigFile file = new ConfigFile();
 
-		if(s_file.Load(s_configPath) != Error.Ok) {
+		if(file.Load(CONFIG_PATH) != Error.Ok) {
 			settings = Settings.Default;
 			return;
 		}
-		
-		settings.maxFps = s_file.GetValue("video", "max_fps", settings.maxFps).AsUInt32();
-		settings.sensitivity = s_file.GetValue("input", "sens", settings.sensitivity).AsSingle();
-		settings.audioVolume = s_file.GetValue("audio", "volume", settings.audioVolume).AsSingle();
 
-		ApplySettings(ref settings);
+		settings = new() {
+			maxFps = file.GetValue("video", "max_fps", Settings.Default.maxFps).AsUInt32(),
+			sensitivity = file.GetValue("input", "sens", Settings.Default.sensitivity).AsSingle(),
+			audioVolume = file.GetValue("audio", "volume", Settings.Default.audioVolume).AsSingle()
+		};
+
+		ApplySettings();
 	}
 
-	public static void ApplySettings(ref Settings settings) {
+	public static void ApplySettings() {
 		Engine.MaxFps = (int)settings.maxFps;
 		SfxManager.SetMasterVolume(settings.audioVolume);
 	}

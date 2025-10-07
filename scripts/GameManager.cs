@@ -12,9 +12,9 @@ public partial class GameManager : Node {
 	[Export] private PlayerManager m_playerManager;
 
 	[ExportGroup("UI")]
-	[Export] private Hud m_hud;
-	[Export] private EndScreen m_endScreen;
-	[Export] private PauseMenu m_pauseMenu;
+	[Export] private HudUI m_hud;
+	[Export] private EndScreenUI m_endScreen;
+	[Export] private PauseMenuUI m_pauseMenu;
 
 	private Stats m_stats;
 	private EGameMode m_gameMode;
@@ -24,6 +24,8 @@ public partial class GameManager : Node {
 		Global.Instance.ConsoleUI.onHide += () => {
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 		};
+
+		m_pauseMenu.Setup(m_gameMode);
 
 		m_shootManager.onShoot += OnShoot;
 		m_shootManager.onTargetHit += OnTargetHit;
@@ -46,6 +48,7 @@ public partial class GameManager : Node {
 			GetTree().Paused = false;
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 		};
+
 		m_pauseMenu.onOpen += () => {
 			GetTree().Paused = true;
 			Input.MouseMode = Input.MouseModeEnum.Visible;
@@ -59,15 +62,15 @@ public partial class GameManager : Node {
 			return;
 		}
 
-		m_stats.TimeElapsed += (float)delta;
+		m_stats.timeElapsed += (float)delta;
 
 		switch(m_gameMode) {
 			case EGameMode.Endless:
 				break;
 
 			case EGameMode.TimeLimit:
-				m_stats.TimeElapsed = Mathf.Min(m_stats.TimeElapsed, TIME_LIMIT_SECONDS);
-				if(m_stats.TimeElapsed >= TIME_LIMIT_SECONDS) {
+				m_stats.timeElapsed = Mathf.Min(m_stats.timeElapsed, TIME_LIMIT_SECONDS);
+				if(m_stats.timeElapsed >= TIME_LIMIT_SECONDS) {
 					Finish();
 				}
 				break;
@@ -76,7 +79,7 @@ public partial class GameManager : Node {
 				break;
 		}
 
-		m_hud.UpdateTimeText(m_gameMode, m_stats.TimeElapsed);
+		m_hud.UpdateTimeText(m_gameMode, m_stats.timeElapsed);
 	}
 
 	public override void _UnhandledKeyInput(InputEvent ev) {
@@ -108,9 +111,20 @@ public partial class GameManager : Node {
 
 	private void Finish() {
 		GetTree().Paused = true;
+
 		m_pauseMenu.Hide();
 		m_isFinished = true;
 		m_endScreen.ShowEndScreen(m_gameMode, m_stats);
+
+		switch(m_gameMode) {
+			case EGameMode.TimeLimit:
+				if(SaveManager.data.bestTimeLimitScore < m_stats.score) {
+					SaveManager.data.bestTimeLimitScore = m_stats.score;
+				}
+				break;
+		}
+
+		SaveManager.Save();
 	}
 	
 	private void OnShoot(bool hit, Vector3? hitPoint, Vector3? hitNormal) {

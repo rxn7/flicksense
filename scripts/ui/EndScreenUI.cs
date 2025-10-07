@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public partial class EndScreen : CanvasLayer {
+public partial class EndScreenUI : CanvasLayer {
 	public event Action onPlayAgainPressed;
 
 	[Export] private Button m_playAgainButton;
@@ -38,10 +38,10 @@ public partial class EndScreen : CanvasLayer {
 			_ => "???"
 		};
 
-		m_timeLabel.Text = StringHelper.TimeStringFromSeconds(stats.TimeElapsed);
-		m_scoreLabel.Text = stats.Score.ToString();
+		m_timeLabel.Text = StringHelper.TimeStringFromSeconds(stats.timeElapsed);
+		m_scoreLabel.Text = stats.score.ToString();
 		m_accuracyLabel.Text = StringHelper.Value01ToPercentString(stats.Accuracy);
-		m_hitsLabel.Text = stats.Hits.ToString();
+		m_hitsLabel.Text = stats.hits.ToString();
 		m_missesLabel.Text = stats.Misses.ToString();
 	}
 }

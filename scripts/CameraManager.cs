@@ -22,7 +22,7 @@ public partial class CameraManager : Camera3D {
 			return;
 		}
 
-		float sens = Global.Instance.settings.sensitivity;
+		float sens = SettingsManager.settings.sensitivity;
 
 		Pitch -= motion.ScreenRelative.Y * sens * 0.022f; // 0.022 is a CS:GO/CS2 constant, TODO: conversion for different games
 		Yaw -= motion.ScreenRelative.X * sens * 0.022f;

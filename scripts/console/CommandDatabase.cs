@@ -34,14 +34,14 @@ public static class CommandDatabase {
 	[Command("sens", "Sets mouse sensitivity", "value*=1.0")]
 	public static string SensCommand(Command cmd, string[] args) {
 		if(args.Length == 0) {
-			Logger.Info($"Current sensitivity: {Global.Instance.settings.sensitivity}");
+			Logger.Info($"Current sensitivity: {SettingsManager.settings.sensitivity}");
 			return null;
 		}
 
 		float sens = cmd.Arguments["value"].GetFloat(args[0]);
 
-		Global.Instance.settings.sensitivity = sens;
-		SettingsManager.Save(ref Global.Instance.settings);
+		SettingsManager.settings.sensitivity = sens;
+		SettingsManager.Save();
 
 		return null;
 	}
@@ -49,7 +49,7 @@ public static class CommandDatabase {
 	[Command("volume", "Sets audio volume", "value*=1.0")]
 	public static string VolumeCommand(Command cmd, string[] args) {
 		if(args.Length == 0) {
-			Logger.Info($"Current volume: {Global.Instance.settings.audioVolume}");
+			Logger.Info($"Current volume: {SettingsManager.settings.audioVolume}");
 			return null;
 		}
 
@@ -57,8 +57,8 @@ public static class CommandDatabase {
 
 		SfxManager.SetMasterVolume(volume);
 
-		Global.Instance.settings.audioVolume = volume;
-		SettingsManager.Save(ref Global.Instance.settings);
+		SettingsManager.settings.audioVolume = volume;
+		SettingsManager.Save();
 
 		return null;
 	}
@@ -66,26 +66,25 @@ public static class CommandDatabase {
 	[Command("max_fps", "Sets max FPS", "value*=0")]
 	public static string MaxFpsCommand(Command cmd, string[] args) {
 		if(args.Length == 0) {
-			Logger.Info($"Current max FPS: {Global.Instance.settings.maxFps}");
+			Logger.Info($"Current max FPS: {SettingsManager.settings.maxFps}");
 			return null;
 		}
 
 		int maxFps = cmd.Arguments["value"].GetInt(args[0]);
 		Engine.MaxFps = maxFps;
 
-		Global.Instance.settings.maxFps = (uint)maxFps;
-		SettingsManager.Save(ref Global.Instance.settings);
+		SettingsManager.settings.maxFps = (uint)maxFps;
+		SettingsManager.Save();
 
 		return null;
 	}
 
 	[Command("cfg_reset", "Resets the config file")]
 	public static string ConfigResetCommand(Command cmd, string[] args) {
+		SettingsManager.settings = Settings.Default;
 
-		Global.Instance.settings = Settings.Default;
-
-		SettingsManager.Save(ref Global.Instance.settings);
-		SettingsManager.ApplySettings(ref Global.Instance.settings);
+		SettingsManager.Save();
+		SettingsManager.ApplySettings();
 
 		return null;
 	}

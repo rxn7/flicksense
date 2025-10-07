@@ -1,14 +1,14 @@
 [gd_scene load_steps=21 format=3 uid="uid://cavalb7rmjuo8"]
 
-[ext_resource type="Script" uid="uid://brpnj3bkjglo" path="res://scripts/ui/main_menu/MainMenu.cs" id="1_wu84c"]
+[ext_resource type="Script" uid="uid://brpnj3bkjglo" path="res://scripts/ui/main_menu/MainMenuUI.cs" id="1_wu84c"]
 [ext_resource type="Theme" uid="uid://cpfxqinjygjld" path="res://resources/themes/main_theme.tres" id="2_8ln24"]
 [ext_resource type="FontFile" uid="uid://crynp721ow4yq" path="res://resources/fonts/Rubik-Italic-VariableFont_wght.ttf" id="3_rtw2f"]
-[ext_resource type="Script" uid="uid://45haynhc7boa" path="res://scripts/ui/main_menu/MainMenuStatsDisplay.cs" id="4_8ln24"]
+[ext_resource type="Script" uid="uid://45haynhc7boa" path="res://scripts/ui/main_menu/MainMenuStatsUI.cs" id="4_8ln24"]
 [ext_resource type="FontFile" uid="uid://cgltv2nkg35ms" path="res://resources/fonts/RubikMonoOne-Regular.ttf" id="4_oa1go"]
 [ext_resource type="LabelSettings" uid="uid://b5sr4prn6xe7b" path="res://resources/label_settings/header_label_settings.tres" id="5_jk1qb"]
 [ext_resource type="StyleBox" uid="uid://dt32d8eliw253" path="res://resources/themes/styles/box_red.tres" id="5_rtw2f"]
 [ext_resource type="LabelSettings" uid="uid://bhlwevraqdcey" path="res://resources/label_settings/default_ui_label_settings.tres" id="7_5dd4i"]
-[ext_resource type="Script" uid="uid://e4rnfl7yax4n" path="res://scripts/ui/GameModeSelection.cs" id="7_oa1go"]
+[ext_resource type="Script" uid="uid://e4rnfl7yax4n" path="res://scripts/ui/GameModeSelectionUI.cs" id="7_oa1go"]
 [ext_resource type="StyleBox" uid="uid://dfux0k32vesiu" path="res://resources/themes/styles/box_green.tres" id="10_flqon"]
 [ext_resource type="StyleBox" uid="uid://sm81bfogdp66" path="res://resources/themes/styles/box_blue.tres" id="11_rcqid"]
 
@@ -96,11 +96,10 @@ theme_override_styles/tab_hovered = SubResource("StyleBoxEmpty_jk1qb")
 theme_override_styles/tab_selected = SubResource("StyleBoxEmpty_5dd4i")
 theme_override_styles/tab_disabled = SubResource("StyleBoxEmpty_lgwnu")
 theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_flqon")
-current_tab = 1
+current_tab = 0
 tabs_visible = false
 
 [node name="Main" type="CenterContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_8ln24")
 metadata/_tab_index = 0
@@ -117,75 +116,113 @@ theme = ExtResource("2_8ln24")
 theme_override_constants/separation = 64
 alignment = 1
 
-[node name="Stats" type="Label" parent="TabContainer/Main/HBoxContainer/Left"]
+[node name="StatsHeader" type="Label" parent="TabContainer/Main/HBoxContainer/Left"]
 layout_mode = 2
 text = "Stats"
 label_settings = ExtResource("5_jk1qb")
 vertical_alignment = 1
 
-[node name="StatsDisplay" type="VBoxContainer" parent="TabContainer/Main/HBoxContainer/Left" node_paths=PackedStringArray("m_averageAccuracyLabel", "m_bestStreakLabel", "m_averageScoreLabel", "m_bestScore", "m_longestSurvivedLabel")]
+[node name="Stats" type="VBoxContainer" parent="TabContainer/Main/HBoxContainer/Left" node_paths=PackedStringArray("m_bestStreakLabel", "m_bestComboLabel", "m_timeLimitScoreLabel", "m_longestSurvivedLabel")]
 layout_mode = 2
 theme_override_constants/separation = 24
 script = ExtResource("4_8ln24")
-m_averageAccuracyLabel = NodePath("General/AverageAccuracy")
-m_bestStreakLabel = NodePath("General/BestStreak")
-m_averageScoreLabel = NodePath("Endless Mode/AverageScore")
-m_bestScore = NodePath("Endless Mode/BestScoreEndless")
-m_longestSurvivedLabel = NodePath("Survival Mode/LongestSurvived")
+m_bestStreakLabel = NodePath("General/BestStreak/BestStreakValue")
+m_bestComboLabel = NodePath("General/BestCombo/BestComboValue")
+m_timeLimitScoreLabel = NodePath("TimeLimitMode/BestScoreTimeLimit/BestScoreTimeLimitValue")
+m_longestSurvivedLabel = NodePath("Survival Mode/LongestSurvived/LongestSurvivedValue")
 
-[node name="General" type="VBoxContainer" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay"]
+[node name="General" type="VBoxContainer" parent="TabContainer/Main/HBoxContainer/Left/Stats"]
 layout_mode = 2
 
-[node name="Header" type="Label" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay/General"]
+[node name="Header" type="Label" parent="TabContainer/Main/HBoxContainer/Left/Stats/General"]
 layout_mode = 2
 text = "General"
 label_settings = SubResource("LabelSettings_nxjfj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AverageAccuracy" type="Label" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay/General"]
+[node name="BestStreak" type="HSplitContainer" parent="TabContainer/Main/HBoxContainer/Left/Stats/General"]
 layout_mode = 2
-text = "Average accuracy: 0%"
+split_offset = 134
+dragging_enabled = false
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="TabContainer/Main/HBoxContainer/Left/Stats/General/BestStreak"]
+layout_mode = 2
+text = "Best Streak:"
 label_settings = ExtResource("7_5dd4i")
 
-[node name="BestStreak" type="Label" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay/General"]
+[node name="BestStreakValue" type="Label" parent="TabContainer/Main/HBoxContainer/Left/Stats/General/BestStreak"]
 layout_mode = 2
-text = "Best streak: 0"
+text = "0"
 label_settings = ExtResource("7_5dd4i")
 
-[node name="Endless Mode" type="VBoxContainer" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay"]
+[node name="BestCombo" type="HSplitContainer" parent="TabContainer/Main/HBoxContainer/Left/Stats/General"]
+layout_mode = 2
+split_offset = 134
+dragging_enabled = false
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="TabContainer/Main/HBoxContainer/Left/Stats/General/BestCombo"]
+layout_mode = 2
+text = "Best Combo:"
+label_settings = ExtResource("7_5dd4i")
+
+[node name="BestComboValue" type="Label" parent="TabContainer/Main/HBoxContainer/Left/Stats/General/BestCombo"]
+layout_mode = 2
+text = "x1.0"
+label_settings = ExtResource("7_5dd4i")
+
+[node name="TimeLimitMode" type="VBoxContainer" parent="TabContainer/Main/HBoxContainer/Left/Stats"]
 layout_mode = 2
 
-[node name="Header" type="Label" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay/Endless Mode"]
+[node name="Header" type="Label" parent="TabContainer/Main/HBoxContainer/Left/Stats/TimeLimitMode"]
 layout_mode = 2
-text = "Endless Mode"
+text = "Time Limit Mode"
 label_settings = SubResource("LabelSettings_nxjfj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AverageScore" type="Label" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay/Endless Mode"]
+[node name="BestScoreTimeLimit" type="HSplitContainer" parent="TabContainer/Main/HBoxContainer/Left/Stats/TimeLimitMode"]
 layout_mode = 2
-text = "Average score: 0"
+split_offset = 134
+dragging_enabled = false
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="TabContainer/Main/HBoxContainer/Left/Stats/TimeLimitMode/BestScoreTimeLimit"]
+layout_mode = 2
+text = "Best score:"
 label_settings = ExtResource("7_5dd4i")
 
-[node name="BestScoreEndless" type="Label" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay/Endless Mode"]
+[node name="BestScoreTimeLimitValue" type="Label" parent="TabContainer/Main/HBoxContainer/Left/Stats/TimeLimitMode/BestScoreTimeLimit"]
 layout_mode = 2
-text = "Best score: 0"
+text = "0"
 label_settings = ExtResource("7_5dd4i")
 
-[node name="Survival Mode" type="VBoxContainer" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay"]
+[node name="Survival Mode" type="VBoxContainer" parent="TabContainer/Main/HBoxContainer/Left/Stats"]
 layout_mode = 2
 
-[node name="Header" type="Label" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay/Survival Mode"]
+[node name="Header" type="Label" parent="TabContainer/Main/HBoxContainer/Left/Stats/Survival Mode"]
 layout_mode = 2
 text = "Survival Mode"
 label_settings = SubResource("LabelSettings_nxjfj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LongestSurvived" type="Label" parent="TabContainer/Main/HBoxContainer/Left/StatsDisplay/Survival Mode"]
+[node name="LongestSurvived" type="HSplitContainer" parent="TabContainer/Main/HBoxContainer/Left/Stats/Survival Mode"]
 layout_mode = 2
-text = "Longest survived: 0:00.0"
+split_offset = 134
+dragging_enabled = false
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="TabContainer/Main/HBoxContainer/Left/Stats/Survival Mode/LongestSurvived"]
+layout_mode = 2
+text = "Longest survived:"
+label_settings = ExtResource("7_5dd4i")
+
+[node name="LongestSurvivedValue" type="Label" parent="TabContainer/Main/HBoxContainer/Left/Stats/Survival Mode/LongestSurvived"]
+layout_mode = 2
+text = "0:00.000"
 label_settings = ExtResource("7_5dd4i")
 
 [node name="Mid" type="VBoxContainer" parent="TabContainer/Main/HBoxContainer"]
@@ -219,6 +256,7 @@ layout_mode = 2
 theme = ExtResource("2_8ln24")
 
 [node name="GameModeSelection" type="Control" parent="TabContainer" node_paths=PackedStringArray("m_endlessModeButton", "m_timeLimitModeButton", "m_survivalModeButton", "m_goBackButton")]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_8ln24")
 script = ExtResource("7_oa1go")

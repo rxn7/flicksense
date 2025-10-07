@@ -1,17 +1,17 @@
 using Godot;
 
 [GlobalClass]
-public partial class Hud : CanvasLayer {
+public partial class HudUI : CanvasLayer {
 	[Export] private Label m_missesLabel;
 	[Export] private Label m_hitsLabel;
 	[Export] private Label m_accuracyLabel;
 	[Export] private Label m_hitStreakMultiplierLabel;
 	[Export] private Label m_timeLabel;
-	[Export] private ScoreLabel m_scoreLabel;
+	[Export] private ScoreLabelUI m_scoreLabel;
 
 	public void UpdateStats(Stats stats) {
 		m_missesLabel.Text = stats.Misses.ToString();
-		m_hitsLabel.Text = stats.Hits.ToString();
+		m_hitsLabel.Text = stats.hits.ToString();
 		m_accuracyLabel.Text = StringHelper.Value01ToPercentString(stats.Accuracy);
 	}
 

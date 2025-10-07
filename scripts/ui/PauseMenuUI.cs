@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public partial class PauseMenu : CanvasLayer {
+public partial class PauseMenuUI : CanvasLayer {
 	public event Action onClosed;
 	public event Action onOpen;
 	public event Action onFinishSessionPressed;
@@ -22,6 +22,15 @@ public partial class PauseMenu : CanvasLayer {
 
 		m_exitButton.Pressed += () => {
 			SceneSwitcher.SwitchToMainMenu();
+		};
+	}
+
+	public void Setup(EGameMode gameMode) {
+		m_finishButton.Visible = gameMode switch {
+			EGameMode.Endless => true,
+			EGameMode.TimeLimit => false,
+			EGameMode.Survival => true,
+			_ => true,
 		};
 	}
 

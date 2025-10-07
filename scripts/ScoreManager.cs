@@ -38,9 +38,10 @@ public partial class ScoreManager : Node {
 	}
 
 	public void RegisterShot(bool hit, ref Stats stats) {
-		++stats.Shots;
+		++stats.shots;
 
 		if(!hit) {
+			stats.hitStreak = 0;
 			m_streakMultiplier = 1.0f;
 			onStreakMultiplierChanged?.Invoke(m_streakMultiplier);
 		}
@@ -49,7 +50,12 @@ public partial class ScoreManager : Node {
 	}
 
 	public (ulong, float) RegisterHit(ref Stats stats) {
-		++stats.Hits;
+		++stats.hits;
+		++stats.hitStreak;
+
+		if(SaveManager.data.bestHitStreak < stats.hitStreak) {
+			SaveManager.data.bestHitStreak = stats.hitStreak;
+		}
 
 		ulong nowMs = Time.GetTicksMsec();
 
@@ -58,13 +64,17 @@ public partial class ScoreManager : Node {
 		ulong baseScore = BASE_HIT_POINTS + CalculateReactionTimeBonus(nowMs);
 		ulong addedScore = (ulong)(baseScore * m_streakMultiplier);
 
-		stats.Score += addedScore;
+		stats.score += addedScore;
 
-		onScoreAdded?.Invoke(stats.Score, addedScore);
+		onScoreAdded?.Invoke(stats.score, addedScore);
 		onUpdated?.Invoke();
 
 		m_streakMultiplier = Mathf.Min(m_streakMultiplier + 0.1f, MAX_STREAK_MULTIPLIER);
 		onStreakMultiplierChanged?.Invoke(m_streakMultiplier);
+
+		if(SaveManager.data.bestStreakMultiplier < m_streakMultiplier) {
+			SaveManager.data.bestStreakMultiplier = m_streakMultiplier;
+		}
 
 		m_lastHitTimeMs = nowMs;
 

@@ -1,10 +1,10 @@
 using Godot;
 
-public partial class MainMenu : CanvasLayer {
+public partial class MainMenuUI : CanvasLayer {
 	[Export] private Label m_versionLabel;
 
 	[Export] private Control m_mainPanel;
-	[Export] private GameModeSelection m_gameModeSelection;
+	[Export] private GameModeSelectionUI m_gameModeSelection;
 	// TODO: Settings
 
 	[Export] private Button m_playButton;

@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class FpsCounter : Label {
+public partial class FpsCounterUI : Label {
 	public override void _EnterTree() {
 		ProcessMode = ProcessModeEnum.Always;
 	}

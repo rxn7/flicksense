@@ -1,16 +1,17 @@
 public struct Stats {
-	public ulong Score;
-	public int Shots;
-	public int Hits;
+	public ulong score;
+	public ulong shots;
+	public ulong hits;
+	public ulong hitStreak;
 
-	public float TimeElapsed;
+	public float timeElapsed;
 
-	public int Misses => Shots - Hits;
-	public float Accuracy => Shots > 0 ? (float)Hits / Shots : 0.0f;
+	public ulong Misses => shots - hits;
+	public float Accuracy => shots > 0 ? (float)hits / shots : 0.0f;
 
 	public Stats() {
-		Shots = 0;
-		Hits = 0;
-		TimeElapsed = 0f;
+		shots = 0;
+		hits = 0;
+		timeElapsed = 0f;
 	}
 };
