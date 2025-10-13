@@ -7,7 +7,24 @@ public partial class HudUI : CanvasLayer {
 	[Export] private Label m_accuracyLabel;
 	[Export] private Label m_hitStreakMultiplierLabel;
 	[Export] private Label m_timeLabel;
+	[Export] private Label m_gameModeLabel;
 	[Export] private ScoreLabelUI m_scoreLabel;
+
+	public void Setup(EGameMode gameMode) {
+		m_gameModeLabel.Text = gameMode switch {
+			EGameMode.TimeLimit => "Time Limit",
+			EGameMode.Endless => "Endless",
+			EGameMode.Survival => "Survival",
+			_ => ""
+		};
+
+		Reset();
+	}
+
+	public void Reset() {
+		m_scoreLabel.Reset();
+		UpdateHitStreakMultiplier(1.0f);
+	}
 
 	public void UpdateStats(Stats stats) {
 		m_missesLabel.Text = stats.Misses.ToString();
@@ -21,10 +38,6 @@ public partial class HudUI : CanvasLayer {
 
 	public void UpdateHitStreakMultiplier(float multiplier) {
 		m_hitStreakMultiplierLabel.Text = $"x{multiplier:0.00}";
-	}
-
-	public void Reset() {
-		m_scoreLabel.Reset();
 	}
 
 	public void UpdateTimeText(EGameMode gameMode, float elapsedSeconds) {

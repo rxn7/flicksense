@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://sd1xhfph0usx"]
+[gd_scene load_steps=14 format=3 uid="uid://sd1xhfph0usx"]
 
 [ext_resource type="Script" uid="uid://c6msgkj7kiq8c" path="res://scripts/ui/hud/CrosshairUI.cs" id="1_mj13f"]
 [ext_resource type="FontFile" uid="uid://crynp721ow4yq" path="res://resources/fonts/Rubik-Italic-VariableFont_wght.ttf" id="2_0h1do"]
@@ -7,6 +7,7 @@
 [ext_resource type="LabelSettings" uid="uid://jlc61f56b440" path="res://resources/label_settings/icon_label_settings.tres" id="5_kicr4"]
 [ext_resource type="FontFile" uid="uid://bo4a62k4lhkwv" path="res://resources/fonts/Rubik-VariableFont_wght.ttf" id="6_cwdlq"]
 [ext_resource type="Script" uid="uid://dnggbnlytitqc" path="res://scripts/ui/hud/ScoreLabelUI.cs" id="8_h022r"]
+[ext_resource type="LabelSettings" uid="uid://b5sr4prn6xe7b" path="res://resources/label_settings/header_label_settings.tres" id="9_4jqwt"]
 [ext_resource type="FontFile" uid="uid://cgltv2nkg35ms" path="res://resources/fonts/RubikMonoOne-Regular.ttf" id="9_65nxt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pl11u"]
@@ -27,13 +28,14 @@ shadow_size = 0
 font = ExtResource("9_65nxt")
 font_size = 32
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_hitStreakMultiplierLabel", "m_timeLabel", "m_scoreLabel")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_hitStreakMultiplierLabel", "m_timeLabel", "m_gameModeLabel", "m_scoreLabel")]
 script = ExtResource("4_erw67")
 m_missesLabel = NodePath("Stats/Left/Misses/MissCountLabel")
 m_hitsLabel = NodePath("Stats/Left/Hits/HitCountLabel")
 m_accuracyLabel = NodePath("Stats/Left/Accuracy/AccuracyLabel")
 m_hitStreakMultiplierLabel = NodePath("Stats/Top/VBoxContainer/StreakMultiplier/StreakMultiplierLabel")
 m_timeLabel = NodePath("Stats/Bottom/TimeLabel")
+m_gameModeLabel = NodePath("Stats/Bottom/GameModeLabel")
 m_scoreLabel = NodePath("Stats/Top/VBoxContainer/Score/ScoreLabel")
 
 [node name="Crosshair" type="CenterContainer" parent="."]
@@ -196,19 +198,29 @@ autowrap_trim_flags = 0
 justification_flags = 0
 script = ExtResource("8_h022r")
 
-[node name="Bottom" type="CenterContainer" parent="Stats"]
+[node name="Bottom" type="VBoxContainer" parent="Stats"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
+offset_top = -90.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
+theme_override_constants/separation = 0
+alignment = 1
 
 [node name="TimeLabel" type="Label" parent="Stats/Bottom"]
 layout_mode = 2
 text = "00:00.000"
 label_settings = SubResource("LabelSettings_qnb83")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameModeLabel" type="Label" parent="Stats/Bottom"]
+layout_mode = 2
+text = "endless"
+label_settings = ExtResource("9_4jqwt")
+horizontal_alignment = 1
 vertical_alignment = 1

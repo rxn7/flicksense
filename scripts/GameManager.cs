@@ -94,6 +94,7 @@ public partial class GameManager : Node {
 
 	public void Setup(EGameMode gameMode) {
 		m_gameMode = gameMode;
+		m_hud.Setup(gameMode);
 	}
 
 	private void Reset() {
