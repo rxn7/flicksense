@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class MainMenuStatsUI : Control {
@@ -19,5 +20,6 @@ public partial class MainMenuStatsUI : Control {
 		m_bestStreakLabel.Text = SaveManager.data.bestHitStreak.ToString();
 		m_bestComboLabel.Text = $"x{SaveManager.data.bestStreakMultiplier:0.0}";
 		m_timeLimitScoreLabel.Text = SaveManager.data.bestTimeLimitScore.ToString();
+		m_longestSurvivedLabel.Text = TimeSpan.FromSeconds(SaveManager.data.survivalLongestTimeSurvived).ToString("mm\\:ss\\.ff");
 	}
 }

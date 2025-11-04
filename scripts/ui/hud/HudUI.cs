@@ -8,6 +8,7 @@ public partial class HudUI : CanvasLayer {
 	[Export] private Label m_hitStreakMultiplierLabel;
 	[Export] private Label m_timeLabel;
 	[Export] private Label m_gameModeLabel;
+	[Export] private SurvivalHealthUI m_survivalHealth;
 	[Export] private ScoreLabelUI m_scoreLabel;
 
 	public void Setup(EGameMode gameMode) {
@@ -17,6 +18,15 @@ public partial class HudUI : CanvasLayer {
 			EGameMode.Survival => "Survival",
 			_ => ""
 		};
+
+		m_scoreLabel.Visible = gameMode switch {
+			EGameMode.Endless => true,
+			EGameMode.TimeLimit => true,
+			EGameMode.Survival => false,
+			_ => true,
+		};
+
+		m_survivalHealth.Visible = gameMode == EGameMode.Survival;
 
 		Reset();
 	}
@@ -40,12 +50,11 @@ public partial class HudUI : CanvasLayer {
 		m_hitStreakMultiplierLabel.Text = $"x{multiplier:0.00}";
 	}
 
-	public void UpdateTimeText(EGameMode gameMode, float elapsedSeconds) {
-		// On time limit mode, the timer acts as a countdown
-		if(gameMode == EGameMode.TimeLimit) {
-			elapsedSeconds = GameManager.TIME_LIMIT_SECONDS - elapsedSeconds;
-		}
+	public void UpdateSurvivalHealth(float health) {
+		m_survivalHealth.SetValue(health);
+	}
 
-		m_timeLabel.Text = StringHelper.TimeStringFromSeconds(elapsedSeconds);
+	public void UpdateTimeText(string text) {
+		m_timeLabel.Text = text;
 	}
 }

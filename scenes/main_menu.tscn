@@ -338,7 +338,6 @@ theme_override_styles/pressed = ExtResource("5_rtw2f")
 theme_override_styles/hover = ExtResource("5_rtw2f")
 theme_override_styles/disabled = ExtResource("5_rtw2f")
 theme_override_styles/focus = ExtResource("5_rtw2f")
-disabled = true
 text = "Survival"
 
 [node name="Go Back" type="Button" parent="TabContainer/GameModeSelection"]

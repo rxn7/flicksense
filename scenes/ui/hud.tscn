@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://sd1xhfph0usx"]
+[gd_scene load_steps=16 format=3 uid="uid://sd1xhfph0usx"]
 
 [ext_resource type="Script" uid="uid://c6msgkj7kiq8c" path="res://scripts/ui/hud/CrosshairUI.cs" id="1_mj13f"]
 [ext_resource type="FontFile" uid="uid://crynp721ow4yq" path="res://resources/fonts/Rubik-Italic-VariableFont_wght.ttf" id="2_0h1do"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://dnggbnlytitqc" path="res://scripts/ui/hud/ScoreLabelUI.cs" id="8_h022r"]
 [ext_resource type="LabelSettings" uid="uid://b5sr4prn6xe7b" path="res://resources/label_settings/header_label_settings.tres" id="9_4jqwt"]
 [ext_resource type="FontFile" uid="uid://cgltv2nkg35ms" path="res://resources/fonts/RubikMonoOne-Regular.ttf" id="9_65nxt"]
+[ext_resource type="StyleBox" uid="uid://dt32d8eliw253" path="res://resources/themes/styles/box_red.tres" id="9_kicr4"]
+[ext_resource type="Script" uid="uid://cdka5b366b1fu" path="res://scripts/ui/SurvivalHealthUI.cs" id="9_mj13f"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pl11u"]
 font = ExtResource("2_0h1do")
@@ -28,14 +30,15 @@ shadow_size = 0
 font = ExtResource("9_65nxt")
 font_size = 32
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_hitStreakMultiplierLabel", "m_timeLabel", "m_gameModeLabel", "m_scoreLabel")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_hitStreakMultiplierLabel", "m_timeLabel", "m_gameModeLabel", "m_survivalHealth", "m_scoreLabel")]
 script = ExtResource("4_erw67")
 m_missesLabel = NodePath("Stats/Left/Misses/MissCountLabel")
 m_hitsLabel = NodePath("Stats/Left/Hits/HitCountLabel")
 m_accuracyLabel = NodePath("Stats/Left/Accuracy/AccuracyLabel")
-m_hitStreakMultiplierLabel = NodePath("Stats/Top/VBoxContainer/StreakMultiplier/StreakMultiplierLabel")
+m_hitStreakMultiplierLabel = NodePath("Stats/Top/VBoxContainer/StreakMultiplierLabel")
 m_timeLabel = NodePath("Stats/Bottom/TimeLabel")
-m_gameModeLabel = NodePath("Stats/Bottom/GameModeLabel")
+m_gameModeLabel = NodePath("Stats/Top/VBoxContainer/GameModeLabel")
+m_survivalHealth = NodePath("Stats/Bottom/SurvivalHealth")
 m_scoreLabel = NodePath("Stats/Top/VBoxContainer/Score/ScoreLabel")
 
 [node name="Crosshair" type="CenterContainer" parent="."]
@@ -155,25 +158,18 @@ mouse_filter = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="Stats/Top"]
 layout_mode = 2
 
-[node name="StreakMultiplier" type="HBoxContainer" parent="Stats/Top/VBoxContainer"]
-custom_minimum_size = Vector2(250, 0)
+[node name="GameModeLabel" type="Label" parent="Stats/Top/VBoxContainer"]
+visible = false
 layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="StreakMultiplierLabel" type="Label" parent="Stats/Top/VBoxContainer/StreakMultiplier"]
-layout_mode = 2
-text = "x1.0"
-label_settings = SubResource("LabelSettings_dinhu")
+text = "GAME MODE"
+label_settings = ExtResource("9_4jqwt")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Icon" type="Label" parent="Stats/Top/VBoxContainer/StreakMultiplier"]
-self_modulate = Color(1, 0.47843137, 0, 1)
+[node name="StreakMultiplierLabel" type="Label" parent="Stats/Top/VBoxContainer"]
 layout_mode = 2
-text = "C"
-label_settings = ExtResource("5_kicr4")
+text = "x1.0"
+label_settings = SubResource("LabelSettings_dinhu")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -209,7 +205,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 theme_override_constants/separation = 0
-alignment = 1
+alignment = 2
 
 [node name="TimeLabel" type="Label" parent="Stats/Bottom"]
 layout_mode = 2
@@ -218,9 +214,35 @@ label_settings = SubResource("LabelSettings_qnb83")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameModeLabel" type="Label" parent="Stats/Bottom"]
+[node name="SurvivalHealth" type="Control" parent="Stats/Bottom" node_paths=PackedStringArray("m_label", "m_progressBar")]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-text = "endless"
-label_settings = ExtResource("9_4jqwt")
+script = ExtResource("9_mj13f")
+m_label = NodePath("SurvivalHealthLabel")
+m_progressBar = NodePath("SurvivalHealthProgressBar")
+
+[node name="SurvivalHealthProgressBar" type="ProgressBar" parent="Stats/Bottom/SurvivalHealth"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22700001
+anchor_right = 0.77300006
+anchor_bottom = 1.0
+offset_left = 0.12799072
+offset_right = -0.12805176
+size_flags_vertical = 1
+theme_override_styles/fill = ExtResource("9_kicr4")
+value = 100.0
+show_percentage = false
+
+[node name="SurvivalHealthLabel" type="Label" parent="Stats/Bottom/SurvivalHealth"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100"
+label_settings = ExtResource("5_kicr4")
 horizontal_alignment = 1
 vertical_alignment = 1

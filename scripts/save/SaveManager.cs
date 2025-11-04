@@ -15,6 +15,7 @@ public static class SaveManager {
 		file.Store64(data.bestHitStreak);
 		file.StoreFloat(data.bestStreakMultiplier);
 		file.Store64(data.bestTimeLimitScore);
+		file.StoreFloat(data.survivalLongestTimeSurvived);
 
 		file.Close();
 	}
@@ -30,7 +31,8 @@ public static class SaveManager {
 		data = new() {
 			bestHitStreak = file.Get64(),
 			bestStreakMultiplier = file.GetFloat(),
-			bestTimeLimitScore = file.Get64()
+			bestTimeLimitScore = file.Get64(),
+			survivalLongestTimeSurvived = file.GetFloat(),
 		};
 	}
 }

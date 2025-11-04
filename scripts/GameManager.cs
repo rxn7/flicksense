@@ -1,7 +1,12 @@
 using Godot;
+using System;
 
 public partial class GameManager : Node {
 	public const float TIME_LIMIT_SECONDS = 30.0f; // TODO: Configurable time limit
+	public const float SURVIVAL_MAX_HEALTH = 100.0f;
+	public const float SURVIVAL_HEALTH_PER_SCORE = 0.1f;
+	public const float SURVIVAL_DAMAGE_FOR_MISS = 10;
+	public const float SURVIVAL_DAMAGE_PER_SECOND = 10.0f;
 
 	[ExportGroup("Managers")]
 	[Export] private TargetManager m_targetManager;
@@ -19,6 +24,8 @@ public partial class GameManager : Node {
 	private Stats m_stats;
 	private EGameMode m_gameMode;
 	private bool m_isFinished = false;
+
+	private float m_survivalHealth = 100.0f;
 
 	public override void _Ready() {
 		Global.Instance.ConsoleUI.onHide += () => {
@@ -63,23 +70,7 @@ public partial class GameManager : Node {
 		}
 
 		m_stats.timeElapsed += (float)delta;
-
-		switch(m_gameMode) {
-			case EGameMode.Endless:
-				break;
-
-			case EGameMode.TimeLimit:
-				m_stats.timeElapsed = Mathf.Min(m_stats.timeElapsed, TIME_LIMIT_SECONDS);
-				if(m_stats.timeElapsed >= TIME_LIMIT_SECONDS) {
-					Finish();
-				}
-				break;
-
-			case EGameMode.Survival:
-				break;
-		}
-
-		m_hud.UpdateTimeText(m_gameMode, m_stats.timeElapsed);
+		GameModeTick((float)delta);
 	}
 
 	public override void _UnhandledKeyInput(InputEvent ev) {
@@ -99,6 +90,8 @@ public partial class GameManager : Node {
 
 	private void Reset() {
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+
+		m_survivalHealth = SURVIVAL_MAX_HEALTH;
 
 		m_stats = new Stats();
 		m_isFinished = false;
@@ -123,6 +116,12 @@ public partial class GameManager : Node {
 					SaveManager.data.bestTimeLimitScore = m_stats.score;
 				}
 				break;
+
+			case EGameMode.Survival:
+				if(SaveManager.data.survivalLongestTimeSurvived < m_stats.timeElapsed) {
+					SaveManager.data.survivalLongestTimeSurvived = m_stats.timeElapsed;
+				}
+				break;
 		}
 
 		SaveManager.Save();
@@ -131,22 +130,77 @@ public partial class GameManager : Node {
 	private void OnShoot(bool hit, Vector3? hitPoint, Vector3? hitNormal) {
 		m_scoreManager.RegisterShot(hit, ref m_stats);
 
-		if(hitPoint.HasValue && hitNormal.HasValue) {
-			if(!hit) {
-				m_vfxManager.ShowScorePopup(hitPoint.Value, 0);
-			}
+		if(!hit) {
+			OnTargetMiss(hitPoint);
+		}
 
+		if(hitPoint.HasValue && hitNormal.HasValue) {
 			m_sfxManager.PlaySfx(hit ? ESfx.ShootHit : ESfx.ShootMiss, (float)GD.RandRange(0.8f, 1.2f));
 		} 
 	}
 
 	private void OnTargetHit(Target target, Vector3 shootDir, Vector3 hitPoint, Vector3 hitNormal) {
 		(ulong scoreAdded, float reactionTimeRatio) = m_scoreManager.RegisterHit(ref m_stats);
+
+		switch(m_gameMode) {
+			case EGameMode.Survival:
+				scoreAdded = (ulong)(scoreAdded * SURVIVAL_HEALTH_PER_SCORE);
+				m_survivalHealth = Mathf.Min(m_survivalHealth + scoreAdded, SURVIVAL_MAX_HEALTH);
+				break;
+		}
+
 		m_vfxManager.ShowScorePopup(hitPoint, scoreAdded, reactionTimeRatio);
 
 		m_vfxManager.ExplodeTarget(target.GlobalPosition, hitPoint, shootDir);
 
 		m_targetManager.HideTarget(target);
 		m_targetManager.ShowTarget();
+	}
+
+	private void OnTargetMiss(Vector3? hitPoint) {
+		if(hitPoint.HasValue) {
+			m_vfxManager.ShowScorePopup(hitPoint.Value, 0);
+		}
+
+		switch(m_gameMode) {
+			case EGameMode.Survival:
+				m_survivalHealth -= SURVIVAL_DAMAGE_FOR_MISS;
+				break;
+		}
+	}
+
+	private void GameModeTick(float delta) {
+		switch(m_gameMode) {
+			case EGameMode.Endless: {
+				string timeText = TimeSpan.FromSeconds(m_stats.timeElapsed).ToString("mm\\:ss\\.ff");
+				m_hud.UpdateTimeText(timeText);
+				break;
+			}
+
+			case EGameMode.TimeLimit: {
+				m_stats.timeElapsed = Mathf.Min(m_stats.timeElapsed, TIME_LIMIT_SECONDS);
+				if(m_stats.timeElapsed >= TIME_LIMIT_SECONDS) {
+					Finish();
+				}
+
+				string timeText = TimeSpan.FromSeconds(Mathf.Max(TIME_LIMIT_SECONDS - m_stats.timeElapsed, 0.0f)).ToString("mm\\:ss\\.ff");
+				m_hud.UpdateTimeText(timeText);
+				break;
+			}
+
+			case EGameMode.Survival: {
+				m_survivalHealth -= delta * SURVIVAL_DAMAGE_PER_SECOND;
+				if(m_survivalHealth <= 0) {
+					m_survivalHealth = 0;
+					Finish();
+				}	
+				m_hud.UpdateSurvivalHealth(m_survivalHealth);
+
+				string timeText = TimeSpan.FromSeconds(m_stats.timeElapsed).ToString("mm\\:ss\\.ff");
+				m_hud.UpdateTimeText(timeText);
+
+				break;
+			}
+		}
 	}
 }
