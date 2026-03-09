@@ -9,7 +9,9 @@
 [ext_resource type="StyleBox" uid="uid://dt32d8eliw253" path="res://resources/themes/styles/box_red.tres" id="5_rtw2f"]
 [ext_resource type="LabelSettings" uid="uid://bhlwevraqdcey" path="res://resources/label_settings/default_ui_label_settings.tres" id="7_5dd4i"]
 [ext_resource type="Script" uid="uid://e4rnfl7yax4n" path="res://scripts/ui/GameModeSelectionUI.cs" id="7_oa1go"]
+[ext_resource type="StyleBox" uid="uid://b55nmy4xhio7a" path="res://resources/themes/styles/box_orange.tres" id="8_flqon"]
 [ext_resource type="StyleBox" uid="uid://dfux0k32vesiu" path="res://resources/themes/styles/box_green.tres" id="10_flqon"]
+[ext_resource type="PackedScene" uid="uid://cjvxi74p0y4kl" path="res://scenes/ui/settings_screen.tscn" id="10_rcqid"]
 [ext_resource type="StyleBox" uid="uid://sm81bfogdp66" path="res://resources/themes/styles/box_blue.tres" id="11_rcqid"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fcv5n"]
@@ -33,11 +35,12 @@ font_color = Color(0.61960787, 0.61960787, 0.61960787, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_nxjfj"]
 font = ExtResource("3_rtw2f")
 
-[node name="MainMenu" type="CanvasLayer" unique_id=571127308 node_paths=PackedStringArray("m_versionLabel", "m_mainPanel", "m_gameModeSelection", "m_playButton", "m_settingsButton", "m_exitButton")]
+[node name="MainMenu" type="CanvasLayer" unique_id=571127308 node_paths=PackedStringArray("m_versionLabel", "m_mainPanel", "m_gameModeSelection", "m_settingsScreen", "m_playButton", "m_settingsButton", "m_exitButton")]
 script = ExtResource("1_wu84c")
 m_versionLabel = NodePath("Version")
 m_mainPanel = NodePath("TabContainer/Main")
 m_gameModeSelection = NodePath("TabContainer/GameModeSelection")
+m_settingsScreen = NodePath("TabContainer/SettingsScreen")
 m_playButton = NodePath("TabContainer/Main/HBoxContainer/Mid/Play")
 m_settingsButton = NodePath("TabContainer/Main/HBoxContainer/Mid/Settings")
 m_exitButton = NodePath("TabContainer/Main/HBoxContainer/Mid/Exit")
@@ -242,7 +245,11 @@ text = "Play"
 
 [node name="Settings" type="Button" parent="TabContainer/Main/HBoxContainer/Mid" unique_id=2081707262]
 layout_mode = 2
-disabled = true
+theme_override_styles/normal = ExtResource("8_flqon")
+theme_override_styles/pressed = ExtResource("8_flqon")
+theme_override_styles/hover = ExtResource("8_flqon")
+theme_override_styles/disabled = ExtResource("8_flqon")
+theme_override_styles/focus = ExtResource("8_flqon")
 text = "Settings"
 
 [node name="Exit" type="Button" parent="TabContainer/Main/HBoxContainer/Mid" unique_id=130897932]
@@ -259,6 +266,11 @@ custom_minimum_size = Vector2(300, 500)
 layout_mode = 2
 theme = ExtResource("2_8ln24")
 
+[node name="SettingsScreen" parent="TabContainer" unique_id=410503871 instance=ExtResource("10_rcqid")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
 [node name="GameModeSelection" type="Control" parent="TabContainer" unique_id=2010095997 node_paths=PackedStringArray("m_endlessModeButton", "m_timeLimitModeButton", "m_survivalModeButton", "m_goBackButton")]
 visible = false
 layout_mode = 2
@@ -268,7 +280,7 @@ m_endlessModeButton = NodePath("Control/HBoxContainer/EndlessMode")
 m_timeLimitModeButton = NodePath("Control/HBoxContainer/TimeLimit")
 m_survivalModeButton = NodePath("Control/HBoxContainer/Survival")
 m_goBackButton = NodePath("Go Back")
-metadata/_tab_index = 1
+metadata/_tab_index = 2
 
 [node name="Control" type="Control" parent="TabContainer/GameModeSelection" unique_id=1683096323]
 layout_mode = 1

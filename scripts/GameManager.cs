@@ -60,6 +60,8 @@ public partial class GameManager : Node {
 		m_pauseMenu.onClosed += () => {
 			GetTree().Paused = false;
 			Input.MouseMode = Input.MouseModeEnum.Captured;
+
+			m_hud.Crosshair.QueueRedraw(); // crosshair could have been changed in the settings
 		};
 
 		m_pauseMenu.onOpen += () => {

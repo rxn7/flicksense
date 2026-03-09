@@ -1,0 +1,356 @@
+[gd_scene format=3 uid="uid://cjvxi74p0y4kl"]
+
+[ext_resource type="Theme" uid="uid://cpfxqinjygjld" path="res://resources/themes/main_theme.tres" id="1_n5rhh"]
+[ext_resource type="Script" uid="uid://do0rs2mad2iyx" path="res://scripts/ui/SettingsScreenUI.cs" id="2_8y8uj"]
+[ext_resource type="LabelSettings" uid="uid://b5sr4prn6xe7b" path="res://resources/label_settings/header_label_settings.tres" id="2_dyuo2"]
+[ext_resource type="StyleBox" uid="uid://dfux0k32vesiu" path="res://resources/themes/styles/box_green.tres" id="2_o0pos"]
+[ext_resource type="LabelSettings" uid="uid://bhlwevraqdcey" path="res://resources/label_settings/default_ui_label_settings.tres" id="3_8y8uj"]
+[ext_resource type="StyleBox" uid="uid://dt32d8eliw253" path="res://resources/themes/styles/box_red.tres" id="3_dyuo2"]
+
+[node name="SettingsScreen" type="Control" unique_id=410503871 node_paths=PackedStringArray("m_close_save_button", "m_close_no_save_button", "m_max_fps_input", "m_sens_input", "m_volume_input", "m_crosshair_type_input", "m_crosshair_color_input", "m_crosshair_outline_input", "m_classic_crosshair_length_input", "m_classic_crosshair_thickness_input", "m_classic_crosshair_gap_input", "m_dot_crosshair_radius_input", "m_classic_crosshair_section", "m_dot_crosshair_section")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_n5rhh")
+script = ExtResource("2_8y8uj")
+m_close_save_button = NodePath("MarginContainer/Control/Bottom/SaveAndClose")
+m_close_no_save_button = NodePath("MarginContainer/Control/Bottom/Close")
+m_max_fps_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Video/MaxFps/MaxFpsInput")
+m_sens_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Controls/Sensitivity/SensitivityInput")
+m_volume_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Audio/Volume/VolumeInput")
+m_crosshair_type_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/Type/CrosshairTypeInput")
+m_crosshair_color_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/Color/CrosshairColorInput")
+m_crosshair_outline_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/OutlineThickness/CrosshairOutlineThicknessInput")
+m_classic_crosshair_length_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Length/CrosshairLengthInput")
+m_classic_crosshair_thickness_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Thickness/CrosshairThicknessInput")
+m_classic_crosshair_gap_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Gap/CrosshairGapInput")
+m_dot_crosshair_radius_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/DotCrosshair/Radius/CrosshairRadiusInput")
+m_classic_crosshair_section = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair")
+m_dot_crosshair_section = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/DotCrosshair")
+
+[node name="Background" type="ColorRect" parent="." unique_id=526581645]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.14602078, 0.14602078, 0.14602078, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=990954493]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Control" type="Control" parent="MarginContainer" unique_id=736648510]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Control" unique_id=57197670]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.84900004
+offset_bottom = -0.17199707
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer" unique_id=124445350]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+
+[node name="Video" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer" unique_id=1948639734]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Video" unique_id=1505477]
+layout_mode = 2
+text = "Video"
+label_settings = ExtResource("2_dyuo2")
+
+[node name="MaxFps" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Video" unique_id=1634718024]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "0 -> unlocked"
+split_offsets = PackedInt32Array(100)
+dragging_enabled = false
+dragger_visibility = 1
+split_offset = 100
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Video/MaxFps" unique_id=339285168]
+layout_mode = 2
+size_flags_vertical = 1
+text = "max fps"
+label_settings = ExtResource("3_8y8uj")
+vertical_alignment = 1
+
+[node name="MaxFpsInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Video/MaxFps" unique_id=1183917812]
+layout_mode = 2
+max_value = 1000.0
+rounded = true
+
+[node name="Controls" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer" unique_id=1404537305]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Controls" unique_id=594741200]
+layout_mode = 2
+text = "Controls"
+label_settings = ExtResource("2_dyuo2")
+
+[node name="Sensitivity" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Controls" unique_id=1371847977]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(100)
+dragging_enabled = false
+dragger_visibility = 1
+split_offset = 100
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Controls/Sensitivity" unique_id=720810010]
+layout_mode = 2
+size_flags_vertical = 1
+text = "sensitivity"
+label_settings = ExtResource("3_8y8uj")
+vertical_alignment = 1
+
+[node name="SensitivityInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Controls/Sensitivity" unique_id=1018368657]
+layout_mode = 2
+step = 0.01
+
+[node name="Audio" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer" unique_id=25642410]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Audio" unique_id=1814810201]
+layout_mode = 2
+text = "Audio"
+label_settings = ExtResource("2_dyuo2")
+
+[node name="Volume" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Audio" unique_id=1975600867]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(100)
+dragging_enabled = false
+dragger_visibility = 1
+split_offset = 100
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Audio/Volume" unique_id=1450132496]
+layout_mode = 2
+size_flags_vertical = 1
+text = "volume"
+label_settings = ExtResource("3_8y8uj")
+vertical_alignment = 1
+
+[node name="VolumeInput" type="HSlider" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Audio/Volume" unique_id=522551151]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="Crosshair" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer" unique_id=2090587333]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair" unique_id=1172038500]
+layout_mode = 2
+text = "Crosshair"
+label_settings = ExtResource("2_dyuo2")
+
+[node name="Type" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair" unique_id=122936010]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(100)
+dragging_enabled = false
+dragger_visibility = 1
+split_offset = 100
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/Type" unique_id=1537185879]
+layout_mode = 2
+size_flags_vertical = 1
+text = "type"
+label_settings = ExtResource("3_8y8uj")
+vertical_alignment = 1
+
+[node name="CrosshairTypeInput" type="OptionButton" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/Type" unique_id=1933879154]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Classic"
+popup/item_0/id = 0
+popup/item_1/text = "Dot"
+popup/item_1/id = 1
+
+[node name="Color" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair" unique_id=1563431323]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(100)
+dragging_enabled = false
+dragger_visibility = 1
+split_offset = 100
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/Color" unique_id=1794093523]
+layout_mode = 2
+size_flags_vertical = 1
+text = "color"
+label_settings = ExtResource("3_8y8uj")
+vertical_alignment = 1
+
+[node name="CrosshairColorInput" type="ColorPicker" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/Color" unique_id=619741090]
+layout_mode = 2
+edit_alpha = false
+edit_intensity = false
+picker_shape = 4
+sampler_visible = false
+color_modes_visible = false
+hex_visible = false
+presets_visible = false
+
+[node name="OutlineThickness" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair" unique_id=1154497483]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(100)
+dragging_enabled = false
+dragger_visibility = 1
+split_offset = 100
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/OutlineThickness" unique_id=1674078952]
+layout_mode = 2
+size_flags_vertical = 1
+text = "outline"
+label_settings = ExtResource("3_8y8uj")
+vertical_alignment = 1
+
+[node name="CrosshairOutlineThicknessInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/OutlineThickness" unique_id=1408451481]
+layout_mode = 2
+max_value = 10.0
+rounded = true
+suffix = "px"
+
+[node name="ClassicCrosshair" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair" unique_id=98792099]
+layout_mode = 2
+
+[node name="Length" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair" unique_id=816263051]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(100)
+dragging_enabled = false
+dragger_visibility = 1
+split_offset = 100
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Length" unique_id=2092215391]
+layout_mode = 2
+size_flags_vertical = 1
+text = "length"
+label_settings = ExtResource("3_8y8uj")
+vertical_alignment = 1
+
+[node name="CrosshairLengthInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Length" unique_id=1754936278]
+layout_mode = 2
+max_value = 25.0
+rounded = true
+suffix = "px"
+
+[node name="Thickness" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair" unique_id=256878863]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(100)
+dragging_enabled = false
+dragger_visibility = 1
+split_offset = 100
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Thickness" unique_id=2024729827]
+layout_mode = 2
+size_flags_vertical = 1
+text = "thickness"
+label_settings = ExtResource("3_8y8uj")
+vertical_alignment = 1
+
+[node name="CrosshairThicknessInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Thickness" unique_id=1786961247]
+layout_mode = 2
+max_value = 25.0
+rounded = true
+suffix = "px"
+
+[node name="Gap" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair" unique_id=835368241]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(100)
+dragging_enabled = false
+dragger_visibility = 1
+split_offset = 100
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Gap" unique_id=1745368222]
+layout_mode = 2
+size_flags_vertical = 1
+text = "gap"
+label_settings = ExtResource("3_8y8uj")
+vertical_alignment = 1
+
+[node name="CrosshairGapInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Gap" unique_id=89571000]
+layout_mode = 2
+max_value = 25.0
+rounded = true
+suffix = "px"
+
+[node name="DotCrosshair" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair" unique_id=1576523847]
+layout_mode = 2
+
+[node name="Radius" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/DotCrosshair" unique_id=1625193000]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(100)
+dragging_enabled = false
+dragger_visibility = 1
+split_offset = 100
+
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/DotCrosshair/Radius" unique_id=505528208]
+layout_mode = 2
+size_flags_vertical = 1
+text = "radius"
+label_settings = ExtResource("3_8y8uj")
+vertical_alignment = 1
+
+[node name="CrosshairRadiusInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/DotCrosshair/Radius" unique_id=299598235]
+layout_mode = 2
+max_value = 25.0
+rounded = true
+suffix = "px"
+
+[node name="Bottom" type="VBoxContainer" parent="MarginContainer/Control" unique_id=941485211]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.87600005
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.12805176
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="Close" type="Button" parent="MarginContainer/Control/Bottom" unique_id=580995787]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_dyuo2")
+theme_override_styles/pressed = ExtResource("3_dyuo2")
+theme_override_styles/hover = ExtResource("3_dyuo2")
+theme_override_styles/disabled = ExtResource("3_dyuo2")
+theme_override_styles/focus = ExtResource("3_dyuo2")
+text = "Close without Saving"
+
+[node name="SaveAndClose" type="Button" parent="MarginContainer/Control/Bottom" unique_id=1561313675]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_o0pos")
+theme_override_styles/pressed = ExtResource("2_o0pos")
+theme_override_styles/hover = ExtResource("2_o0pos")
+theme_override_styles/disabled = ExtResource("2_o0pos")
+theme_override_styles/focus = ExtResource("2_o0pos")
+text = "Save and Close"

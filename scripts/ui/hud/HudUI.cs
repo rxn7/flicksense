@@ -2,6 +2,8 @@ using Godot;
 
 [GlobalClass]
 public partial class HudUI : CanvasLayer {
+	[Export] public CrosshairUI Crosshair { get; private set; }
+
 	[Export] private Label m_missesLabel;
 	[Export] private Label m_hitsLabel;
 	[Export] private Label m_accuracyLabel;

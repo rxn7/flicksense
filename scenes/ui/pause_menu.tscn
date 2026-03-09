@@ -4,10 +4,13 @@
 [ext_resource type="Theme" uid="uid://cpfxqinjygjld" path="res://resources/themes/main_theme.tres" id="2_8uki6"]
 [ext_resource type="StyleBox" uid="uid://dt32d8eliw253" path="res://resources/themes/styles/box_red.tres" id="3_0bnpd"]
 [ext_resource type="StyleBox" uid="uid://dfux0k32vesiu" path="res://resources/themes/styles/box_green.tres" id="3_8uki6"]
+[ext_resource type="StyleBox" uid="uid://b55nmy4xhio7a" path="res://resources/themes/styles/box_orange.tres" id="4_0bnpd"]
+[ext_resource type="PackedScene" uid="uid://cjvxi74p0y4kl" path="res://scenes/ui/settings_screen.tscn" id="6_4inpj"]
 
-[node name="PauseMenu" type="CanvasLayer" unique_id=503969149 node_paths=PackedStringArray("m_resumeButton", "m_finishButton", "m_settingsButton", "m_exitButton")]
+[node name="PauseMenu" type="CanvasLayer" unique_id=503969149 node_paths=PackedStringArray("m_settingsScreen", "m_resumeButton", "m_finishButton", "m_settingsButton", "m_exitButton")]
 layer = 10
 script = ExtResource("1_f6eus")
+m_settingsScreen = NodePath("SettingsScreen")
 m_resumeButton = NodePath("CenterContainer/Mid/Resume")
 m_finishButton = NodePath("CenterContainer/Mid/FinishSession")
 m_settingsButton = NodePath("CenterContainer/Mid/Settings")
@@ -50,7 +53,11 @@ text = "Finish Session"
 
 [node name="Settings" type="Button" parent="CenterContainer/Mid" unique_id=1828179896]
 layout_mode = 2
-disabled = true
+theme_override_styles/normal = ExtResource("4_0bnpd")
+theme_override_styles/pressed = ExtResource("4_0bnpd")
+theme_override_styles/hover = ExtResource("4_0bnpd")
+theme_override_styles/disabled = ExtResource("4_0bnpd")
+theme_override_styles/focus = ExtResource("4_0bnpd")
 text = "Settings"
 
 [node name="Exit" type="Button" parent="CenterContainer/Mid" unique_id=610596950]
@@ -61,3 +68,5 @@ theme_override_styles/hover = ExtResource("3_0bnpd")
 theme_override_styles/disabled = ExtResource("3_0bnpd")
 theme_override_styles/focus = ExtResource("3_0bnpd")
 text = "Exit to main menu"
+
+[node name="SettingsScreen" parent="." unique_id=410503871 instance=ExtResource("6_4inpj")]

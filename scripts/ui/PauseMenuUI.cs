@@ -6,6 +6,7 @@ public partial class PauseMenuUI : CanvasLayer {
 	public event Action onOpen;
 	public event Action onFinishSessionPressed;
 
+	[Export] private SettingsScreenUI m_settingsScreen;
 	[Export] private Button m_resumeButton;
 	[Export] private Button m_finishButton;
 	[Export] private Button m_settingsButton;
@@ -18,7 +19,9 @@ public partial class PauseMenuUI : CanvasLayer {
 		m_resumeButton.Pressed += Close;
 		m_finishButton.Pressed += () => onFinishSessionPressed?.Invoke();
 
-		// m_settingsButton.Pressed += () => 
+		m_settingsButton.Pressed += () => {
+			m_settingsScreen.Open();
+		};
 
 		m_exitButton.Pressed += () => {
 			SceneSwitcher.SwitchToMainMenu();
@@ -55,6 +58,7 @@ public partial class PauseMenuUI : CanvasLayer {
 
 	private void Close() {
 		Visible = false;
+		m_settingsScreen.Visible = false;
 		onClosed?.Invoke();
 	}
 

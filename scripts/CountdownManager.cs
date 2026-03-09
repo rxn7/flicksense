@@ -1,7 +1,6 @@
 using Godot;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 
 [GlobalClass]
@@ -17,8 +16,12 @@ public partial class CountdownManager : CanvasLayer {
 
 		int steps = 3;
 		for(int i = steps; i > 0; --i) {
+			if(token.IsCancellationRequested) {
+				yield break;
+			}
+
 			yield return i;
-			await Task.Delay(1000, token);
+			await ToSignal(GetTree().CreateTimer(1.0f, false, false, false), Godot.Timer.SignalName.Timeout);
 		}
 	}
 }

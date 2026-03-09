@@ -48,7 +48,7 @@ public static class SettingsManager {
 			maxFps = file.GetValue("video", "max_fps", Settings.Default.maxFps).AsUInt32(),
 			sensitivity = file.GetValue("input", "sens", Settings.Default.sensitivity).AsSingle(),
 			audioVolume = file.GetValue("audio", "volume", Settings.Default.audioVolume).AsSingle(),
-crosshairType = (CrosshairType)file.GetValue("crosshair", "type", (byte)Settings.Default.crosshairType).AsByte(),
+			crosshairType = (CrosshairType)file.GetValue("crosshair", "type", (byte)Settings.Default.crosshairType).AsByte(),
 		};
 
 		Color crosshairColor = file.GetValue("crosshair", "color", Settings.Default.crosshairData.color).AsColor();
@@ -79,6 +79,6 @@ crosshairType = (CrosshairType)file.GetValue("crosshair", "type", (byte)Settings
 
 	public static void ApplySettings() {
 		Engine.MaxFps = (int)settings.maxFps;
-		SfxManager.SetMasterVolume(settings.audioVolume);
+		SfxManager.SetMasterVolume(SettingsManager.settings.audioVolume);
 	}
 }

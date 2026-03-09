@@ -6,7 +6,7 @@ public partial class MainMenuUI : CanvasLayer {
 
 	[Export] private Control m_mainPanel;
 	[Export] private GameModeSelectionUI m_gameModeSelection;
-	// TODO: Settings
+	[Export] private SettingsScreenUI m_settingsScreen;
 
 	[Export] private Button m_playButton;
 	[Export] private Button m_settingsButton;
@@ -18,11 +18,14 @@ public partial class MainMenuUI : CanvasLayer {
 
 		m_versionLabel.Text = $"v{ProjectSettings.GetSetting("application/config/version")}";
 
-		m_playButton.Pressed += OnPlayButtonPressed;
+		m_playButton.Pressed += () => m_gameModeSelection.Show();
+		m_settingsButton.Pressed += () => m_settingsScreen.Open();
 		m_exitButton.Pressed += () => GetTree().Quit();
-	}
-
-	private void OnPlayButtonPressed() {
-		m_gameModeSelection.Show();
+		
+		m_settingsScreen.VisibilityChanged += () => {
+			if(!m_settingsScreen.Visible) {
+				m_mainPanel.Show();
+			}
+		};
 	}
 }

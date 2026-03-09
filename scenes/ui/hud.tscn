@@ -30,8 +30,9 @@ shadow_size = 0
 font = ExtResource("9_65nxt")
 font_size = 32
 
-[node name="HUD" type="CanvasLayer" unique_id=534115053 node_paths=PackedStringArray("m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_hitStreakMultiplierLabel", "m_timeLabel", "m_gameModeLabel", "m_survivalHealth", "m_scoreLabel")]
+[node name="HUD" type="CanvasLayer" unique_id=534115053 node_paths=PackedStringArray("Crosshair", "m_missesLabel", "m_hitsLabel", "m_accuracyLabel", "m_hitStreakMultiplierLabel", "m_timeLabel", "m_gameModeLabel", "m_survivalHealth", "m_scoreLabel")]
 script = ExtResource("4_erw67")
+Crosshair = NodePath("Crosshair")
 m_missesLabel = NodePath("Stats/Left/Misses/MissCountLabel")
 m_hitsLabel = NodePath("Stats/Left/Hits/HitCountLabel")
 m_accuracyLabel = NodePath("Stats/Left/Accuracy/AccuracyLabel")

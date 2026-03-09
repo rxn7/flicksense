@@ -2,22 +2,14 @@ using Godot;
 
 [GlobalClass]
 public partial class CrosshairUI : CenterContainer {
-	private CrosshairType m_type = CrosshairType.Classic;
-	private CrosshairData m_data = new ClassicCrosshairData();
-
-	public override void _Ready() {
-		m_type = SettingsManager.settings.crosshairType;
-		m_data = SettingsManager.settings.crosshairData;
-	}
-
 	public override void _Draw() {
-		switch(m_type) {
+		switch(SettingsManager.settings.crosshairType) {
 			case CrosshairType.Classic:
-				RenderClassic((ClassicCrosshairData)m_data);
+				RenderClassic((ClassicCrosshairData)SettingsManager.settings.crosshairData);
 				break;
 
 			case CrosshairType.Dot:
-				RenderDot((DotCrosshairData)m_data);
+				RenderDot((DotCrosshairData)SettingsManager.settings.crosshairData);
 				break;
 		}
 	}
