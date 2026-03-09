@@ -1,5 +1,6 @@
 using Godot;
 
+[GlobalClass]
 public partial class ScoreLabelUI : Label {
 	[Export] private float m_scaleSpringFreq = 2.0f;
 	[Export] private float m_rotationSpringFreq = 1.5f;

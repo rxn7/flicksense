@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://byvd1ms2yw8hb"]
+[gd_scene format=3 uid="uid://byvd1ms2yw8hb"]
 
 [ext_resource type="Script" uid="uid://c3gqbd5ew17sk" path="res://scripts/ui/PauseMenuUI.cs" id="1_f6eus"]
 [ext_resource type="Theme" uid="uid://cpfxqinjygjld" path="res://resources/themes/main_theme.tres" id="2_8uki6"]
 [ext_resource type="StyleBox" uid="uid://dt32d8eliw253" path="res://resources/themes/styles/box_red.tres" id="3_0bnpd"]
 [ext_resource type="StyleBox" uid="uid://dfux0k32vesiu" path="res://resources/themes/styles/box_green.tres" id="3_8uki6"]
 
-[node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("m_resumeButton", "m_finishButton", "m_settingsButton", "m_exitButton")]
+[node name="PauseMenu" type="CanvasLayer" unique_id=503969149 node_paths=PackedStringArray("m_resumeButton", "m_finishButton", "m_settingsButton", "m_exitButton")]
 layer = 10
 script = ExtResource("1_f6eus")
 m_resumeButton = NodePath("CenterContainer/Mid/Resume")
@@ -13,7 +13,7 @@ m_finishButton = NodePath("CenterContainer/Mid/FinishSession")
 m_settingsButton = NodePath("CenterContainer/Mid/Settings")
 m_exitButton = NodePath("CenterContainer/Mid/Exit")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=526581645]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -21,25 +21,25 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.07058824, 0.07058824, 0.07058824, 0.49803922)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1660211932]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Mid" type="VBoxContainer" parent="CenterContainer"]
+[node name="Mid" type="VBoxContainer" parent="CenterContainer" unique_id=1368040542]
 custom_minimum_size = Vector2(300, 500)
 layout_mode = 2
 theme = ExtResource("2_8uki6")
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Resume" type="Button" parent="CenterContainer/Mid"]
+[node name="Resume" type="Button" parent="CenterContainer/Mid" unique_id=1798354726]
 layout_mode = 2
 text = "Resume"
 
-[node name="FinishSession" type="Button" parent="CenterContainer/Mid"]
+[node name="FinishSession" type="Button" parent="CenterContainer/Mid" unique_id=661965443]
 layout_mode = 2
 theme_override_styles/normal = ExtResource("3_8uki6")
 theme_override_styles/pressed = ExtResource("3_8uki6")
@@ -48,12 +48,12 @@ theme_override_styles/disabled = ExtResource("3_8uki6")
 theme_override_styles/focus = ExtResource("3_8uki6")
 text = "Finish Session"
 
-[node name="Settings" type="Button" parent="CenterContainer/Mid"]
+[node name="Settings" type="Button" parent="CenterContainer/Mid" unique_id=1828179896]
 layout_mode = 2
 disabled = true
 text = "Settings"
 
-[node name="Exit" type="Button" parent="CenterContainer/Mid"]
+[node name="Exit" type="Button" parent="CenterContainer/Mid" unique_id=610596950]
 layout_mode = 2
 theme_override_styles/normal = ExtResource("3_0bnpd")
 theme_override_styles/pressed = ExtResource("3_0bnpd")

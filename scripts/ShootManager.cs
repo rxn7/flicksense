@@ -6,11 +6,12 @@ public partial class ShootManager : Node {
 	[Export(PropertyHint.Layers3DPhysics)] private uint m_rayCollisionMask;
 	[Export] private CameraManager m_camera;
 
+	public bool IsEnabled = false;
 	public event Action<bool, Vector3?, Vector3?> onShoot;
 	public event Action<Target, Vector3, Vector3, Vector3> onTargetHit;
 
 	public override void _UnhandledInput(InputEvent ev) {
-		if(Input.MouseMode != Input.MouseModeEnum.Captured) {
+		if(!IsEnabled || Input.MouseMode != Input.MouseModeEnum.Captured) {
 			return;
 		}
 

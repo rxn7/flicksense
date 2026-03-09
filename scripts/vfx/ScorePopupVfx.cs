@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[GlobalClass]
 public partial class ScorePopupVfx : Label3D, IVfxObject {
 	private const ulong DURATION_MS = 500;
 

@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
+[GlobalClass]
 public partial class ConsoleUI : CanvasLayer {
 	public event Action onHide;
 

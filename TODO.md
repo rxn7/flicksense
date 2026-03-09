@@ -1,6 +1,6 @@
 - Dynamic crosshair (via settings and console)
 - Settings UI
-- Session start countdown
+- Add friendly color targets that shouldnt be shot 
 
 - Main Menu:
  	- Show Settings UI

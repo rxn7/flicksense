@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b1bl42edjkmy8"]
+[gd_scene format=3 uid="uid://b1bl42edjkmy8"]
 
 [ext_resource type="Script" uid="uid://d3xfwbtr18x40" path="res://scripts/ui/EndScreenUI.cs" id="1_e4cmn"]
 [ext_resource type="Theme" uid="uid://cpfxqinjygjld" path="res://resources/themes/main_theme.tres" id="2_53v5j"]
@@ -6,7 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://dt32d8eliw253" path="res://resources/themes/styles/box_red.tres" id="3_e4cmn"]
 [ext_resource type="LabelSettings" uid="uid://bhlwevraqdcey" path="res://resources/label_settings/default_ui_label_settings.tres" id="3_wgyui"]
 
-[node name="EndScreen" type="CanvasLayer" node_paths=PackedStringArray("m_playAgainButton", "m_mainMenuButton", "m_modeLabel", "m_timeLabel", "m_scoreLabel", "m_accuracyLabel", "m_hitsLabel", "m_missesLabel")]
+[node name="EndScreen" type="CanvasLayer" unique_id=1806266788 node_paths=PackedStringArray("m_playAgainButton", "m_mainMenuButton", "m_modeLabel", "m_timeLabel", "m_scoreLabel", "m_accuracyLabel", "m_hitsLabel", "m_missesLabel")]
 layer = 10
 script = ExtResource("1_e4cmn")
 m_playAgainButton = NodePath("VBoxContainer/Buttons/PlayAgain")
@@ -18,7 +18,7 @@ m_accuracyLabel = NodePath("VBoxContainer/Stats/Accuracy/AccuracyValue")
 m_hitsLabel = NodePath("VBoxContainer/Stats/Hits/HitsValue")
 m_missesLabel = NodePath("VBoxContainer/Stats/Misses/MissesValue")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1099862945]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -26,7 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.07058824, 0.07058824, 0.07058824, 0.49803922)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=781132786]
 anchors_preset = -1
 anchor_left = 0.326
 anchor_top = 0.18200001
@@ -41,108 +41,108 @@ grow_vertical = 2
 theme_override_constants/separation = 79
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=330679565]
 layout_mode = 2
 text = "Session Finished"
 label_settings = ExtResource("2_e4cmn")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Stats" type="VBoxContainer" parent="VBoxContainer"]
+[node name="Stats" type="VBoxContainer" parent="VBoxContainer" unique_id=832651515]
 layout_mode = 2
 
-[node name="Mode" type="Label" parent="VBoxContainer/Stats"]
+[node name="Mode" type="Label" parent="VBoxContainer/Stats" unique_id=1949398825]
 layout_mode = 2
 text = "Endless Mode"
 label_settings = ExtResource("3_wgyui")
 horizontal_alignment = 1
 
-[node name="Time" type="HSplitContainer" parent="VBoxContainer/Stats"]
+[node name="Time" type="HSplitContainer" parent="VBoxContainer/Stats" unique_id=1000938693]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Stats/Time"]
+[node name="Label" type="Label" parent="VBoxContainer/Stats/Time" unique_id=131417705]
 layout_mode = 2
 text = "Time:"
 label_settings = ExtResource("3_wgyui")
 horizontal_alignment = 1
 
-[node name="TimeValue" type="Label" parent="VBoxContainer/Stats/Time"]
+[node name="TimeValue" type="Label" parent="VBoxContainer/Stats/Time" unique_id=1457755143]
 layout_mode = 2
 text = "0:00.000"
 label_settings = ExtResource("3_wgyui")
 horizontal_alignment = 2
 
-[node name="Score" type="HSplitContainer" parent="VBoxContainer/Stats"]
+[node name="Score" type="HSplitContainer" parent="VBoxContainer/Stats" unique_id=1262039093]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Stats/Score"]
+[node name="Label" type="Label" parent="VBoxContainer/Stats/Score" unique_id=347653816]
 layout_mode = 2
 text = "Score:"
 label_settings = ExtResource("3_wgyui")
 horizontal_alignment = 1
 
-[node name="ScoreValue" type="Label" parent="VBoxContainer/Stats/Score"]
+[node name="ScoreValue" type="Label" parent="VBoxContainer/Stats/Score" unique_id=1627550175]
 layout_mode = 2
 text = "0"
 label_settings = ExtResource("3_wgyui")
 horizontal_alignment = 2
 
-[node name="Accuracy" type="HSplitContainer" parent="VBoxContainer/Stats"]
+[node name="Accuracy" type="HSplitContainer" parent="VBoxContainer/Stats" unique_id=1462196788]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Stats/Accuracy"]
+[node name="Label" type="Label" parent="VBoxContainer/Stats/Accuracy" unique_id=835258740]
 layout_mode = 2
 text = "Accuracy:"
 label_settings = ExtResource("3_wgyui")
 horizontal_alignment = 1
 
-[node name="AccuracyValue" type="Label" parent="VBoxContainer/Stats/Accuracy"]
+[node name="AccuracyValue" type="Label" parent="VBoxContainer/Stats/Accuracy" unique_id=685948953]
 layout_mode = 2
 text = "0"
 label_settings = ExtResource("3_wgyui")
 horizontal_alignment = 2
 
-[node name="Hits" type="HSplitContainer" parent="VBoxContainer/Stats"]
+[node name="Hits" type="HSplitContainer" parent="VBoxContainer/Stats" unique_id=40520624]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Stats/Hits"]
+[node name="Label" type="Label" parent="VBoxContainer/Stats/Hits" unique_id=861004911]
 layout_mode = 2
 text = "Hits:"
 label_settings = ExtResource("3_wgyui")
 horizontal_alignment = 1
 
-[node name="HitsValue" type="Label" parent="VBoxContainer/Stats/Hits"]
+[node name="HitsValue" type="Label" parent="VBoxContainer/Stats/Hits" unique_id=52690157]
 layout_mode = 2
 text = "0"
 label_settings = ExtResource("3_wgyui")
 horizontal_alignment = 2
 
-[node name="Misses" type="HSplitContainer" parent="VBoxContainer/Stats"]
+[node name="Misses" type="HSplitContainer" parent="VBoxContainer/Stats" unique_id=668787539]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Stats/Misses"]
+[node name="Label" type="Label" parent="VBoxContainer/Stats/Misses" unique_id=1846192134]
 layout_mode = 2
 text = "Misses:"
 label_settings = ExtResource("3_wgyui")
 horizontal_alignment = 1
 
-[node name="MissesValue" type="Label" parent="VBoxContainer/Stats/Misses"]
+[node name="MissesValue" type="Label" parent="VBoxContainer/Stats/Misses" unique_id=1409686713]
 layout_mode = 2
 text = "0"
 label_settings = ExtResource("3_wgyui")
 horizontal_alignment = 2
 
-[node name="Buttons" type="VBoxContainer" parent="VBoxContainer"]
+[node name="Buttons" type="VBoxContainer" parent="VBoxContainer" unique_id=441728521]
 layout_mode = 2
 theme = ExtResource("2_53v5j")
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="PlayAgain" type="Button" parent="VBoxContainer/Buttons"]
+[node name="PlayAgain" type="Button" parent="VBoxContainer/Buttons" unique_id=466731860]
 layout_mode = 2
 text = "Play again"
 
-[node name="Exit" type="Button" parent="VBoxContainer/Buttons"]
+[node name="Exit" type="Button" parent="VBoxContainer/Buttons" unique_id=1937778944]
 layout_mode = 2
 theme_override_styles/normal = ExtResource("3_e4cmn")
 theme_override_styles/pressed = ExtResource("3_e4cmn")

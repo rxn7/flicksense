@@ -1,5 +1,6 @@
 using Godot;
 
+[GlobalClass]
 public partial class MainMenuUI : CanvasLayer {
 	[Export] private Label m_versionLabel;
 

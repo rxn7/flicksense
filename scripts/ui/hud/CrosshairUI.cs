@@ -1,5 +1,6 @@
 using Godot;
 
+[GlobalClass]
 public partial class CrosshairUI : CenterContainer {
 	[Export] private float m_dotRadius = 1.5f;
 

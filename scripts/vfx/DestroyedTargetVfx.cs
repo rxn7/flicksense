@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[GlobalClass]
 public partial class DestroyedTargetVfx : GpuParticles3D, IVfxObject {
 	public event Action onFinish;
 

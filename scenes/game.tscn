@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://b2mq0co28h1rx"]
+[gd_scene format=3 uid="uid://b2mq0co28h1rx"]
 
 [ext_resource type="Script" uid="uid://d36p55xklbfba" path="res://scripts/GameManager.cs" id="1_iywne"]
 [ext_resource type="Script" uid="uid://draa8bbkor4um" path="res://scripts/TargetManager.cs" id="1_uwrxv"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://52emi0djdojg" path="res://scenes/objects/target.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://byvd1ms2yw8hb" path="res://scenes/ui/pause_menu.tscn" id="3_ca42v"]
 [ext_resource type="Script" uid="uid://dddytdp6v4cno" path="res://scripts/CameraManager.cs" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://bbun6sw1mjkm0" path="res://scenes/ui/countdown.tscn" id="4_264po"]
 [ext_resource type="PackedScene" uid="uid://b1bl42edjkmy8" path="res://scenes/ui/end_screen.tscn" id="4_rysoc"]
 [ext_resource type="Script" uid="uid://cs6yofphy62q3" path="res://scripts/SfxManager.cs" id="4_u5sy4"]
 [ext_resource type="AudioStream" uid="uid://castgb1mgno4j" path="res://resources/audio/miss.wav" id="5_0tnpc"]
@@ -61,7 +62,7 @@ transform_format = 1
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_gee14"]
 
-[node name="Game" type="Node" node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager", "m_vfxManager", "m_scoreManager", "m_playerManager", "m_hud", "m_endScreen", "m_pauseMenu")]
+[node name="Game" type="Node" unique_id=311866134 node_paths=PackedStringArray("m_targetManager", "m_shootManager", "m_sfxManager", "m_vfxManager", "m_scoreManager", "m_playerManager", "m_countdownManager", "m_hud", "m_endScreen", "m_pauseMenu")]
 script = ExtResource("1_iywne")
 m_targetManager = NodePath("TargetManager")
 m_shootManager = NodePath("ShootManager")
@@ -69,99 +70,102 @@ m_sfxManager = NodePath("SfxManager")
 m_vfxManager = NodePath("VfxManager")
 m_scoreManager = NodePath("ScoreManager")
 m_playerManager = NodePath("PlayerManager")
+m_countdownManager = NodePath("Countdown")
 m_hud = NodePath("HUD")
 m_endScreen = NodePath("EndScreen")
 m_pauseMenu = NodePath("PauseMenu")
 
-[node name="HUD" parent="." instance=ExtResource("15_ir15t")]
+[node name="HUD" parent="." unique_id=2144120569 instance=ExtResource("15_ir15t")]
 
-[node name="PauseMenu" parent="." instance=ExtResource("3_ca42v")]
+[node name="PauseMenu" parent="." unique_id=345059310 instance=ExtResource("3_ca42v")]
 process_mode = 3
 
-[node name="EndScreen" parent="." instance=ExtResource("4_rysoc")]
+[node name="Countdown" parent="." unique_id=1059395528 instance=ExtResource("4_264po")]
+
+[node name="EndScreen" parent="." unique_id=1744247171 instance=ExtResource("4_rysoc")]
 process_mode = 3
 layer = 11
 
-[node name="World" type="Node" parent="."]
+[node name="World" type="Node" parent="." unique_id=387578954]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=943095992]
 environment = SubResource("Environment_5newe")
 
-[node name="Room" type="Area3D" parent="World"]
+[node name="Room" type="Area3D" parent="World" unique_id=1202214536]
 collision_mask = 0
 
-[node name="Roof" type="CollisionShape3D" parent="World/Room"]
+[node name="Roof" type="CollisionShape3D" parent="World/Room" unique_id=1263232331]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 shape = SubResource("WorldBoundaryShape3D_qnb83")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 debug_fill = false
 
-[node name="Roof" type="MeshInstance3D" parent="World/Room/Roof"]
+[node name="Roof" type="MeshInstance3D" parent="World/Room/Roof" unique_id=1260240259]
 transform = Transform3D(10, 0, 0, 0, -1, 8.742278e-07, 0, -8.742278e-08, -10, 0, 0, 0)
 mesh = SubResource("PlaneMesh_sww3w")
 skeleton = NodePath("../..")
 
-[node name="Floor" type="CollisionShape3D" parent="World/Room"]
+[node name="Floor" type="CollisionShape3D" parent="World/Room" unique_id=458016829]
 shape = SubResource("WorldBoundaryShape3D_bhx41")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 debug_fill = false
 
-[node name="Floor" type="MeshInstance3D" parent="World/Room/Floor"]
+[node name="Floor" type="MeshInstance3D" parent="World/Room/Floor" unique_id=1310827303]
 transform = Transform3D(9.999999, 0, 0, 0, 1, 0, 0, 0, 9.999999, 0, 0, 0)
 mesh = SubResource("PlaneMesh_sww3w")
 skeleton = NodePath("../..")
 
-[node name="FrontWall" type="CollisionShape3D" parent="World/Room"]
+[node name="FrontWall" type="CollisionShape3D" parent="World/Room" unique_id=583858077]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -5)
 shape = SubResource("WorldBoundaryShape3D_sww3w")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 debug_fill = false
 
-[node name="FrontWall" type="MeshInstance3D" parent="World/Room/FrontWall"]
+[node name="FrontWall" type="MeshInstance3D" parent="World/Room/FrontWall" unique_id=998442813]
 transform = Transform3D(10, 0, 0, 0, -4.371139e-08, -4, 0, 1, -1.7484555e-07, 0, 0, 0)
 mesh = SubResource("PlaneMesh_sww3w")
 skeleton = NodePath("../..")
 
-[node name="BackWall" type="CollisionShape3D" parent="World/Room"]
+[node name="BackWall" type="CollisionShape3D" parent="World/Room" unique_id=1149779877]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
 shape = SubResource("WorldBoundaryShape3D_suyxu")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 debug_fill = false
 
-[node name="BackWall" type="MeshInstance3D" parent="World/Room/BackWall"]
+[node name="BackWall" type="MeshInstance3D" parent="World/Room/BackWall" unique_id=1264347219]
 transform = Transform3D(-10, -8.742278e-08, 1.5285482e-14, 0, -4.3711385e-08, -4, 8.742278e-07, -1, 1.7484554e-07, 0, 0, 0)
 mesh = SubResource("PlaneMesh_sww3w")
 skeleton = NodePath("../..")
 
-[node name="RightWall" type="CollisionShape3D" parent="World/Room"]
+[node name="RightWall" type="CollisionShape3D" parent="World/Room" unique_id=1046129586]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 0)
 shape = SubResource("WorldBoundaryShape3D_sgl2t")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 debug_fill = false
 
-[node name="RightWall" type="MeshInstance3D" parent="World/Room/RightWall"]
+[node name="RightWall" type="MeshInstance3D" parent="World/Room/RightWall" unique_id=404890221]
 transform = Transform3D(1.3113417e-06, -1, 1.7484554e-07, 0, -4.3711385e-08, -4, 10, 1.3113416e-07, -2.2928223e-14, 0, 0, 0)
 mesh = SubResource("PlaneMesh_sww3w")
 skeleton = NodePath("../..")
 
-[node name="LeftWall" type="CollisionShape3D" parent="World/Room"]
+[node name="LeftWall" type="CollisionShape3D" parent="World/Room" unique_id=1656142753]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 0)
 shape = SubResource("WorldBoundaryShape3D_qouja")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 debug_fill = false
 
-[node name="LeftWall" type="MeshInstance3D" parent="World/Room/LeftWall"]
+[node name="LeftWall" type="MeshInstance3D" parent="World/Room/LeftWall" unique_id=2104033736]
 transform = Transform3D(-4.371139e-07, 1, -1.7484555e-07, 0, -4.371139e-08, -4, -10, -4.371139e-08, 7.642742e-15, 0, 0, 0)
 mesh = SubResource("PlaneMesh_sww3w")
 skeleton = NodePath("../..")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="World/Room"]
+[node name="OmniLight3D" type="OmniLight3D" parent="World/Room" unique_id=1221880405]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 light_color = Color(0.87058824, 1, 1, 1)
 light_energy = 1.2
 omni_range = 10.0
 
-[node name="TargetManager" type="Node3D" parent="." node_paths=PackedStringArray("m_spawnAreaShapeOwner")]
+[node name="TargetManager" type="Node3D" parent="." unique_id=850849456 node_paths=PackedStringArray("m_spawnAreaShapeOwner")]
 script = ExtResource("1_uwrxv")
 m_spawnCheckCollisionMask = 4
 m_minSpawnDistance = 0.1
@@ -169,22 +173,22 @@ m_spawnAreaShapeOwner = NodePath("TargetArea/TargetAreaShape")
 m_targetPrefab = ExtResource("2_yqjtg")
 m_targetMesh = ExtResource("5_ir15t")
 
-[node name="TargetArea" type="Area3D" parent="TargetManager"]
+[node name="TargetArea" type="Area3D" parent="TargetManager" unique_id=2131709447]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="TargetAreaShape" type="CollisionShape3D" parent="TargetManager/TargetArea"]
+[node name="TargetAreaShape" type="CollisionShape3D" parent="TargetManager/TargetArea" unique_id=362115195]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1)
 shape = SubResource("BoxShape3D_ir15t")
 
-[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="TargetManager"]
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="TargetManager" unique_id=1856325100]
 multimesh = SubResource("MultiMesh_ir15t")
 
-[node name="ScoreManager" type="Node" parent="."]
+[node name="ScoreManager" type="Node" parent="." unique_id=1371058858]
 script = ExtResource("5_1kice")
 
-[node name="SfxManager" type="AudioStreamPlayer" parent="."]
+[node name="SfxManager" type="AudioStreamPlayer" parent="." unique_id=2097405352]
 stream = SubResource("AudioStreamPolyphonic_gee14")
 max_polyphony = 5
 script = ExtResource("4_u5sy4")
@@ -193,23 +197,25 @@ m_sounds = Dictionary[int, AudioStream]({
 1: ExtResource("5_gee14")
 })
 
-[node name="VfxManager" type="Node" parent="."]
+[node name="VfxManager" type="Node" parent="." unique_id=1802105406]
 script = ExtResource("8_264po")
 m_scorePopupPrefab = ExtResource("10_37s47")
 m_destroyedTargetPrefab = ExtResource("18_ssvqc")
 
-[node name="ShootManager" type="Node" parent="." node_paths=PackedStringArray("m_camera")]
+[node name="ShootManager" type="Node" parent="." unique_id=1154333432 node_paths=PackedStringArray("m_camera")]
 script = ExtResource("5_p57ef")
 m_rayCollisionMask = 5
 m_camera = NodePath("../PlayerManager/CameraManager")
 
-[node name="PlayerManager" type="Node3D" parent="." node_paths=PackedStringArray("CameraManager")]
+[node name="PlayerManager" type="Node3D" parent="." unique_id=1774245371 node_paths=PackedStringArray("CameraManager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4)
 script = ExtResource("17_ssvqc")
 CameraManager = NodePath("CameraManager")
 
-[node name="CameraManager" type="Camera3D" parent="PlayerManager"]
+[node name="CameraManager" type="Camera3D" parent="PlayerManager" unique_id=1177574482]
 current = true
 fov = 73.0
 far = 100.0
 script = ExtResource("3_lnu2h")
+
+[editable path="HUD"]

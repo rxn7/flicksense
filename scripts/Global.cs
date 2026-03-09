@@ -1,5 +1,6 @@
 using Godot;
 
+[GlobalClass]
 public partial class Global : Node {
 	public static Global Instance { get; private set; }
 

@@ -8,19 +8,23 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="FlickSense"
 config/version="0.3"
 run/main_scene="uid://cavalb7rmjuo8"
-config/features=PackedStringArray("4.5", "C#", "Mobile")
+config/features=PackedStringArray("4.6", "C#", "Mobile")
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://scripts/Global.cs"
-DebugDraw="*res://addons/debug_drawing/DebugDraw.cs"
+DebugDraw="*uid://c0ihxj3nvm5uw"
 
 [display]
 
@@ -38,6 +42,15 @@ movie_writer/movie_file="/home/rxn/flicksense/est.avi"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/debug_drawing/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "gray",
+"res://resources/": "yellow",
+"res://scenes/": "purple",
+"res://scripts/": "blue"
+}
 
 [input]
 

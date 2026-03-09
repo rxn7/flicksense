@@ -1,6 +1,9 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
+using System.Threading;
 
+[GlobalClass]
 public partial class GameManager : Node {
 	public const float TIME_LIMIT_SECONDS = 30.0f; // TODO: Configurable time limit
 	public const float SURVIVAL_MAX_HEALTH = 100.0f;
@@ -15,19 +18,24 @@ public partial class GameManager : Node {
 	[Export] private VfxManager m_vfxManager;
 	[Export] private ScoreManager m_scoreManager;
 	[Export] private PlayerManager m_playerManager;
+	[Export] private CountdownManager m_countdownManager;
 
 	[ExportGroup("UI")]
 	[Export] private HudUI m_hud;
 	[Export] private EndScreenUI m_endScreen;
 	[Export] private PauseMenuUI m_pauseMenu;
 
+	private CancellationTokenSource m_countdown_cancellation_token;
 	private Stats m_stats;
 	private EGameMode m_gameMode;
+	private bool m_isStarted = false;
 	private bool m_isFinished = false;
 
 	private float m_survivalHealth = 100.0f;
 
 	public override void _Ready() {
+		m_isStarted = false;
+
 		Global.Instance.ConsoleUI.onHide += () => {
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 		};
@@ -43,7 +51,7 @@ public partial class GameManager : Node {
 
 		m_endScreen.onPlayAgainPressed += () => {
 			GetTree().Paused = false;
-			Reset();
+			Restart();
 		};
 
 		m_pauseMenu.onFinishSessionPressed += () => {
@@ -61,11 +69,11 @@ public partial class GameManager : Node {
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 		};
 
-		Reset();
+		Restart();
 	}
 
 	public override void _Process(double delta) {
-		if(m_isFinished) {
+		if(!m_isStarted || m_isFinished) {
 			return;
 		}
 
@@ -79,7 +87,7 @@ public partial class GameManager : Node {
 		}
 
 		if(key.IsPressed() && !key.Echo && key.Keycode == Key.R) {
-			Reset();
+			Restart();
 		}
 	}
 
@@ -88,19 +96,34 @@ public partial class GameManager : Node {
 		m_hud.Setup(gameMode);
 	}
 
-	private void Reset() {
-		Input.MouseMode = Input.MouseModeEnum.Captured;
+	private void Restart() {
+		if(m_countdown_cancellation_token != null) {
+			m_countdown_cancellation_token.Cancel();
+			m_countdown_cancellation_token.Dispose();
+		}
 
 		m_survivalHealth = SURVIVAL_MAX_HEALTH;
 
 		m_stats = new Stats();
+		m_isStarted = false;
 		m_isFinished = false;
 
 		m_hud.Reset();
 
 		m_targetManager.Reset();
 		m_scoreManager.Reset();
+
 		m_playerManager.Reset();
+
+		m_playerManager.CameraManager.IsEnabled = false;
+		m_shootManager.IsEnabled = false;
+
+		Input.MouseMode = Input.MouseModeEnum.Captured;
+
+		GameModeTick(0.0f);
+
+		m_countdown_cancellation_token = new();
+		_ = RunCountdown(m_countdown_cancellation_token.Token);
 	}
 
 	private void Finish() {
@@ -201,6 +224,24 @@ public partial class GameManager : Node {
 
 				break;
 			}
+		}
+	}
+
+	private async Task RunCountdown(CancellationToken token) {
+		try {
+			await foreach(int step in m_countdownManager.CountdownCoroutineAsync().WithCancellation(token)) {
+				m_hud.UpdateTimeText(step.ToString());
+			}
+
+			if(token.IsCancellationRequested) {
+				return;
+			}
+
+			m_isStarted = true;
+
+			m_playerManager.CameraManager.IsEnabled = true;
+			m_shootManager.IsEnabled = true;
+		} catch(OperationCanceledException) {
 		}
 	}
 }
