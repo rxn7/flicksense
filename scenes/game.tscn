@@ -217,5 +217,3 @@ current = true
 fov = 73.0
 far = 100.0
 script = ExtResource("3_lnu2h")
-
-[editable path="HUD"]

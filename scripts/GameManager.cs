@@ -36,9 +36,7 @@ public partial class GameManager : Node {
 	public override void _Ready() {
 		m_isStarted = false;
 
-		Global.Instance.ConsoleUI.onHide += () => {
-			Input.MouseMode = Input.MouseModeEnum.Captured;
-		};
+		Global.Instance.ConsoleUI.onHide += OnConsoleHide;
 
 		m_pauseMenu.Setup(m_gameMode);
 
@@ -70,6 +68,10 @@ public partial class GameManager : Node {
 		};
 
 		Restart();
+	}
+
+	public override void _ExitTree() {
+		Global.Instance.ConsoleUI.onHide -= OnConsoleHide;
 	}
 
 	public override void _Process(double delta) {
@@ -243,5 +245,9 @@ public partial class GameManager : Node {
 			m_shootManager.IsEnabled = true;
 		} catch(OperationCanceledException) {
 		}
+	}
+
+	private void OnConsoleHide() {
+		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 }

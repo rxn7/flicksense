@@ -11,7 +11,6 @@ public static class SaveManager {
 			return;
 		}
 
-		// TODO: This might cause problems in the future if the order is changed
 		file.Store64(data.bestHitStreak);
 		file.StoreFloat(data.bestStreakMultiplier);
 		file.Store64(data.bestTimeLimitScore);
