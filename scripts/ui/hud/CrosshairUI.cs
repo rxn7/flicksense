@@ -101,8 +101,8 @@ public partial class CrosshairUI : CenterContainer {
 }
 
 public enum CrosshairType : byte {
-	Classic,
-	Dot,
+	Classic = 0,
+	Dot = 1,
 }
 
 public abstract class CrosshairData {
@@ -124,8 +124,8 @@ public class DotCrosshairData : CrosshairData {
 
 public class ClassicCrosshairData : CrosshairData {
 	public float length = 5.0f;
-	public float thickness = 1.5f;
-	public float gap = 2.0f;
+	public float thickness = 1.0f;
+	public float gap = 3.0f;
 
 	public override string ToString() {
 		return base.ToString() + $" {length} {thickness} {gap}";

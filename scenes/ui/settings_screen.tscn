@@ -2,12 +2,11 @@
 
 [ext_resource type="Theme" uid="uid://cpfxqinjygjld" path="res://resources/themes/main_theme.tres" id="1_n5rhh"]
 [ext_resource type="Script" uid="uid://do0rs2mad2iyx" path="res://scripts/ui/SettingsScreenUI.cs" id="2_8y8uj"]
-[ext_resource type="LabelSettings" uid="uid://b5sr4prn6xe7b" path="res://resources/label_settings/header_label_settings.tres" id="2_dyuo2"]
 [ext_resource type="StyleBox" uid="uid://dfux0k32vesiu" path="res://resources/themes/styles/box_green.tres" id="2_o0pos"]
 [ext_resource type="LabelSettings" uid="uid://bhlwevraqdcey" path="res://resources/label_settings/default_ui_label_settings.tres" id="3_8y8uj"]
 [ext_resource type="StyleBox" uid="uid://dt32d8eliw253" path="res://resources/themes/styles/box_red.tres" id="3_dyuo2"]
 
-[node name="SettingsScreen" type="Control" unique_id=410503871 node_paths=PackedStringArray("m_close_save_button", "m_close_no_save_button", "m_max_fps_input", "m_sens_input", "m_volume_input", "m_crosshair_type_input", "m_crosshair_color_input", "m_crosshair_outline_input", "m_classic_crosshair_length_input", "m_classic_crosshair_thickness_input", "m_classic_crosshair_gap_input", "m_dot_crosshair_radius_input", "m_classic_crosshair_section", "m_dot_crosshair_section")]
+[node name="SettingsScreen" type="Control" unique_id=410503871 node_paths=PackedStringArray("m_closeSaveButton", "m_closeNoSaveButton", "m_maxFpsInput", "m_sensInput", "m_volumeInput", "m_crosshairTypeInput", "m_crosshairColorInput", "m_crosshairOutlineInput", "m_classicCrosshairLengthInput", "m_classicCrosshairThicknessInput", "m_classicCrosshairGapInput", "m_dotCrosshairRadiusInput", "m_classicCrosshairSection", "m_dotCrosshairSection")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,20 +15,20 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_n5rhh")
 script = ExtResource("2_8y8uj")
-m_close_save_button = NodePath("MarginContainer/Control/Bottom/SaveAndClose")
-m_close_no_save_button = NodePath("MarginContainer/Control/Bottom/Close")
-m_max_fps_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Video/MaxFps/MaxFpsInput")
-m_sens_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Controls/Sensitivity/SensitivityInput")
-m_volume_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Audio/Volume/VolumeInput")
-m_crosshair_type_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/Type/CrosshairTypeInput")
-m_crosshair_color_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/Color/CrosshairColorInput")
-m_crosshair_outline_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/OutlineThickness/CrosshairOutlineThicknessInput")
-m_classic_crosshair_length_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Length/CrosshairLengthInput")
-m_classic_crosshair_thickness_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Thickness/CrosshairThicknessInput")
-m_classic_crosshair_gap_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Gap/CrosshairGapInput")
-m_dot_crosshair_radius_input = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/DotCrosshair/Radius/CrosshairRadiusInput")
-m_classic_crosshair_section = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair")
-m_dot_crosshair_section = NodePath("MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/DotCrosshair")
+m_closeSaveButton = NodePath("MarginContainer/Control/Bottom/SaveAndClose")
+m_closeNoSaveButton = NodePath("MarginContainer/Control/Bottom/Close")
+m_maxFpsInput = NodePath("MarginContainer/Control/ScrollContainer/TabContainer/Video/MaxFps/MaxFpsInput")
+m_sensInput = NodePath("MarginContainer/Control/ScrollContainer/TabContainer/Controls/Sensitivity/SensitivityInput")
+m_volumeInput = NodePath("MarginContainer/Control/ScrollContainer/TabContainer/Audio/Volume/VolumeInput")
+m_crosshairTypeInput = NodePath("MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/Type/CrosshairTypeInput")
+m_crosshairColorInput = NodePath("MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/Color/CrosshairColorInput")
+m_crosshairOutlineInput = NodePath("MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/OutlineThickness/CrosshairOutlineThicknessInput")
+m_classicCrosshairLengthInput = NodePath("MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/ClassicCrosshair/Length/CrosshairLengthInput")
+m_classicCrosshairThicknessInput = NodePath("MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/ClassicCrosshair/Thickness/CrosshairThicknessInput")
+m_classicCrosshairGapInput = NodePath("MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/ClassicCrosshair/Gap/CrosshairGapInput")
+m_dotCrosshairRadiusInput = NodePath("MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/DotCrosshair/Radius/CrosshairRadiusInput")
+m_classicCrosshairSection = NodePath("MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/ClassicCrosshair")
+m_dotCrosshairSection = NodePath("MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/DotCrosshair")
 
 [node name="Background" type="ColorRect" parent="." unique_id=526581645]
 layout_mode = 1
@@ -54,130 +53,118 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Control" type="VSplitContainer" parent="MarginContainer" unique_id=588434428]
 layout_mode = 2
+split_offsets = PackedInt32Array(-78)
 dragging_enabled = false
+split_offset = -78
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Control" unique_id=57197670]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer" unique_id=124445350]
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/Control/ScrollContainer" unique_id=917140898]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 24
+current_tab = 2
 
-[node name="Video" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer" unique_id=1948639734]
+[node name="Video" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer" unique_id=1948639734]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
+metadata/_tab_index = 0
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Video" unique_id=1505477]
+[node name="MaxFps" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer/Video" unique_id=1634718024]
 layout_mode = 2
-text = "Video"
-label_settings = ExtResource("2_dyuo2")
-
-[node name="MaxFps" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Video" unique_id=1634718024]
-layout_mode = 2
-size_flags_vertical = 3
 tooltip_text = "0 -> unlocked"
 split_offsets = PackedInt32Array(100)
 dragging_enabled = false
 dragger_visibility = 1
 split_offset = 100
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Video/MaxFps" unique_id=339285168]
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/TabContainer/Video/MaxFps" unique_id=339285168]
 layout_mode = 2
 size_flags_vertical = 1
 text = "max fps"
 label_settings = ExtResource("3_8y8uj")
 vertical_alignment = 1
 
-[node name="MaxFpsInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Video/MaxFps" unique_id=1183917812]
+[node name="MaxFpsInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/TabContainer/Video/MaxFps" unique_id=1183917812]
 layout_mode = 2
 max_value = 1000.0
 rounded = true
 
-[node name="Controls" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer" unique_id=1404537305]
+[node name="Controls" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer" unique_id=1404537305]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
+metadata/_tab_index = 1
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Controls" unique_id=594741200]
+[node name="Sensitivity" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer/Controls" unique_id=1371847977]
 layout_mode = 2
-text = "Controls"
-label_settings = ExtResource("2_dyuo2")
-
-[node name="Sensitivity" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Controls" unique_id=1371847977]
-layout_mode = 2
-size_flags_vertical = 3
 split_offsets = PackedInt32Array(100)
 dragging_enabled = false
 dragger_visibility = 1
 split_offset = 100
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Controls/Sensitivity" unique_id=720810010]
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/TabContainer/Controls/Sensitivity" unique_id=720810010]
 layout_mode = 2
 size_flags_vertical = 1
 text = "sensitivity"
 label_settings = ExtResource("3_8y8uj")
 vertical_alignment = 1
 
-[node name="SensitivityInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Controls/Sensitivity" unique_id=1018368657]
+[node name="SensitivityInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/TabContainer/Controls/Sensitivity" unique_id=1018368657]
 layout_mode = 2
 step = 0.01
 
-[node name="Audio" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer" unique_id=25642410]
+[node name="Audio" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer" unique_id=25642410]
 layout_mode = 2
 size_flags_horizontal = 3
+metadata/_tab_index = 2
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Audio" unique_id=1814810201]
+[node name="Volume" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer/Audio" unique_id=1975600867]
+custom_maximum_size = Vector2(500, -1)
 layout_mode = 2
-text = "Audio"
-label_settings = ExtResource("2_dyuo2")
-
-[node name="Volume" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Audio" unique_id=1975600867]
-layout_mode = 2
-size_flags_vertical = 3
-split_offsets = PackedInt32Array(100)
 dragging_enabled = false
 dragger_visibility = 1
-split_offset = 100
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Audio/Volume" unique_id=1450132496]
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/TabContainer/Audio/Volume" unique_id=1450132496]
 layout_mode = 2
 size_flags_vertical = 1
 text = "volume"
 label_settings = ExtResource("3_8y8uj")
 vertical_alignment = 1
 
-[node name="VolumeInput" type="HSlider" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Audio/Volume" unique_id=522551151]
+[node name="VolumeInput" type="HSlider" parent="MarginContainer/Control/ScrollContainer/TabContainer/Audio/Volume" unique_id=522551151]
 layout_mode = 2
+size_flags_vertical = 1
 max_value = 1.0
 step = 0.01
+tick_count = 10
+ticks_on_borders = true
+ticks_position = 3
 
-[node name="Crosshair" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer" unique_id=2090587333]
+[node name="Crosshair" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer" unique_id=2090587333]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
+metadata/_tab_index = 3
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair" unique_id=1172038500]
+[node name="Type" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair" unique_id=122936010]
 layout_mode = 2
-text = "Crosshair"
-label_settings = ExtResource("2_dyuo2")
-
-[node name="Type" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair" unique_id=122936010]
-layout_mode = 2
-size_flags_vertical = 3
 split_offsets = PackedInt32Array(100)
 dragging_enabled = false
 dragger_visibility = 1
 split_offset = 100
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/Type" unique_id=1537185879]
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/Type" unique_id=1537185879]
 layout_mode = 2
 size_flags_vertical = 1
 text = "type"
 label_settings = ExtResource("3_8y8uj")
 vertical_alignment = 1
 
-[node name="CrosshairTypeInput" type="OptionButton" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/Type" unique_id=1933879154]
+[node name="CrosshairTypeInput" type="OptionButton" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/Type" unique_id=1933879154]
 layout_mode = 2
 selected = 0
 item_count = 2
@@ -186,22 +173,21 @@ popup/item_0/id = 0
 popup/item_1/text = "Dot"
 popup/item_1/id = 1
 
-[node name="Color" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair" unique_id=1563431323]
+[node name="Color" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair" unique_id=1563431323]
 layout_mode = 2
-size_flags_vertical = 3
 split_offsets = PackedInt32Array(100)
 dragging_enabled = false
 dragger_visibility = 1
 split_offset = 100
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/Color" unique_id=1794093523]
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/Color" unique_id=1794093523]
 layout_mode = 2
 size_flags_vertical = 1
 text = "color"
 label_settings = ExtResource("3_8y8uj")
 vertical_alignment = 1
 
-[node name="CrosshairColorInput" type="ColorPicker" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/Color" unique_id=619741090]
+[node name="CrosshairColorInput" type="ColorPicker" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/Color" unique_id=619741090]
 layout_mode = 2
 edit_alpha = false
 edit_intensity = false
@@ -211,112 +197,107 @@ color_modes_visible = false
 hex_visible = false
 presets_visible = false
 
-[node name="OutlineThickness" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair" unique_id=1154497483]
+[node name="OutlineThickness" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair" unique_id=1154497483]
 layout_mode = 2
-size_flags_vertical = 3
 split_offsets = PackedInt32Array(100)
 dragging_enabled = false
 dragger_visibility = 1
 split_offset = 100
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/OutlineThickness" unique_id=1674078952]
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/OutlineThickness" unique_id=1674078952]
 layout_mode = 2
 size_flags_vertical = 1
 text = "outline"
 label_settings = ExtResource("3_8y8uj")
 vertical_alignment = 1
 
-[node name="CrosshairOutlineThicknessInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/OutlineThickness" unique_id=1408451481]
+[node name="CrosshairOutlineThicknessInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/OutlineThickness" unique_id=1408451481]
 layout_mode = 2
 max_value = 10.0
 rounded = true
 suffix = "px"
 
-[node name="ClassicCrosshair" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair" unique_id=98792099]
+[node name="ClassicCrosshair" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair" unique_id=98792099]
 layout_mode = 2
 
-[node name="Length" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair" unique_id=816263051]
+[node name="Length" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/ClassicCrosshair" unique_id=816263051]
 layout_mode = 2
-size_flags_vertical = 3
 split_offsets = PackedInt32Array(100)
 dragging_enabled = false
 dragger_visibility = 1
 split_offset = 100
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Length" unique_id=2092215391]
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/ClassicCrosshair/Length" unique_id=2092215391]
 layout_mode = 2
 size_flags_vertical = 1
 text = "length"
 label_settings = ExtResource("3_8y8uj")
 vertical_alignment = 1
 
-[node name="CrosshairLengthInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Length" unique_id=1754936278]
+[node name="CrosshairLengthInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/ClassicCrosshair/Length" unique_id=1754936278]
 layout_mode = 2
 max_value = 25.0
 rounded = true
 suffix = "px"
 
-[node name="Thickness" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair" unique_id=256878863]
+[node name="Thickness" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/ClassicCrosshair" unique_id=256878863]
 layout_mode = 2
-size_flags_vertical = 3
 split_offsets = PackedInt32Array(100)
 dragging_enabled = false
 dragger_visibility = 1
 split_offset = 100
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Thickness" unique_id=2024729827]
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/ClassicCrosshair/Thickness" unique_id=2024729827]
 layout_mode = 2
 size_flags_vertical = 1
 text = "thickness"
 label_settings = ExtResource("3_8y8uj")
 vertical_alignment = 1
 
-[node name="CrosshairThicknessInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Thickness" unique_id=1786961247]
+[node name="CrosshairThicknessInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/ClassicCrosshair/Thickness" unique_id=1786961247]
 layout_mode = 2
 max_value = 25.0
 rounded = true
 suffix = "px"
 
-[node name="Gap" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair" unique_id=835368241]
+[node name="Gap" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/ClassicCrosshair" unique_id=835368241]
 layout_mode = 2
-size_flags_vertical = 3
 split_offsets = PackedInt32Array(100)
 dragging_enabled = false
 dragger_visibility = 1
 split_offset = 100
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Gap" unique_id=1745368222]
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/ClassicCrosshair/Gap" unique_id=1745368222]
 layout_mode = 2
 size_flags_vertical = 1
 text = "gap"
 label_settings = ExtResource("3_8y8uj")
 vertical_alignment = 1
 
-[node name="CrosshairGapInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/ClassicCrosshair/Gap" unique_id=89571000]
+[node name="CrosshairGapInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/ClassicCrosshair/Gap" unique_id=89571000]
 layout_mode = 2
 max_value = 25.0
 rounded = true
 suffix = "px"
 
-[node name="DotCrosshair" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair" unique_id=1576523847]
+[node name="DotCrosshair" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair" unique_id=1576523847]
 layout_mode = 2
 
-[node name="Radius" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/DotCrosshair" unique_id=1625193000]
+[node name="Radius" type="HSplitContainer" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/DotCrosshair" unique_id=1625193000]
 layout_mode = 2
-size_flags_vertical = 3
 split_offsets = PackedInt32Array(100)
 dragging_enabled = false
 dragger_visibility = 1
 split_offset = 100
 
-[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/DotCrosshair/Radius" unique_id=505528208]
+[node name="Label" type="Label" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/DotCrosshair/Radius" unique_id=505528208]
 layout_mode = 2
 size_flags_vertical = 1
 text = "radius"
 label_settings = ExtResource("3_8y8uj")
 vertical_alignment = 1
 
-[node name="CrosshairRadiusInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/VBoxContainer/Crosshair/DotCrosshair/Radius" unique_id=299598235]
+[node name="CrosshairRadiusInput" type="SpinBox" parent="MarginContainer/Control/ScrollContainer/TabContainer/Crosshair/DotCrosshair/Radius" unique_id=299598235]
 layout_mode = 2
 max_value = 25.0
 rounded = true

@@ -53,7 +53,7 @@ public partial class DebugDrawingPlugin : EditorPlugin
 		}
 
 		ProjectSettings.Save();
-		ProjectSettingsChanged += OnProjectSettingsChanged;
+		ProjectSettings.SettingsChanged += OnProjectSettingsChanged;
 	}
 
 
