@@ -47,22 +47,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Control" type="Control" parent="MarginContainer" unique_id=736648510]
+[node name="Control" type="VSplitContainer" parent="MarginContainer" unique_id=588434428]
 layout_mode = 2
+dragging_enabled = false
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Control" unique_id=57197670]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.84900004
-offset_bottom = -0.17199707
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/ScrollContainer" unique_id=124445350]
 layout_mode = 2
@@ -327,14 +323,7 @@ rounded = true
 suffix = "px"
 
 [node name="Bottom" type="VBoxContainer" parent="MarginContainer/Control" unique_id=941485211]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.87600005
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -0.12805176
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 alignment = 2
 
 [node name="Close" type="Button" parent="MarginContainer/Control/Bottom" unique_id=580995787]

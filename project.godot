@@ -17,7 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="FlickSense"
 config/version="0.3"
 run/main_scene="uid://cavalb7rmjuo8"
-config/features=PackedStringArray("4.6", "C#", "Mobile")
+config/features=PackedStringArray("4.7", "C#", "Mobile")
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
 

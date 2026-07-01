@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public partial class ConsoleUI : CanvasLayer {
 	public event Action onHide;
 
+	private static readonly StringName TOGGLE_CONSOLE_STRING = "toggle_console";
 	private const int MAX_HISTORY_SIZE = 10;
 	private const int MAX_OUTPUT_PARAGRAPHS = 500;
 
@@ -22,12 +23,23 @@ public partial class ConsoleUI : CanvasLayer {
 		m_input.TextChanged += OnInputChanged;
 	}
 
+	public override void _Input(InputEvent ev) {
+		if(ev is not InputEventKey key) {
+			return;
+		}
+
+		if(Visible && key.IsActionPressed(PauseMenuUI.TOGGLE_PAUSE_STRING)) {
+			HideConsole();
+			return;
+		}
+	}
+
 	public override void _UnhandledKeyInput(InputEvent ev) {
 		if(ev is not InputEventKey key) {
 			return;
 		}
 
-		if(key.IsActionPressed("toggle_console")) {
+		if(key.IsActionPressed(TOGGLE_CONSOLE_STRING)) {
 			ToggleConsole();
 		}
 

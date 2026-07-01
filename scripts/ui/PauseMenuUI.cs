@@ -2,6 +2,8 @@ using System;
 using Godot;
 
 public partial class PauseMenuUI : CanvasLayer {
+	public static readonly StringName TOGGLE_PAUSE_STRING = "toggle_pause";
+
 	public event Action onClosed;
 	public event Action onOpen;
 	public event Action onFinishSessionPressed;
@@ -42,7 +44,11 @@ public partial class PauseMenuUI : CanvasLayer {
 			return;
 		}
 
-		if(key.IsActionPressed("toggle_pause")) {
+		if(key.IsActionPressed(TOGGLE_PAUSE_STRING)) {
+			if(Global.Instance.ConsoleUI.Visible) {
+				return;
+			}
+
 			Toggle();
 		}
 	}
